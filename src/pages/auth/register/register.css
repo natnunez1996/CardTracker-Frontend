@@ -1,0 +1,14 @@
+.register {
+  height: 87vh;
+  background-color: white;
+  width: 1300px;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 50vw;
+}

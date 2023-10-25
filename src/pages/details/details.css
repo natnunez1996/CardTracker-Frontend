@@ -1,0 +1,14 @@
+.cardDetails {
+  height: 90vh;
+  background-color: white;
+  width: 82vw;
+}
+
+.cardDetails h1 {
+  color: black;
+  text-align: center;
+}
+
+.chartContainer {
+  width: 500px;
+}

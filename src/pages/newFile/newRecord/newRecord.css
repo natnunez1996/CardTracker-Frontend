@@ -1,0 +1,14 @@
+.newRecord {
+  height: 87vh;
+  background-color: white;
+  width: 1300px;
+}
+
+.newRecordForm {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 50vw;
+}

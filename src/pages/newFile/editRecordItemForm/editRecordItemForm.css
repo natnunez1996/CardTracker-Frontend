@@ -1,0 +1,14 @@
+.editRecordItem {
+  height: 87vh;
+  background-color: white;
+  width: 1300px;
+}
+
+.editRecordItemForm {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 50vw;
+}

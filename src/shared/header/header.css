@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Odor+Mean+Chey&display=swap");
+
+.header {
+  display: flex;
+  flex-direction: row;
+  color: #ffffff;
+  font-family: inter;
+  justify-content: space-between;
+  height: 95px;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; /* Adjust as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow effect */
+  z-index: 100;
+  background-color: #121212;
+  height: 5rem;
+}
+
+.leftSide {
+  font-size: 2.25rem;
+  font-family: "Odor Mean Chey", serif;
+  margin-left: 1rem;
+}
+
+.rightSide ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 1rem;
+}
+.userPicture {
+  font-size: 1.5rem;
+}
+
+.header ul li {
+  margin: 0.25rem;
+}
