@@ -29,7 +29,7 @@ const Header = ({ userProfile }: Props) => {
 
     return (
         <div className="header">
-            <div className="leftSide">Record Keeper</div>
+            <div className="leftSide">Card Tracker</div>
             {!userProfile && <div className="middle"> <h1>Please <a href="/login">Login</a> first</h1></div>}
             <div className="rightSide">
                 <ul>

@@ -69,6 +69,8 @@ const EditRecordItemForm = ({ recordItem, id, setToEdit }: Props) => {
 
             setEditedCardDetails({ ...recordItem, recordItemsList: newRecordItemsList })
 
+            localStorage.setItem('lastKnownInputDate', editedRecordItem.date.toDateString())
+
             setToSubmit(true)
         }
 

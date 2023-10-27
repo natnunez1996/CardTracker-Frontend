@@ -30,6 +30,7 @@ const CardDetails = (props: Props) => {
     const [toEdit, setToEdit] = useState<Boolean>(false);
     const [editedItemId, setEditedItemId] = useState<String>("");
 
+    const storedDate = localStorage.getItem("lastKnownInputDate")
     const [inputDate, setInputDate] = useState<Date>(new Date());
 
 
@@ -46,6 +47,9 @@ const CardDetails = (props: Props) => {
 
 
     useEffect(() => {
+        if (storedDate)
+            setInputDate(new Date(storedDate))
+
 
         if (cardDetails !== undefined && cardDetails.recordItemsList) {
             if (cardDetails.recordItemsList.length > 0) {
@@ -71,7 +75,6 @@ const CardDetails = (props: Props) => {
     }, [toDelete])
 
     useEffect(() => {
-
         if (inputDate && updateDetails) {
 
             setCardData({
@@ -122,15 +125,17 @@ const CardDetails = (props: Props) => {
         <div className='cardDetails'>
             {toEdit ? <EditRecordItemForm setToEdit={setToEdit} id={editedItemId} recordItem={updateDetails} /> :
                 <div>
-                    <h1>Card Name</h1>
+                    <h1>{updateDetails ? updateDetails.name : "Card Name"}</h1>
                     <button onClick={() => navigate('newDetails')}>Add New Data</button>
                     <div className="inputDate">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker label={'Month & Year'} views={['month', 'year']}
-                                defaultValue={dayjs(`${new Date()}`)}
+                                defaultValue={storedDate ? inputDate : dayjs(`${new Date()}`)}
                                 onAccept={(v: any) => {
                                     if (v)
                                         setInputDate(v.$d)
+                                    console.log(v.$d);
+
                                 }}
                             />
                         </LocalizationProvider>

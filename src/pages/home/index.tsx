@@ -20,6 +20,7 @@ const Home = ({ userId }: Props) => {
 
 
     useEffect(() => {
+        localStorage.removeItem("lastKnownInputDate")
         if (userId)
             dispatch(getAllRecordsOfUser(userId))
     }, [userId])
