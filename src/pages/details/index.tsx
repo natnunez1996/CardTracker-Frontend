@@ -14,6 +14,7 @@ import EditRecordItemForm from '../newFile/editRecordItemForm';
 import moment from 'moment';
 import IRecordItem from '@/model/Record/IRecordItem';
 import dayjs from 'dayjs';
+import CardCategory from '@/model/Record/EcardCategory';
 
 
 type Props = {}
@@ -32,6 +33,8 @@ const CardDetails = (props: Props) => {
 
     const storedDate = localStorage.getItem("lastKnownInputDate")
     const [inputDate, setInputDate] = useState<Date>(new Date());
+    const [amountEarnLoss, setAmountEarnLoss] = useState<number>(0);
+
 
 
     const [cardData, setCardData] = useState<{
@@ -39,7 +42,8 @@ const CardDetails = (props: Props) => {
         datasets: [
             {
                 label: string,
-                data: number[]
+                data: number[],
+                backgroundColor: string[]
             }
         ]
     }>();
@@ -49,7 +53,6 @@ const CardDetails = (props: Props) => {
     useEffect(() => {
         if (storedDate)
             setInputDate(new Date(storedDate))
-
 
         if (cardDetails !== undefined && cardDetails.recordItemsList) {
             if (cardDetails.recordItemsList.length > 0) {
@@ -77,23 +80,49 @@ const CardDetails = (props: Props) => {
     useEffect(() => {
         if (inputDate && updateDetails) {
 
+            const filteredDetails: IRecordItem[] = updateDetails.recordItemsList
+                .filter(recordItem => {
+                    if (recordItem.date.getMonth() === inputDate.getMonth() &&
+                        recordItem.date.getFullYear() === inputDate.getFullYear()) {
+                        return recordItem;
+                    }
+                })
+                .sort((a: IRecordItem, b: IRecordItem) => {
+                    const dateA = new Date(a.date)
+                    const dateB = new Date(b.date)
+                    return dateA.getTime() - dateB.getTime()
+                })
+
+
             setCardData({
-                labels: updateDetails.recordItemsList
-                    .filter(recordItem =>
-                        recordItem.date.getMonth() === inputDate.getMonth() &&
-                        recordItem.date.getFullYear() === inputDate.getFullYear()
-                    )
-                    .map(recordItem => recordItem.name),
+                labels: filteredDetails.map(recordItem => recordItem.name),
                 datasets: [{
                     label: updateDetails.name.toString(),
-                    data: updateDetails.recordItemsList
-                        .filter(recordItem =>
-                            recordItem.date.getMonth() === inputDate.getMonth() &&
-                            recordItem.date.getFullYear() === inputDate.getFullYear()
-                        )
-                        .map(recordItem => recordItem.amount)
+                    data: filteredDetails
+                        .map(recordItem => {
+                            if (recordItem.category === CardCategory.INCOME)
+                                return recordItem.amount
+                            return 0 - recordItem.amount
+                        }),
+                    backgroundColor: filteredDetails.map(recordItem => {
+                        if (recordItem.category === CardCategory.INCOME)
+                            return "rgba(53, 162, 235, 0.5)"
+                        return "rgba(255, 99, 132, 0.5)"
+                    })
                 }]
             });
+
+            setAmountEarnLoss(0)
+
+            filteredDetails.forEach(recordItem => {
+                if (recordItem.category === CardCategory.INCOME)
+                    setAmountEarnLoss(prevAmount => prevAmount += recordItem.amount);
+                else if (recordItem.category === CardCategory.ENTERTAINMENT ||
+                    recordItem.category === CardCategory.EXPENSES)
+                    setAmountEarnLoss(prevAmount => prevAmount -= recordItem.amount);
+
+            })
+
         }
 
 
@@ -130,20 +159,24 @@ const CardDetails = (props: Props) => {
                     <div className="inputDate">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker label={'Month & Year'} views={['month', 'year']}
-                                defaultValue={storedDate ? inputDate : dayjs(`${new Date()}`)}
+                                defaultValue={storedDate ? dayjs(`${inputDate}`) : dayjs(`${new Date()}`)}
                                 onAccept={(v: any) => {
                                     if (v)
                                         setInputDate(v.$d)
-                                    console.log(v.$d);
-
                                 }}
                             />
                         </LocalizationProvider>
                     </div>
+
+                    <div className="amount">
+                        <h1>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss}` : `lost $${amountEarnLoss}`}</h1>
+                    </div>
                     {inputDate &&
                         <>
                             <div className="chartContainer">
-                                {cardData && cardData.labels.length > 0 ? <Bar data={cardData} /> : <h2>No Data is available for this month.</h2>}
+                                {cardData && cardData.labels.length > 0 ?
+                                    <Bar data={cardData} /> :
+                                    <h2>No Data is available for this month.</h2>}
                             </div>
                             <div className="transactions">
                                 {updateDetails && cardData && cardData.labels.length > 0 &&
