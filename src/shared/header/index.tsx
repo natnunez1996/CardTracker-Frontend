@@ -1,10 +1,11 @@
 import { MdFace } from "react-icons/md"
 import './header.css';
-import { useAppDispatch, useAppSelector } from "@/hook";
+import { useAppDispatch } from "@/hook";
 import IUser from '@/model/UserModel/IUser'
 import { useEffect, useState } from "react";
 import { logout } from "@/actions/auth";
 import { IProfile } from "@/model/UserModel/IProfile";
+
 type Props = {
     userProfile: IProfile | undefined
 }

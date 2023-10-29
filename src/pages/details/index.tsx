@@ -15,6 +15,8 @@ import moment from 'moment';
 import IRecordItem from '@/model/Record/IRecordItem';
 import dayjs from 'dayjs';
 import CardCategory from '@/model/Record/EcardCategory';
+import { getUserIdHook } from '@/customHooks/getUserIdHook';
+import { IProfile } from '@/model/UserModel/IProfile';
 
 
 type Props = {}
@@ -24,7 +26,9 @@ const CardDetails = (props: Props) => {
 
     const navigate = useNavigate();
     const { recordId } = useParams();
-    const cardDetails: IRecord | undefined = getRecordHook(recordId);
+    const user: IProfile | undefined = getUserIdHook();
+
+    const cardDetails: IRecord | undefined = getRecordHook(user?.result._id, recordId);
 
     const [updateDetails, setUpdateDetails] = useState<IRecord>();
     const [toDelete, setToDelete] = useState<Boolean>(false);
@@ -34,7 +38,6 @@ const CardDetails = (props: Props) => {
     const storedDate = localStorage.getItem("lastKnownInputDate")
     const [inputDate, setInputDate] = useState<Date>(new Date());
     const [amountEarnLoss, setAmountEarnLoss] = useState<number>(0);
-
 
 
     const [cardData, setCardData] = useState<{
@@ -49,8 +52,10 @@ const CardDetails = (props: Props) => {
     }>();
 
 
-
     useEffect(() => {
+        if (!user)
+            navigate('/home', { replace: true });
+
         if (storedDate)
             setInputDate(new Date(storedDate))
 
@@ -66,7 +71,7 @@ const CardDetails = (props: Props) => {
 
             setUpdateDetails(cardDetails);
         }
-    }, [cardDetails])
+    }, [cardDetails, user])
 
 
 

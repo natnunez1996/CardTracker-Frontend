@@ -13,7 +13,7 @@ export const signIn = (signInFormData: ISignInFormData, navigate: NavigateFuncti
         dispatch({ type: actionTypes.AUTH, payload: data })
 
 
-        navigate(`/${data.result._id}`, { replace: true })
+        navigate(`/`, { replace: true })
         window.location.reload();
 
     } catch (error: any) {
@@ -48,7 +48,7 @@ export const signUp = (signUpFormData: ISignUpFormData, navigate: NavigateFuncti
 }
 
 
-export const logout = (dispatch: Dispatch,) => {
+export const logout = (dispatch: Dispatch) => {
     dispatch({ type: actionTypes.LOGOUT });
     window.location.reload();
 }

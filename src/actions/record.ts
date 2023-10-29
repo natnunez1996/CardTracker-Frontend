@@ -28,8 +28,6 @@ export const getAllRecordsOfUser = (userId: String) => async (dispatch: Dispatch
 
         dispatch({ type: actionTypes.GETALLRECORDSOFUSER, payload: data })
 
-        // navigate(`/${userId}`, { replace: true })
-
     } catch (error) {
         console.log(error);
 
@@ -37,15 +35,18 @@ export const getAllRecordsOfUser = (userId: String) => async (dispatch: Dispatch
 }
 
 
-export const getRecord = (recordId: String) => async (dispatch: Dispatch) => {
+export const getRecord = (userId: String, recordId: String) => async (dispatch: Dispatch) => {
 
     try {
-        const { data }: AxiosResponse = await API.getRecord(recordId);
+        const { data }: AxiosResponse = await API.getRecord(userId, recordId);
 
         dispatch({ type: actionTypes.GETRECORD, payload: data });
 
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        console.log(error.response.data.message);
+
+        if (error.response.data)
+            dispatch({ type: actionTypes.SERVERERROR, payload: error.response.data })
 
     }
 }

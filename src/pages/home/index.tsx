@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './home.css';
 import IRecord from '@/model/Record/IRecord';
 import { useAppDispatch, useAppSelector } from '@/hook';
-import { getAllRecordsOfUser, getRecord } from '@/actions/record';
+import { getAllRecordsOfUser } from '@/actions/record';
 import { useNavigate } from 'react-router-dom';
 
 type Props = {
@@ -21,6 +21,7 @@ const Home = ({ userId }: Props) => {
 
     useEffect(() => {
         localStorage.removeItem("lastKnownInputDate")
+
         if (userId)
             dispatch(getAllRecordsOfUser(userId))
     }, [userId])

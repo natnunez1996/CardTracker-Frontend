@@ -15,7 +15,7 @@ export const createRecord = (recordData: IRecord) => API.post('/record', recordD
 
 export const getAllRecordsOfUser = (userId: String) => API.get(`/record/${userId}`);
 
-export const getRecord = (recordId: String) => API.get(`/record/details/${recordId}`);
+export const getRecord = (userId: String, recordId: String) => API.get(`/record/details/${userId}/${recordId}`);
 export const updateRecord = (recordId: String, updatedRecord: IRecord) => API.patch(`/record/details/${recordId}`, updatedRecord)
 
 //Auth

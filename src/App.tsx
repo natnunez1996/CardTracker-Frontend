@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
 import './App.css'
 import Navbar from '@/shared/navbar'
 import CardDetails from '@/pages/details'
@@ -8,11 +8,11 @@ import About from '@/pages/about'
 import Home from '@/pages/home'
 import NewRecord from '@/pages/newFile/newRecord'
 import NewRecordItemForm from '@/pages/newFile/newRecordItemForm'
-import { useEffect, useState } from 'react'
-import { IProfile } from './model/UserModel/IProfile'
+import Error from '@/pages/error'
+import { getUserIdHook } from '@/customHooks/getUserIdHook';
 
 function App() {
-  const [user, setUser] = useState<IProfile>();
+  const user = getUserIdHook();
 
   const router = createBrowserRouter([
     {
@@ -38,20 +38,21 @@ function App() {
     {
       path: '/login',
       element: <Login />
+    },
+    {
+      path: '/error',
+      element: <Error userId={user?.result?._id} />
+    },
+    {
+      index: true,
+      element: <Navigate to="home" />
+
     }
   ])
 
 
 
-  useEffect(() => {
-    let newUser: string | null;
-    if (localStorage.getItem('profile') !== null) {
-      newUser = localStorage.getItem('profile')
-      if (newUser !== null) {
-        setUser(JSON.parse(newUser))
-      }
-    }
-  }, [])
+
 
   return (
     <div className="App">
