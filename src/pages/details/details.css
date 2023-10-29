@@ -1,5 +1,4 @@
 .cardDetails {
-  height: 90vh;
   background-color: white;
   width: 82vw;
 }
@@ -10,5 +9,5 @@
 }
 
 .chartContainer {
-  width: 500px;
+  width: 80vw;
 }

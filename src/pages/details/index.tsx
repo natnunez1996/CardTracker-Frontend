@@ -46,7 +46,15 @@ const CardDetails = (props: Props) => {
             {
                 label: string,
                 data: number[],
-                backgroundColor: string[]
+                backgroundColor: string
+            }, {
+                label: string,
+                data: number[],
+                backgroundColor: string
+            }, {
+                label: string,
+                data: number[],
+                backgroundColor: string
             }
         ]
     }>();
@@ -98,24 +106,57 @@ const CardDetails = (props: Props) => {
                     return dateA.getTime() - dateB.getTime()
                 })
 
+            let inputMonth: Date[] = [];
+            let date = new Date(inputDate.getFullYear(), inputDate.getMonth(), 1)
+            while (date.getMonth() === inputDate.getMonth()) {
+                (filteredDetails.find(item => {
+                    if (item.date.getDate() === date.getDate()) {
+                        inputMonth.push(new Date(date));
+                    }
+                }))
+                date.setDate(date.getDate() + 1)
+            }
 
             setCardData({
-                labels: filteredDetails.map(recordItem => recordItem.name),
+                labels: inputMonth.map(day => `${day.toLocaleString('default', { month: 'short' })} ${day.getDate()}`),
                 datasets: [{
-                    label: updateDetails.name.toString(),
-                    data: filteredDetails
-                        .map(recordItem => {
-                            if (recordItem.category === CardCategory.INCOME)
-                                return recordItem.amount
-                            return 0 - recordItem.amount
-                        }),
-                    backgroundColor: filteredDetails.map(recordItem => {
-                        if (recordItem.category === CardCategory.INCOME)
-                            return "rgba(53, 162, 235, 0.5)"
-                        return "rgba(255, 99, 132, 0.5)"
-                    })
+                    label: CardCategory.INCOME,
+                    data: inputMonth.map((day) => {
+                        let incomeData = filteredDetails.filter(i => i.category === CardCategory.INCOME)
+                        let output: number = 0;
+                        incomeData.find(item => {
+                            if (item.date.getDate() === day.getDate())
+                                output = item.amount
+                        })
+                        return output
+                    }),
+                    backgroundColor: "rgba(53, 162, 235, 0.5)"
+                }, {
+                    label: CardCategory.ENTERTAINMENT,
+                    data: inputMonth.map((day) => {
+                        let incomeData = filteredDetails.filter(i => i.category === CardCategory.ENTERTAINMENT)
+                        let output: number = 0;
+                        incomeData.find(item => {
+                            if (item.date.getDate() === day.getDate())
+                                output = item.amount
+                        })
+                        return output
+                    }),
+                    backgroundColor: "rgba(236, 167, 16, 0.5)"
+                }, {
+                    label: CardCategory.EXPENSES,
+                    data: inputMonth.map((day) => {
+                        let incomeData = filteredDetails.filter(i => i.category === CardCategory.EXPENSES)
+                        let output: number = 0;
+                        incomeData.find(item => {
+                            if (item.date.getDate() === day.getDate())
+                                output = item.amount
+                        })
+                        return output
+                    }),
+                    backgroundColor: "rgba(255, 99, 132, 0.5)"
                 }]
-            });
+            })
 
             setAmountEarnLoss(0)
 
@@ -180,7 +221,7 @@ const CardDetails = (props: Props) => {
                         <>
                             <div className="chartContainer">
                                 {cardData && cardData.labels.length > 0 ?
-                                    <Bar data={cardData} /> :
+                                    <Bar options={{ maintainAspectRatio: false }} data={cardData} width={200} height={400} /> :
                                     <h2>No Data is available for this month.</h2>}
                             </div>
                             <div className="transactions">
