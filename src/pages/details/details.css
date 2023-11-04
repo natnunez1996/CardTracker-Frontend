@@ -11,3 +11,8 @@
 .chartContainer {
   width: 80vw;
 }
+
+.distributionContainer {
+  align-items: center;
+  width: 600px;
+}

@@ -17,6 +17,7 @@ import dayjs from 'dayjs';
 import CardCategory from '@/model/Record/EcardCategory';
 import { getUserIdHook } from '@/customHooks/getUserIdHook';
 import { IProfile } from '@/model/UserModel/IProfile';
+import DistributionDetails from './distributionDetails/index';
 
 
 type Props = {}
@@ -221,9 +222,15 @@ const CardDetails = (props: Props) => {
                         <>
                             <div className="chartContainer">
                                 {cardData && cardData.labels.length > 0 ?
-                                    <Bar options={{ maintainAspectRatio: false }} data={cardData} width={200} height={400} /> :
-                                    <h2>No Data is available for this month.</h2>}
+                                    <Bar options={{ maintainAspectRatio: false }} data={cardData} width={200} height={400} />
+                                    :
+                                    <h2 style={{ height: "68vh" }}>No Data is available for this month.</h2>}
                             </div>
+                            {updateDetails &&
+                                <div className="distributionContainer">
+                                    <DistributionDetails record={updateDetails} inputDate={inputDate} />
+                                </div>
+                            }
                             <div className="transactions">
                                 {updateDetails && cardData && cardData.labels.length > 0 &&
                                     <table className="table-auto w-full text-center">
