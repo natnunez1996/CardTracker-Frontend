@@ -10,6 +10,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { updateRecord } from '@/actions/record'
 import moment from 'moment'
+import { getUserIdHook } from '@/customHooks/getUserIdHook'
+import { IProfile } from '@/model/UserModel/IProfile'
 
 
 type Props = {
@@ -21,8 +23,9 @@ const NewRecordItemForm = (props: Props) => {
 
     const { register, handleSubmit } = useForm();
     const { recordId } = useParams();
+    const userId: IProfile | undefined = getUserIdHook();
     const lastKnownId = localStorage.getItem("lastKnownId");
-    const cardDetails: IRecord | undefined = getRecordHook(recordId);
+    const cardDetails: IRecord | undefined = getRecordHook(userId?.result._id, recordId);
     const [newCardDetails, setNewCardDetails] = useState<IRecord>();
     const [toSubmit, setToSubmit] = useState<Boolean>(false);
 
@@ -70,7 +73,7 @@ const NewRecordItemForm = (props: Props) => {
                 Record Name:
                 <input {...register("name", { "required": true })} />
                 Amount:
-                <input type="number" {...register("amount", { "required": true })} />
+                <input type="number" step=".01" {...register("amount", { "required": true })} />
                 Date:
                 <input type="date" {...register("date", { "required": true })} />
                 Category

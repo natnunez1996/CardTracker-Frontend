@@ -54,6 +54,7 @@ export const getRecord = (userId: String, recordId: String) => async (dispatch: 
 export const updateRecord = (updatedRecord: IRecord, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
     try {
         const { data }: AxiosResponse = await API.updateRecord(updatedRecord._id.toString(), updatedRecord)
+        console.log("UPDATED IN BACKEND");
 
         dispatch({ type: actionTypes.UPDATERECORD, payload: data });
 
