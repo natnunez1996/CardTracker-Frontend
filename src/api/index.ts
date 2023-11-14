@@ -17,6 +17,7 @@ export const getAllRecordsOfUser = (userId: String) => API.get(`/record/${userId
 
 export const getRecord = (userId: String, recordId: String) => API.get(`/record/details/${userId}/${recordId}`);
 export const updateRecord = (recordId: String, updatedRecord: IRecord) => API.patch(`/record/details/${recordId}`, updatedRecord)
+export const deleteRecord = (recordId: String) => API.delete(`/record/details/${recordId}`)
 
 //Auth
 export const signUp = (signUpFormData: SignUpFormData) => API.post(`/signUp`, signUpFormData);

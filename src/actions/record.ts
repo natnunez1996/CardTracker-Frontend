@@ -8,13 +8,25 @@ import { AxiosResponse } from 'axios';
 
 export const createRecord = (recordData: IRecord, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
     try {
-        console.log(recordData);
-
         const { data }: AxiosResponse = await API.createRecord(recordData);
 
         dispatch({ type: actionTypes.CREATERECORD, payload: data })
 
-        navigate(`/${data._id}`, { replace: true })
+        navigate(`/home`, { replace: true })
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+export const deleteRecord = (recordId: string, navigate: NavigateFunction) => async (dispach: Dispatch) => {
+    try {
+        await API.deleteRecord(recordId)
+        console.log(`DELETED ${recordId}`);
+
+
+        navigate(`/home`, { replace: true });
 
     } catch (error) {
         console.log(error);

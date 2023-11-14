@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import IRecord from '@/model/Record/IRecord';
 import { getRecordHook } from '@/customHooks/getRecordHook';
 import { useAppDispatch } from '@/hook';
-import { updateRecord } from '@/actions/record';
+import { deleteRecord, updateRecord } from '@/actions/record';
 import EditRecordItemForm from '../newFile/editRecordItemForm';
 import dayjs from 'dayjs';
 import { getUserIdHook } from '@/customHooks/getUserIdHook';
@@ -71,6 +71,11 @@ const CardDetails = (props: Props) => {
     }, [toDelete])
 
 
+    const handleDelete = () => {
+        if (recordId)
+            dispatch(deleteRecord(recordId, navigate))
+    }
+
 
     return (
         <div className='cardDetails'>
@@ -79,6 +84,8 @@ const CardDetails = (props: Props) => {
                     <div>
                         <h1>{updateDetails ? updateDetails.name : "Card Name"}</h1>
                         <button onClick={() => navigate('newDetails')}>Add New Data</button>
+                        <br />
+                        <button onClick={() => handleDelete()} >Delete</button>
                         <div className="inputDate">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker label={'Month & Year'} views={['month', 'year']}

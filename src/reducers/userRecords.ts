@@ -17,6 +17,8 @@ const userRecordsReducer = (state = initialState,
             return { ...state, recordDetails: action.payload.result }
         case actionTypes.CREATERECORD:
             return { ...state, recordDetails: action.payload }
+        case actionTypes.DELETERECORD:
+            return { ...state, message: action.payload }
         case actionTypes.UPDATERECORD:
             return { ...state, recordDetails: action.payload }
         case actionTypes.SERVERERROR:
