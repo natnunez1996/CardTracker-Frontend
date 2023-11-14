@@ -84,7 +84,11 @@ const ExpensesDetails = ({ record, inputDate, setAmountEarnLoss }: Props) => {
 
     return (
         <div>
-            <Bar options={{ maintainAspectRatio: false }} data={cardData} width={200} height={400} />
+            {
+                filteredDetails.length > 0 ?
+                    <Bar options={{ maintainAspectRatio: false }} data={cardData} width={200} height={400} />
+                    : <h1> No Details inserted for this month.</h1>
+            }
         </div>
     )
 }

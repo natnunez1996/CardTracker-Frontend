@@ -47,9 +47,12 @@ const DistributionDetails = ({ record, inputDate }: Props) => {
     }
 
     return (
-        <div>
-            <h1>Distribution: </h1>
-            <Pie data={data} ></Pie>
+        <div>{
+            monthRecordsList.length > 0 &&
+            <>
+                <h1>Distribution: </h1>
+                <Pie data={data} ></Pie>
+            </>}
         </div>
     )
 }
