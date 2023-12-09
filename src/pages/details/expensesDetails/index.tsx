@@ -1,4 +1,5 @@
 import CardCategory from "@/model/Record/EcardCategory"
+import CardCategoryColor from "@/model/Record/EcardCategoryColor"
 import IRecord from "@/model/Record/IRecord"
 import IRecordItem from "@/model/Record/IRecordItem"
 import { useEffect } from "react"
@@ -8,10 +9,11 @@ import { Bar } from "react-chartjs-2"
 type Props = {
     record: IRecord,
     inputDate: Date,
-    setAmountEarnLoss: React.Dispatch<React.SetStateAction<number>>
+    setAmountEarnLoss: React.Dispatch<React.SetStateAction<number>>,
+    choices: CardCategory[]
 }
 
-const ExpensesDetails = ({ record, inputDate, setAmountEarnLoss }: Props) => {
+const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Props) => {
     const filteredDetails: IRecordItem[] = record.recordItemsList
         .filter(recordItem => {
             if (recordItem.date.getMonth() === inputDate.getMonth() &&
@@ -40,31 +42,22 @@ const ExpensesDetails = ({ record, inputDate, setAmountEarnLoss }: Props) => {
 
     const cardData = {
         labels: inputMonth.map(day => `${day.toLocaleString('default', { month: 'short' })} ${day.getDate()}`),
-        datasets: [{
-            label: CardCategory.ENTERTAINMENT,
-            data: inputMonth.map((day) => {
-                let incomeData = filteredDetails.filter(i => i.category === CardCategory.ENTERTAINMENT)
-                let output: number = 0;
-                incomeData.filter(item => {
-                    if (item.date.getDate() === day.getDate())
-                        output += item.amount
-                })
-                return output
-            }),
-            backgroundColor: "rgba(236, 167, 16, 0.5)"
-        }, {
-            label: CardCategory.EXPENSES,
-            data: inputMonth.map((day) => {
-                let incomeData = filteredDetails.filter(i => i.category === CardCategory.EXPENSES)
-                let output: number = 0;
-                incomeData.filter(item => {
-                    if (item.date.getDate() === day.getDate())
-                        output += item.amount
-                })
-                return output
-            }),
-            backgroundColor: "rgba(255, 99, 132, 0.5)"
-        }]
+        datasets: choices.filter(choice => choice !== CardCategory.INCOME)
+            .map(choice => {
+                return {
+                    label: choice,
+                    data: inputMonth.map((day) => {
+                        let incomeData = filteredDetails.filter(i => i.category === choice)
+                        let output: number = 0;
+                        incomeData.filter(item => {
+                            if (item.date.getDate() === day.getDate())
+                                output += item.amount
+                        })
+                        return output
+                    }),
+                    backgroundColor: CardCategoryColor[choice]
+                }
+            })
     }
 
 
