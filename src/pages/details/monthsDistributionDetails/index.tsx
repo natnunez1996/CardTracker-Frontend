@@ -29,10 +29,6 @@ const MonthsDistributionDetails = ({ record, inputDate }: Props) => {
 
         filteredDetails.forEach(item => sum += item.amount)
 
-        console.log(sum, category);
-
-
-
         return sum;
     }
 
@@ -70,7 +66,8 @@ const MonthsDistributionDetails = ({ record, inputDate }: Props) => {
                 data: dataInput.map((val) => {
 
                     return getSum(val, CardCategory.ENTERTAINMENT)
-                })
+                }),
+                backgroundColor: "rgba(236, 167, 16, 0.5)"
             },
             {
                 label: CardCategory.EXPENSES,
