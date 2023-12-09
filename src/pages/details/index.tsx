@@ -59,7 +59,7 @@ const CardDetails = (props: Props) => {
 
             setUpdateDetails(cardDetails);
         }
-    }, [cardDetails, user])
+    }, [cardDetails])
 
 
 

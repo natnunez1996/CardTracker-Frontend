@@ -12,7 +12,6 @@ type Props = {
 }
 
 const ExpensesDetails = ({ record, inputDate, setAmountEarnLoss }: Props) => {
-
     const filteredDetails: IRecordItem[] = record.recordItemsList
         .filter(recordItem => {
             if (recordItem.date.getMonth() === inputDate.getMonth() &&
