@@ -37,11 +37,15 @@ const MonthsDistributionDetails = ({ record, inputDate }: Props) => {
     }
 
     const options = {
+        indexAxis: "y" as const,
         plugins: {
             title: {
                 display: true,
                 text: "Month's Comparison",
             },
+            legend: {
+                position: 'right' as const
+            }
         },
         responsive: true,
         scales: {
