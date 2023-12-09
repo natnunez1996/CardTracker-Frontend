@@ -16,6 +16,7 @@ import { IProfile } from '@/model/UserModel/IProfile';
 import DistributionDetails from './distributionDetails/index';
 import ExpensesDetails from './expensesDetails';
 import ListsDetails from './listsDetails';
+import MonthsDistributionDetails from './monthsDistributionDetails';
 
 
 type Props = {}
@@ -111,6 +112,10 @@ const CardDetails = (props: Props) => {
 
                                 {updateDetails && <div className="distributionContainer">
                                     <DistributionDetails record={updateDetails} inputDate={inputDate} />
+                                </div>
+                                }
+                                {updateDetails && <div className="monthsDistributionContainer">
+                                    <MonthsDistributionDetails record={updateDetails} inputDate={inputDate} />
                                 </div>
                                 }
                                 <div className="transactions">
