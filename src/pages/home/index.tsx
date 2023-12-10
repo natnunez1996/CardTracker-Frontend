@@ -40,7 +40,7 @@ const Home = ({ userId }: Props) => {
                     <>
                         {userRecords.map((record) => (
                             <button key={record._id} onClick={() =>
-                                navigate(`${record._id.toString()}`, { replace: true })}  >
+                                navigate(`${record._id?.toString()}`, { replace: true })}  >
                                 {record.name}
                             </button>
                         ))}

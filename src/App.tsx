@@ -13,12 +13,7 @@ function App() {
     <div className="App">
       <Header userProfile={user} />
       <div className="body">
-        {user &&
-          <Navbar />
-        }
-        <div className="mainContainer">
-          <RouterProvider router={router} />
-        </div>
+        <RouterProvider router={router} />
       </div>
     </div>
   )

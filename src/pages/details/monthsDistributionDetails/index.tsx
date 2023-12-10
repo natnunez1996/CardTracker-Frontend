@@ -76,7 +76,9 @@ const MonthsDistributionDetails = ({ record, inputDate, choices }: Props) => {
     }
 
     return (
-        <div> <Bar options={options} data={data} /></div>
+        <div className='monthsDistributionDetails'>
+            <Bar options={options} data={data} />
+        </div>
     )
 }
 

@@ -16,9 +16,6 @@ const DistributionDetails = ({ record, inputDate, choices }: Props) => {
     const monthRecordsList = record.recordItemsList.filter(item => item.date.getFullYear() === inputDate.getFullYear() &&
         item.date.getMonth() === inputDate.getMonth());
 
-    // const incomeItems = monthRecordsList.filter(item => item.category === CardCategory.INCOME)
-    // const entertainmentItems = monthRecordsList.filter(item => item.category === CardCategory.ENTERTAINMENT)
-    // const expensesItems = monthRecordsList.filter(item => item.category === CardCategory.EXPENSES)
 
     const filterItemsByCategory = (list: IRecordItem[], category: CardCategory) => {
         return list.filter(item => item.category === category)
@@ -49,11 +46,18 @@ const DistributionDetails = ({ record, inputDate, choices }: Props) => {
         ]
     }
     return (
-        <div>{
+        <div className="distributionDetails">{
             monthRecordsList.length > 0 &&
             <>
-                <h1>Distribution: </h1>
-                <Pie data={data} ></Pie>
+                <Pie data={data} options={{
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Distribution"
+                        },
+
+                    }
+                }} ></Pie>
             </>}
         </div>
     )

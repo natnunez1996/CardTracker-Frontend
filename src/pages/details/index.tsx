@@ -83,10 +83,10 @@ const CardDetails = (props: Props) => {
 
 
     return (
-        <div className='cardDetails'>
+        <>
             {
                 toEdit ? <EditRecordItemForm setToEdit={setToEdit} id={editedItemId} recordItem={updateDetails} /> :
-                    <div>
+                    <div className='cardDetails'>
                         <h1>{updateDetails ? updateDetails.name : "Card Name"}</h1>
                         <button onClick={() => navigate('newDetails')}>Add New Data</button>
                         <br />
@@ -108,19 +108,16 @@ const CardDetails = (props: Props) => {
                         </div>
                         {
                             inputDate &&
-                            <>{updateDetails &&
-                                <div className="chartContainer">
-                                    <ExpensesDetails inputDate={inputDate} record={updateDetails}
-                                        setAmountEarnLoss={setAmountEarnLoss} choices={choices} />
-                                </div>}
+                            <>
+                                {updateDetails &&
+                                    <div className="chartContainer">
+                                        <DistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
 
-                                {updateDetails && <div className="distributionContainer">
-                                    <DistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
-                                </div>
-                                }
-                                {updateDetails && <div className="monthsDistributionContainer">
-                                    <MonthsDistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
-                                </div>
+                                        <ExpensesDetails inputDate={inputDate} record={updateDetails}
+                                            setAmountEarnLoss={setAmountEarnLoss} choices={choices} />
+
+                                        <MonthsDistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
+                                    </div>
                                 }
                                 <div className="transactions">
                                     {updateDetails &&
@@ -133,7 +130,7 @@ const CardDetails = (props: Props) => {
                         }
                     </div>
             }
-        </div>
+        </>
     )
 }
 

@@ -68,7 +68,15 @@ const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Prop
             })
     }
 
-
+    const options = {
+        maintainAspectRatio: false,
+        plugins: {
+            title: {
+                display: true,
+                text: `Expenses this ${inputDate.toLocaleString('default', { month: 'long' })}`
+            }
+        }
+    }
 
     useEffect(() => {
         setAmountEarnLoss(0);
@@ -83,12 +91,9 @@ const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Prop
     }, [inputDate])
 
     return (
-        <div>
-            {
-                filteredDetails.length > 0 ?
-                    <Bar options={{ maintainAspectRatio: false }} data={cardData} width={200} height={400} />
-                    : <h1> No Details inserted for this month.</h1>
-            }
+        <div className="expensesDetails">
+            <Bar options={options}
+                data={cardData} />
         </div>
     )
 }
