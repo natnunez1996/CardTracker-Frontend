@@ -17,10 +17,6 @@ const router = createBrowserRouter([
     element: <Home userId={user?.result?._id} />,
   },
   {
-    path: "/about",
-    element: <About />
-  },
-  {
     path: "/newRecord",
     element: <NewRecord />
   },
