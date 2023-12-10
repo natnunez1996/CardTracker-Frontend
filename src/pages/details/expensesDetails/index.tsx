@@ -27,14 +27,22 @@ const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Prop
             return dateA.getTime() - dateB.getTime()
         })
 
+
     const inputMonth: Date[] = [];
     const date = new Date(inputDate.getFullYear(), inputDate.getMonth(), 1)
     while (date.getMonth() === inputDate.getMonth()) {
         (filteredDetails.find(item => {
+
             if (item.date.getDate() === date.getDate() &&
                 item.category !== CardCategory.INCOME
-                && inputMonth[inputMonth.length - 1]?.getDay() !== date.getDay()) {
-                inputMonth.push(new Date(date));
+            ) {
+                if (inputMonth.length > 0) {
+                    if (inputMonth[inputMonth.length - 1].getDate() !== date.getDate())
+                        inputMonth.push(new Date(date));
+                }
+                else if (inputMonth.length === 0)
+                    inputMonth.push(new Date(date));
+
             }
         }))
         date.setDate(date.getDate() + 1)
