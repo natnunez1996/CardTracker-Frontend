@@ -8,5 +8,5 @@ export default interface IRecord {
     createdBy: String,
     createdDate: Date,
     updatedDate: Date,
-    _id: Key
+    _id?: Key
 }

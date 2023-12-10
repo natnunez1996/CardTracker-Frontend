@@ -26,6 +26,8 @@ const EditRecordItemForm = ({ recordItem, id, setToEdit }: Props) => {
     const [editedCardDetails, setEditedCardDetails] = useState<IRecord>();
     const [toSubmit, setToSubmit] = useState<Boolean>(false);
 
+    const choices = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>).map(key => CardCategory[key])
+
     useEffect(() => {
         if (recordItem) {
             recordItem.recordItemsList.map(item => {
@@ -93,9 +95,11 @@ const EditRecordItemForm = ({ recordItem, id, setToEdit }: Props) => {
                 <input type="date" {...register("date", { "required": true })} />
                 Category
                 <select {...register("category")}>
-                    <option value={CardCategory.ENTERTAINMENT}>Entertainment</option>
-                    <option value={CardCategory.EXPENSES}>Expenses</option>
-                    <option value={CardCategory.INCOME}>Income</option>
+                    {
+                        choices.map(choice => {
+                            return <option value={choice}>{choice[0].toUpperCase() + choice.slice(1)}</option>
+                        })
+                    }
                 </select>
                 <button type="submit">Submit</button>
                 <button onClick={() => onCancelEdit()}>Cancel</button>
