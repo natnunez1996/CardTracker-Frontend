@@ -17,6 +17,7 @@ import DistributionDetails from './distributionDetails/index';
 import ExpensesDetails from './expensesDetails';
 import ListsDetails from './listsDetails';
 import MonthsDistributionDetails from './monthsDistributionDetails';
+import CardCategory from '@/model/Record/EcardCategory';
 
 
 type Props = {}
@@ -38,6 +39,9 @@ const CardDetails = (props: Props) => {
     const storedDate = localStorage.getItem("lastKnownInputDate")
     const [inputDate, setInputDate] = useState<Date>(new Date());
     const [amountEarnLoss, setAmountEarnLoss] = useState<number>(0);
+
+    const choices: CardCategory[] = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>).map(key => CardCategory[key]);
+
 
 
     useEffect(() => {
@@ -107,15 +111,15 @@ const CardDetails = (props: Props) => {
                             <>{updateDetails &&
                                 <div className="chartContainer">
                                     <ExpensesDetails inputDate={inputDate} record={updateDetails}
-                                        setAmountEarnLoss={setAmountEarnLoss} />
+                                        setAmountEarnLoss={setAmountEarnLoss} choices={choices} />
                                 </div>}
 
                                 {updateDetails && <div className="distributionContainer">
-                                    <DistributionDetails record={updateDetails} inputDate={inputDate} />
+                                    <DistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
                                 </div>
                                 }
                                 {updateDetails && <div className="monthsDistributionContainer">
-                                    <MonthsDistributionDetails record={updateDetails} inputDate={inputDate} />
+                                    <MonthsDistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
                                 </div>
                                 }
                                 <div className="transactions">

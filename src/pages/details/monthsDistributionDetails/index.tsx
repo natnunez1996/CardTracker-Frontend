@@ -1,14 +1,16 @@
 import CardCategory from '@/model/Record/EcardCategory';
+import CardCategoryColor from '@/model/Record/EcardCategoryColor';
 import IRecord from '@/model/Record/IRecord'
 import IRecordItem from '@/model/Record/IRecordItem';
 import { Bar } from 'react-chartjs-2';
 
 type Props = {
     record: IRecord,
-    inputDate: Date
+    inputDate: Date,
+    choices: CardCategory[]
 }
 
-const MonthsDistributionDetails = ({ record, inputDate }: Props) => {
+const MonthsDistributionDetails = ({ record, inputDate, choices }: Props) => {
 
     const lastMonth = inputDate.getMonth() !== 0 ? new Date(inputDate.getFullYear(), inputDate.getMonth() - 1) : new Date(inputDate.getFullYear() - 1, 11);
     const lastTwoMonths = lastMonth.getMonth() !== 0 ? new Date(lastMonth.getFullYear(), lastMonth.getMonth() - 1) : new Date(lastMonth.getFullYear() - 1, 11);
@@ -60,25 +62,18 @@ const MonthsDistributionDetails = ({ record, inputDate }: Props) => {
             lastMonth.toLocaleDateString('default', { month: 'long' }),
             lastTwoMonths.toLocaleDateString('default', { month: 'long' })
         ],
-        datasets: [
-            {
-                label: CardCategory.ENTERTAINMENT,
-                data: dataInput.map((val) => {
+        datasets: choices.filter(choice => choice !== CardCategory.INCOME)
+            .map(choice => {
+                return {
+                    label: choice,
+                    data: dataInput.map((val) => {
 
-                    return getSum(val, CardCategory.ENTERTAINMENT)
-                }),
-                backgroundColor: "rgba(236, 167, 16, 0.5)"
-            },
-            {
-                label: CardCategory.EXPENSES,
-                data: dataInput.map((val) => {
-                    return getSum(val, CardCategory.EXPENSES)
-                })
-            }
-        ]
+                        return getSum(val, choice)
+                    }),
+                    backgroundColor: CardCategoryColor[choice]
+                }
+            })
     }
-
-
 
     return (
         <div> <Bar options={options} data={data} /></div>
