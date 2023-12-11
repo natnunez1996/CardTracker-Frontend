@@ -1,6 +1,8 @@
 import IRecord from "@/model/Record/IRecord"
 import IRecordItem from "@/model/Record/IRecordItem"
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import moment from "moment"
+import React from "react"
 
 type Props = {
     record: IRecord,
@@ -9,6 +11,15 @@ type Props = {
     setToEdit: React.Dispatch<React.SetStateAction<Boolean>>,
     setUpdateDetails: React.Dispatch<React.SetStateAction<IRecord | undefined>>,
     setToDelete: React.Dispatch<React.SetStateAction<Boolean>>
+}
+
+interface ListHeader {
+    id: 'date' | 'detail' | 'amount' | 'category' | 'edit' | 'delete',
+    label: string,
+    minWidth: number,
+    align?: 'center' | 'right',
+    format?: (value: number) => string
+
 }
 
 const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDelete, setUpdateDetails }: Props) => {
@@ -32,18 +43,65 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
         setToDelete(prevState => !prevState);
     }
 
+    const columnsHeader: ListHeader[] = [
+        {
+            id: 'date',
+            label: "Date",
+            minWidth: 170,
+            align: 'center'
+        },
+        {
+            id: 'detail',
+            label: "Detail",
+            minWidth: 170,
+            align: 'center'
+        },
+        {
+            id: 'amount',
+            label: "Amount",
+            minWidth: 170,
+            align: 'right'
+        },
+        {
+            id: 'category',
+            label: "Category",
+            minWidth: 170,
+            align: 'center'
+        },
+        {
+            id: 'edit',
+            label: "",
+            minWidth: 170,
+            align: 'center'
+        },
+        {
+            id: 'delete',
+            label: "",
+            minWidth: 170,
+            align: 'center'
+        }
+    ]
+
+    //Header Content
     return (
-        <div>
-            <table className="table-auto w-full text-center">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Detail</th>
-                        <th>Amount</th>
-                        <th>Category</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <TableContainer sx={{ maxHeight: "300px" }}>
+            <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                    <TableRow>
+                        {
+                            columnsHeader.map(column => (
+                                <TableCell
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth }}
+                                >
+                                    {column.label}
+                                </TableCell>
+                            ))
+                        }
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {
                         record.recordItemsList
                             .filter(item =>
@@ -55,19 +113,20 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
                                 return dateA.getTime() - dateB.getTime()
                             })
                             .map((data) =>
-                                <tr key={data.id.toString()}>
-                                    <td>{`${moment(data.date).format("MMMM DD YYYY")}`}</td>
-                                    <td>{data.name}</td>
-                                    <td>{`$${data.amount}`}</td>
-                                    <td>{data.category.charAt(0).toUpperCase() + data.category.slice(1)}</td>
-                                    <td><button onClick={() => onEditCardDetail(data.id)}>Edit</button></td>
-                                    <td><button onClick={() => onDeleteCardDetail(data.id)}>Delete</button></td>
-                                </tr>
-                            )
+                                <TableRow key={data.id.toString()}>
+                                    <TableCell align="center">{`${moment(data.date).format("MMMM DD YYYY")}`}</TableCell>
+                                    <TableCell align="center">{data.name}</TableCell>
+                                    <TableCell align="right">{`$${data.amount}`}</TableCell>
+                                    <TableCell align="center">{data.category.charAt(0).toUpperCase() + data.category.slice(1)}</TableCell>
+                                    <TableCell align="center"><Button onClick={() => onEditCardDetail(data.id)}>Edit</Button></TableCell>
+                                    <TableCell align="center"><Button color="error" onClick={() => onDeleteCardDetail(data.id)}>Delete</Button></TableCell>
+                                </TableRow>)
                     }
-                </tbody>
-            </table></div>
+                </TableBody>
+            </Table>
+        </TableContainer>
     )
+
 }
 
 export default ListsDetails
