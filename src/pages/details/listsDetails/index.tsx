@@ -2,7 +2,7 @@ import IRecord from "@/model/Record/IRecord"
 import IRecordItem from "@/model/Record/IRecordItem"
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import moment from "moment"
-import React from "react"
+import React, { useState } from "react"
 
 type Props = {
     record: IRecord,
@@ -23,6 +23,9 @@ interface ListHeader {
 }
 
 const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDelete, setUpdateDetails }: Props) => {
+
+    //Setting the id of the list that is meant to be deleted.
+    const [showConfirmDelete, setShowConfirmDelete] = useState<string | null>(null);
 
     const onEditCardDetail = (id: String) => {
         setEditedItemId(id);
@@ -82,7 +85,6 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
         }
     ]
 
-    //Header Content
     return (
         <TableContainer sx={{ maxHeight: "300px" }}>
             <Table stickyHeader aria-label="sticky table">
@@ -116,10 +118,18 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
                                 <TableRow key={data.id.toString()}>
                                     <TableCell align="center">{`${moment(data.date).format("MMMM DD YYYY")}`}</TableCell>
                                     <TableCell align="center">{data.name}</TableCell>
-                                    <TableCell align="right">{`$${data.amount}`}</TableCell>
+                                    <TableCell align="right">{`$ ${Math.round(data.amount).toFixed(2)}`}</TableCell>
                                     <TableCell align="center">{data.category.charAt(0).toUpperCase() + data.category.slice(1)}</TableCell>
                                     <TableCell align="center"><Button onClick={() => onEditCardDetail(data.id)}>Edit</Button></TableCell>
-                                    <TableCell align="center"><Button color="error" onClick={() => onDeleteCardDetail(data.id)}>Delete</Button></TableCell>
+                                    //If showConfirmDelete id === data.id, new buttons will show for confirmation.
+                                    {
+                                        showConfirmDelete === data.id ?
+                                            <TableCell align="center">
+                                                <Button color="error" onClick={() => onDeleteCardDetail(data.id)}>DELETE</Button>
+                                                <Button color="success" onClick={() => setShowConfirmDelete(null)}>Cancel</Button>
+                                            </TableCell>
+                                            : <TableCell align="center"><Button color="error" onClick={() => setShowConfirmDelete(data.id.toString())}>Delete</Button></TableCell>
+                                    }
                                 </TableRow>)
                     }
                 </TableBody>
