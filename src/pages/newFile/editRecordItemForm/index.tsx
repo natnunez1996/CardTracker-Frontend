@@ -90,7 +90,7 @@ const EditRecordItemForm = ({ recordItem, id, setToEdit }: Props) => {
                 Record Name:
                 <input {...register("name", { "required": true })} />
                 Amount:
-                <input type="number" {...register("amount", { "required": true, valueAsNumber: true })} />
+                <input type="number" step=".01" {...register("amount", { "required": true, valueAsNumber: true })} />
                 Date:
                 <input type="date" {...register("date", { "required": true })} />
                 Category
