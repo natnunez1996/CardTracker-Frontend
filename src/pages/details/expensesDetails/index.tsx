@@ -73,7 +73,7 @@ const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Prop
         plugins: {
             title: {
                 display: true,
-                text: `Expenses this ${inputDate.toLocaleString('default', { month: 'long' })}`
+                text: `Expenses this ${inputDate.toLocaleString('default', { month: 'long', year: 'numeric' })}`
             }
         }
     }
