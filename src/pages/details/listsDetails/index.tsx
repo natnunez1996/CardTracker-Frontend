@@ -121,8 +121,9 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
                                     <TableCell align="right">{`$ ${Math.round(data.amount).toFixed(2)}`}</TableCell>
                                     <TableCell align="center">{data.category.charAt(0).toUpperCase() + data.category.slice(1)}</TableCell>
                                     <TableCell align="center"><Button onClick={() => onEditCardDetail(data.id)}>Edit</Button></TableCell>
-                                    //If showConfirmDelete id === data.id, new buttons will show for confirmation.
                                     {
+                                        //If showConfirmDelete id === data.id, new buttons will show for confirmation.
+
                                         showConfirmDelete === data.id ?
                                             <TableCell align="center">
                                                 <Button color="error" onClick={() => onDeleteCardDetail(data.id)}>DELETE</Button>
