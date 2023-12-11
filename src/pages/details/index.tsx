@@ -88,8 +88,6 @@ const CardDetails = (props: Props) => {
                 toEdit ? <EditRecordItemForm setToEdit={setToEdit} id={editedItemId} recordItem={updateDetails} /> :
                     <div className='cardDetails'>
                         <h1>{updateDetails ? updateDetails.name : "Card Name"}</h1>
-                        <button onClick={() => navigate('newDetails')}>Add New Data</button>
-                        <br />
                         <button onClick={() => handleDelete()} >Delete</button>
                         <div className="inputDate">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -104,7 +102,7 @@ const CardDetails = (props: Props) => {
                         </div>
 
                         <div className="amount">
-                            <h1>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss}` : `lost $${amountEarnLoss}`}</h1>
+                            <h1>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss.toFixed(2)}` : `lost $${amountEarnLoss.toFixed(2)}`}</h1>
                         </div>
                         {
                             inputDate &&

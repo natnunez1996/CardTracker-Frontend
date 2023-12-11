@@ -3,6 +3,8 @@ import IRecordItem from "@/model/Record/IRecordItem"
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import moment from "moment"
 import React, { useState } from "react"
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import { useNavigate } from "react-router-dom"
 
 type Props = {
     record: IRecord,
@@ -26,6 +28,7 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
 
     //Setting the id of the list that is meant to be deleted.
     const [showConfirmDelete, setShowConfirmDelete] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const onEditCardDetail = (id: String) => {
         setEditedItemId(id);
@@ -86,7 +89,7 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
     ]
 
     return (
-        <TableContainer sx={{ maxHeight: "300px" }}>
+        <TableContainer sx={{ maxHeight: "25vh" }}>
             <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                     <TableRow>
@@ -97,7 +100,10 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
                                 >
-                                    {column.label}
+                                    {column.id === 'delete' ?
+                                        <Button onClick={() => navigate('newDetails')}>
+                                            <NoteAddIcon /> New Data
+                                        </Button> : column.label}
                                 </TableCell>
                             ))
                         }
@@ -112,7 +118,7 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
                             .sort((a: IRecordItem, b: IRecordItem) => {
                                 const dateA = new Date(a.date)
                                 const dateB = new Date(b.date)
-                                return dateA.getTime() - dateB.getTime()
+                                return dateB.getTime() - dateA.getTime()
                             })
                             .map((data) =>
                                 <TableRow key={data.id.toString()}>
