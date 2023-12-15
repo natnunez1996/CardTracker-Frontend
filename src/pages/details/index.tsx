@@ -76,10 +76,7 @@ const CardDetails = (props: Props) => {
     }, [toDelete])
 
 
-    const handleDelete = () => {
-        if (recordId)
-            dispatch(deleteRecord(recordId, navigate))
-    }
+
 
 
     return (
@@ -88,7 +85,6 @@ const CardDetails = (props: Props) => {
                 toEdit ? <EditRecordItemForm setToEdit={setToEdit} id={editedItemId} recordItem={updateDetails} /> :
                     <div className='cardDetails'>
                         <h1>{updateDetails ? updateDetails.name : "Card Name"}</h1>
-                        <button onClick={() => handleDelete()} >Delete</button>
                         <div className="inputDate">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker label={'Month & Year'} views={['month', 'year']}

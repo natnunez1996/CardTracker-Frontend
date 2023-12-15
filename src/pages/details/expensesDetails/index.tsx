@@ -83,8 +83,7 @@ const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Prop
         filteredDetails.forEach(recordItem => {
             if (recordItem.category === CardCategory.INCOME)
                 setAmountEarnLoss(prevAmount => prevAmount += recordItem.amount);
-            else if (recordItem.category === CardCategory.ENTERTAINMENT ||
-                recordItem.category === CardCategory.EXPENSES)
+            else
                 setAmountEarnLoss(prevAmount => prevAmount -= recordItem.amount);
 
         })
