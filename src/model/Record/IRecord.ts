@@ -4,9 +4,9 @@ import { Key } from "react";
 export default interface IRecord {
     name: String,
     recordItemsList: IRecordItem[] | [],
-    amount: number,
     createdBy: String,
     createdDate: Date,
     updatedDate: Date,
-    _id?: Key
+    _id?: Key,
+    recordType: String
 }
