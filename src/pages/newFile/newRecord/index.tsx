@@ -4,6 +4,7 @@ import "./newRecord.css"
 import { useAppDispatch } from "@/hook";
 import { useNavigate } from "react-router-dom";
 import { createRecord } from "@/actions/record";
+import { CardType } from "@/model/Record/ECardType";
 
 type Props = {}
 
@@ -26,11 +27,13 @@ const NewRecord = (props: Props) => {
         const newRecord: IRecord = {
             name: data.name,
             recordItemsList: [],
-            amount: 0,
+            recordType: data.recordType,
             createdBy: userId,
             createdDate: new Date(),
             updatedDate: new Date(),
         }
+        console.log(data.recordType);
+
 
         dispatch(createRecord(newRecord, navigate));
 
@@ -38,12 +41,21 @@ const NewRecord = (props: Props) => {
     }
 
 
+    const choices = (Object.keys(CardType) as Array<keyof typeof CardType>)
 
     return (
         <div className="newRecord">
             <form className="newRecordForm" onSubmit={handleSubmit(onSubmit)}>
                 Record Name:
                 <input {...register("name", { "required": true })} />
+                Type of Card:
+                <select {...register("recordType")}>
+                    {
+                        choices.map(choice => {
+                            return <option value={CardType[choice]}>{choice.replace(/_/, ' ')}</option>
+                        })
+                    }
+                </select>
                 <button type="submit">Submit</button>
             </form>
         </div>

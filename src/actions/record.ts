@@ -23,9 +23,6 @@ export const createRecord = (recordData: IRecord, navigate: NavigateFunction) =>
 export const deleteRecord = (recordId: string, navigate: NavigateFunction) => async (dispach: Dispatch) => {
     try {
         await API.deleteRecord(recordId)
-        console.log(`DELETED ${recordId}`);
-
-
         navigate(`/home`, { replace: true });
 
     } catch (error) {
@@ -65,8 +62,7 @@ export const getRecord = (userId: String, recordId: String) => async (dispatch: 
 
 export const updateRecord = (updatedRecord: IRecord, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
     try {
-        const { data }: AxiosResponse = await API.updateRecord(updatedRecord._id.toString(), updatedRecord)
-        console.log("UPDATED IN BACKEND");
+        const { data }: AxiosResponse = await API.updateRecord(updatedRecord._id!.toString(), updatedRecord)
 
         dispatch({ type: actionTypes.UPDATERECORD, payload: data });
 

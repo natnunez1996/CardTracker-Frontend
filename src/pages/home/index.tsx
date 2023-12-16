@@ -6,6 +6,8 @@ import { deleteRecord, getAllRecordsOfUser } from '@/actions/record';
 import { useNavigate } from 'react-router-dom';
 import CardCategory from '@/model/Record/EcardCategory';
 import CardItem from '@/common/CardItem';
+import { Paper, IconButton, Stack } from '@mui/material';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 type Props = {
     userId: String | undefined;
@@ -36,6 +38,7 @@ const Home = ({ userId }: Props) => {
     const handleDelete = (recordId: string) => {
         if (recordId)
             dispatch(deleteRecord(recordId, navigate))
+        window.location.reload();
     }
 
 
@@ -56,8 +59,13 @@ const Home = ({ userId }: Props) => {
         <div className='home'>
             {userId &&
                 <>
+                    <Paper elevation={3} sx={{ height: 50, alignSelf: 'center', width: '100 %' }}>
+                        <IconButton color='primary' onClick={() => navigate('/newRecord', { replace: true })}>
+                            Add Card <PostAddIcon />
+                        </IconButton>
+                    </Paper>
                     {userRecords ?
-                        <>
+                        <Stack sx={{ margin: '1rem' }} direction='row' spacing={2}>
                             {userRecords.map((record) => (
                                 <CardItem key={record._id?.toString()}
                                     anchorEl={anchorEl}
@@ -69,7 +77,7 @@ const Home = ({ userId }: Props) => {
                                     setAnchorEl={setAnchorEl}
                                 />
                             ))}
-                        </> :
+                        </Stack> :
                         <h1>No Records Found for this user.</h1>}
                 </>
             }

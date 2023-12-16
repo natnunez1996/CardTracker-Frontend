@@ -2,29 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: normal;
   width: 100%;
-  justify-content: space-around;
   height: calc(100vh - 5rem);
-}
-.upperCard {
-  height: 448px;
-  width: 1003px;
-  border-radius: 14px;
-  margin: 1rem;
-}
-
-.lowerCard {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin: 1rem;
-}
-
-.leftCard,
-.rightCard {
-  width: 480px;
-  height: 329px;
-  border-radius: 14px;
-  margin: 1.25rem;
 }
