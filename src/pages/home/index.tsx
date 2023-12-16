@@ -6,7 +6,7 @@ import { deleteRecord, getAllRecordsOfUser } from '@/actions/record';
 import { useNavigate } from 'react-router-dom';
 import CardCategory from '@/model/Record/EcardCategory';
 import CardItem from '@/common/CardItem';
-import { Paper, IconButton, Stack } from '@mui/material';
+import { Paper, IconButton, Stack, Popper, Box, Button } from '@mui/material';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 
 type Props = {
@@ -21,6 +21,8 @@ const Home = ({ userId }: Props) => {
     const [userRecords, setUserRecords] = useState<IRecord[]>();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const [recordIdToDelete, setRecordIdToDelete] = useState<string | null>(null);
+    const [reload, setReload] = useState(true);
 
     const calculateBalance = (record: IRecord): number => {
         let sum = 0;
@@ -35,10 +37,11 @@ const Home = ({ userId }: Props) => {
         return sum
     }
 
-    const handleDelete = (recordId: string) => {
-        if (recordId)
-            dispatch(deleteRecord(recordId, navigate))
-        window.location.reload();
+    const handleDelete = () => {
+        if (recordIdToDelete) {
+            dispatch(deleteRecord(recordIdToDelete, navigate))
+            setReload(prevState => !prevState)
+        }
     }
 
 
@@ -47,9 +50,10 @@ const Home = ({ userId }: Props) => {
 
         if (userId)
             dispatch(getAllRecordsOfUser(userId))
-    }, [userId])
+    }, [userId, reload])
 
     useEffect(() => {
+
         setUserRecords(records.records);
     }, [records])
 
@@ -70,15 +74,21 @@ const Home = ({ userId }: Props) => {
                                 <CardItem key={record._id?.toString()}
                                     anchorEl={anchorEl}
                                     calculateBalance={calculateBalance}
-                                    handleDelete={handleDelete}
                                     navigate={navigate}
-                                    open={open}
                                     record={record}
                                     setAnchorEl={setAnchorEl}
+                                    setRecordIdToDelete={setRecordIdToDelete}
                                 />
                             ))}
                         </Stack> :
                         <h1>No Records Found for this user.</h1>}
+
+                    <Popper open={open} anchorEl={anchorEl}>
+                        <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }} >
+                            <Button color='error' onClick={handleDelete}> DELETE </Button>
+                            <Button color='success' onClick={() => setAnchorEl(null)}> Cancel </Button>
+                        </Box>
+                    </Popper>
                 </>
             }
         </div >
