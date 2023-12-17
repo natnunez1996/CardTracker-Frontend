@@ -14,9 +14,9 @@ import dayjs from 'dayjs';
 import { getUserIdHook } from '@/customHooks/getUserIdHook';
 import { IProfile } from '@/model/UserModel/IProfile';
 import DistributionDetails from './distributionDetails/index';
-import ExpensesDetails from './expensesDetails';
-import ListsDetails from './listsDetails';
-import MonthsDistributionDetails from './monthsDistributionDetails';
+import ExpensesDetails from '@/pages/details/expensesDetails';
+import ListsDetails from '@/pages/details/listsDetails';
+import MonthsDistributionDetails from '@/pages/details/monthsDistributionDetails';
 import CardCategory from '@/model/Record/EcardCategory';
 
 
@@ -24,25 +24,21 @@ type Props = {}
 
 const CardDetails = (props: Props) => {
     const dispatch = useAppDispatch();
-
     const navigate = useNavigate();
     const { recordId } = useParams();
     const user: IProfile | undefined = getUserIdHook();
-
     const cardDetails: IRecord | undefined = getRecordHook(user?.result._id, recordId);
 
-    const [updateDetails, setUpdateDetails] = useState<IRecord>();
     const [toDelete, setToDelete] = useState<Boolean>(false);
     const [toEdit, setToEdit] = useState<Boolean>(false);
     const [editedItemId, setEditedItemId] = useState<String>("");
+    const [updateDetails, setUpdateDetails] = useState<IRecord>();
 
-    const storedDate = localStorage.getItem("lastKnownInputDate")
-    const [inputDate, setInputDate] = useState<Date>(new Date());
     const [amountEarnLoss, setAmountEarnLoss] = useState<number>(0);
+    const [inputDate, setInputDate] = useState<Date>(new Date());
+    const storedDate = localStorage.getItem("lastKnownInputDate");
 
     const choices: CardCategory[] = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>).map(key => CardCategory[key]);
-
-
 
     useEffect(() => {
         if (!user)
@@ -65,18 +61,16 @@ const CardDetails = (props: Props) => {
         }
     }, [cardDetails])
 
-
-
     useEffect(() => {
-
         if (updateDetails) {
             dispatch(updateRecord(updateDetails, navigate))
             navigate(0)
         }
     }, [toDelete])
 
-
-
+    useEffect(() => {
+        localStorage.setItem("lastKnownInputDate", inputDate.toDateString())
+    }, [inputDate])
 
 
     return (
@@ -87,11 +81,17 @@ const CardDetails = (props: Props) => {
                         <h1>{updateDetails ? updateDetails.name : "Card Name"}</h1>
                         <div className="inputDate">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker label={'Month & Year'} views={['month', 'year']}
-                                    defaultValue={storedDate ? dayjs(`${inputDate}`) : dayjs(`${new Date()}`)}
+                                <DatePicker
+                                    autoFocus
+                                    label={'Month & Year'}
+                                    openTo='month'
+                                    views={['year', 'month']}
+                                    defaultValue={storedDate ? dayjs(`${new Date(storedDate)}`) : dayjs(`${new Date()}`)}
                                     onAccept={(v: any) => {
-                                        if (v)
-                                            setInputDate(v.$d)
+                                        setInputDate(v.$d)
+                                    }}
+                                    onChange={(v: any) => {
+                                        setInputDate(v.$d)
                                     }}
                                 />
                             </LocalizationProvider>
