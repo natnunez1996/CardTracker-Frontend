@@ -115,9 +115,14 @@ const CardDetails = (props: Props) => {
                                 }
                                 <div className="transactions">
                                     {updateDetails &&
-                                        <ListsDetails inputDate={inputDate} record={updateDetails}
-                                            setEditedItemId={setEditedItemId} setToDelete={setToDelete}
-                                            setToEdit={setToEdit} setUpdateDetails={setUpdateDetails} />
+                                        <ListsDetails
+                                            amountEarnLoss={amountEarnLoss}
+                                            inputDate={inputDate}
+                                            record={updateDetails}
+                                            setEditedItemId={setEditedItemId}
+                                            setToDelete={setToDelete}
+                                            setToEdit={setToEdit}
+                                            setUpdateDetails={setUpdateDetails} />
                                     }
                                 </div>
                             </>

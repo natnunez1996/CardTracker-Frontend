@@ -32,7 +32,7 @@ const DistributionDetails = ({ record, inputDate, choices }: Props) => {
         labels: choices,
         datasets: [
             {
-                label: "% value",
+                label: "$",
                 data: choices.map(choice => {
                     const list = filterItemsByCategory(monthRecordsList, choice);
                     if (list.length > 0)

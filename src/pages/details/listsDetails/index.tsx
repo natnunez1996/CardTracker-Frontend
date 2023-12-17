@@ -5,14 +5,16 @@ import moment from "moment"
 import React, { useState } from "react"
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { useNavigate } from "react-router-dom"
+import { CardType } from "@/model/Record/ECardType"
 
 type Props = {
-    record: IRecord,
+    amountEarnLoss: number
     inputDate: Date,
+    record: IRecord,
     setEditedItemId: React.Dispatch<React.SetStateAction<String>>,
+    setToDelete: React.Dispatch<React.SetStateAction<Boolean>>
     setToEdit: React.Dispatch<React.SetStateAction<Boolean>>,
     setUpdateDetails: React.Dispatch<React.SetStateAction<IRecord | undefined>>,
-    setToDelete: React.Dispatch<React.SetStateAction<Boolean>>
 }
 
 interface ListHeader {
@@ -24,7 +26,15 @@ interface ListHeader {
 
 }
 
-const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDelete, setUpdateDetails }: Props) => {
+const ListsDetails = ({
+    amountEarnLoss,
+    inputDate,
+    record,
+    setEditedItemId,
+    setToDelete,
+    setToEdit,
+    setUpdateDetails
+}: Props) => {
 
     //Setting the id of the list that is meant to be deleted.
     const [showConfirmDelete, setShowConfirmDelete] = useState<string | null>(null);
@@ -100,10 +110,13 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
                                 >
-                                    {column.id === 'delete' ?
-                                        <Button onClick={() => navigate('newDetails')}>
-                                            <NoteAddIcon /> New Data
-                                        </Button> : column.label}
+                                    {   //If Card Type is Gift Card, disable the Add Button if the balance is less than or equal to 0
+                                        column.id === 'delete' &&
+                                            (record.recordType === CardType.GIFT_CARD ? amountEarnLoss > 0 : true) ?
+                                            <Button onClick={() => navigate('newDetails')}>
+                                                <NoteAddIcon /> New Data
+                                            </Button> : column.label
+                                    }
                                 </TableCell>
                             ))
                         }
