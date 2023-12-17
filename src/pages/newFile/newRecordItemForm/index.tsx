@@ -12,6 +12,7 @@ import { updateRecord } from '@/actions/record'
 import moment from 'moment'
 import { getUserIdHook } from '@/customHooks/getUserIdHook'
 import { IProfile } from '@/model/UserModel/IProfile'
+import { CardType } from '@/model/Record/ECardType'
 
 
 type Props = {
@@ -62,7 +63,12 @@ const NewRecordItemForm = (props: Props) => {
         }
     }
 
-    const choices = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>).map(key => CardCategory[key])
+    const choicesArray = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>);
+
+    const choices = newCardDetails?.recordType !== CardType.GIFT_CARD ?
+        choicesArray.map(key => CardCategory[key]) :
+        choicesArray.filter(key => CardCategory[key] !== CardCategory.INCOME)
+            .map(key => CardCategory[key]);
 
 
     return (

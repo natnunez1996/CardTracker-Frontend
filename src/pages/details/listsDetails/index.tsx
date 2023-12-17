@@ -131,11 +131,11 @@ const ListsDetails = ({ inputDate, record, setEditedItemId, setToEdit, setToDele
                                         //If showConfirmDelete id === data.id, new buttons will show for confirmation.
 
                                         showConfirmDelete === data.id ?
-                                            <TableCell align="center">
+                                            <TableCell sx={{ width: 268 }} align="center">
                                                 <Button color="error" onClick={() => onDeleteCardDetail(data.id)}>DELETE</Button>
                                                 <Button color="success" onClick={() => setShowConfirmDelete(null)}>Cancel</Button>
                                             </TableCell>
-                                            : <TableCell align="center"><Button color="error" onClick={() => setShowConfirmDelete(data.id.toString())}>Delete</Button></TableCell>
+                                            : <TableCell sx={{ width: 268 }} align="center"><Button color="error" onClick={() => setShowConfirmDelete(data.id.toString())}>Delete</Button></TableCell>
                                     }
                                 </TableRow>)
                     }

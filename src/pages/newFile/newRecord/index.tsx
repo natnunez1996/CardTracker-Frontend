@@ -5,6 +5,8 @@ import { useAppDispatch } from "@/hook";
 import { useNavigate } from "react-router-dom";
 import { createRecord } from "@/actions/record";
 import { CardType } from "@/model/Record/ECardType";
+import IRecordItem from "@/model/Record/IRecordItem";
+import CardCategory from "@/model/Record/EcardCategory";
 
 type Props = {}
 
@@ -12,7 +14,7 @@ const NewRecord = (props: Props) => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, watch } = useForm();
 
     const onSubmit: SubmitHandler<any> = (data: IRecord) => {
         let userId: String = "";
@@ -24,15 +26,24 @@ const NewRecord = (props: Props) => {
             userId = result.result._id;
         }
 
+        const tempRecordItem: IRecordItem = {
+            amount: data.initialAmount ?? 0,
+            category: CardCategory.INCOME,
+            date: new Date(),
+            id: '1',
+            name: "Gift Card's Initial Balance"
+        }
         const newRecord: IRecord = {
             name: data.name,
-            recordItemsList: [],
+            recordItemsList: [] as IRecordItem[],
             recordType: data.recordType,
             createdBy: userId,
             createdDate: new Date(),
             updatedDate: new Date(),
         }
-        console.log(data.recordType);
+
+        if (data.recordType === CardType.GIFT_CARD)
+            newRecord.recordItemsList.push(tempRecordItem)
 
 
         dispatch(createRecord(newRecord, navigate));
@@ -43,6 +54,7 @@ const NewRecord = (props: Props) => {
 
     const choices = (Object.keys(CardType) as Array<keyof typeof CardType>)
 
+
     return (
         <div className="newRecord">
             <form className="newRecordForm" onSubmit={handleSubmit(onSubmit)}>
@@ -52,10 +64,17 @@ const NewRecord = (props: Props) => {
                 <select {...register("recordType")}>
                     {
                         choices.map(choice => {
-                            return <option value={CardType[choice]}>{choice.replace(/_/, ' ')}</option>
+                            return <option key={choice} value={CardType[choice]}>{choice.replace(/_/, ' ')}</option>
                         })
                     }
                 </select>
+                {
+                    watch(['recordType']).toString() === CardType.GIFT_CARD &&
+                    <>
+                        Gift Card's Amount
+                        <input type="number" step=".01" {...register("initialAmount", { "required": true })} />
+                    </>
+                }
                 <button type="submit">Submit</button>
             </form>
         </div>

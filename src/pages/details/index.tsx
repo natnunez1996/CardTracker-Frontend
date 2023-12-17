@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import IRecord from '@/model/Record/IRecord';
 import { getRecordHook } from '@/customHooks/getRecordHook';
 import { useAppDispatch } from '@/hook';
-import { deleteRecord, updateRecord } from '@/actions/record';
+import { updateRecord } from '@/actions/record';
 import EditRecordItemForm from '../newFile/editRecordItemForm';
 import dayjs from 'dayjs';
 import { getUserIdHook } from '@/customHooks/getUserIdHook';
