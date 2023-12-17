@@ -1,5 +1,5 @@
 import IRecord from "@/model/Record/IRecord"
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Popper, Typography } from "@mui/material"
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography } from "@mui/material"
 import { deepOrange, green } from "@mui/material/colors"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavigateFunction } from "react-router-dom";
