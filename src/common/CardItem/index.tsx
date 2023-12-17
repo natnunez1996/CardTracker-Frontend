@@ -1,9 +1,10 @@
 import IRecord from "@/model/Record/IRecord"
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Popper, Typography } from "@mui/material"
-import { deepOrange } from "@mui/material/colors"
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Popper, Typography } from "@mui/material"
+import { deepOrange, green } from "@mui/material/colors"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavigateFunction } from "react-router-dom";
 import React from "react";
+import { CardType } from "@/model/Record/ECardType";
 
 
 type Props = {
@@ -28,7 +29,10 @@ const CardItem = ({
   return (
     <Card sx={{ width: 200, maxWidth: 350 }} key={record._id}>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: deepOrange[200] }}>CC</Avatar>}
+        avatar={
+          <Avatar sx={record.recordType === CardType.CREDIT_CARD ? { bgcolor: deepOrange[200] } : { bgcolor: green[200] }}>
+            {record.recordType === CardType.CREDIT_CARD ? 'CC' : 'GC'}
+          </Avatar>}
         title={record.name}
       />
       <CardMedia
