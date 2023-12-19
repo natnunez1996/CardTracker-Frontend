@@ -1,11 +1,9 @@
-import IRecord from "@/model/Record/IRecord"
-import IRecordItem from "@/model/Record/IRecordItem"
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import moment from "moment"
 import React, { useState } from "react"
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { useNavigate } from "react-router-dom"
-import CardType from "@/model/Record/ECardType"
+import { CardType, IRecord, IRecordItem } from "@/model/CardModel";
 
 type Props = {
     amountEarnLoss: number

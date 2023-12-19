@@ -1,6 +1,6 @@
-import CardCategory from "@/model/Record/EcardCategory";
+import { CardCategory } from ".";
 
-export default interface IRecordItem {
+export interface IRecordItem {
     name: String,
     amount: number,
     date: Date,

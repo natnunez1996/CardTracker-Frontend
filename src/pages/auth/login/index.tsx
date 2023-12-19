@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import './login.css'
-import ISignInFormData from '@/model/auth/ISignInFormData';
+import { ISignInFormData } from '@/model/auth';
 import { useAppDispatch } from '@/hook';
 import { useNavigate } from 'react-router-dom';
 import { signIn } from '@/actions/auth';

@@ -1,4 +1,4 @@
-export default interface ISignInFormData {
+export interface ISignInFormData {
     email: String,
     password: String
 }

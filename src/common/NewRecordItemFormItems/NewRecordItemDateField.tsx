@@ -1,4 +1,4 @@
-import IRecordItem from "@/model/Record/IRecordItem";
+import { IRecordItem } from "@/model/CardModel";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";

@@ -1,10 +1,10 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form';
 import './register.css'
-import ISignUpFormData from '@/model/auth/ISignUpFormData';
 import { signUp } from '@/actions/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/hook';
+import { ISignUpFormData } from '@/model/auth';
 
 
 

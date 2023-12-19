@@ -1,5 +1,5 @@
 import * as actionTypes from '@/constants/actionTypes'
-import IRecord from '@/model/Record/IRecord'
+import { IRecord } from '@/model/CardModel'
 
 const initialState: UserRecordsState = {
     records: [],

@@ -1,15 +1,13 @@
 import { useForm } from 'react-hook-form'
-import CardCategory from '@/model/Record/EcardCategory'
-import IRecordItem from '@/model/Record/IRecordItem'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch } from '@/hook'
-import IRecord from '@/model/Record/IRecord'
 import { getRecordHook } from '@/customHooks/getRecordHook'
 import { useState, useEffect } from 'react';
 import { updateRecord } from '@/actions/record'
 import { getUserIdHook } from '@/customHooks/getUserIdHook'
 import { IProfile } from '@/model/UserModel/IProfile'
 import RecordItemForm from '@/common/RecordItemForm'
+import { IRecord, IRecordItem, CardCategory } from '@/model/CardModel';
 
 
 type Props = {

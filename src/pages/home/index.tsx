@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import './home.css';
-import IRecord from '@/model/Record/IRecord';
 import { useAppDispatch, useAppSelector } from '@/hook';
 import { deleteRecord, getAllRecordsOfUser } from '@/actions/record';
 import { useNavigate } from 'react-router-dom';
-import CardCategory from '@/model/Record/EcardCategory';
 import CardItem from '@/common/CardItem';
 import { Paper, IconButton, Stack, Popper, Box, Button } from '@mui/material';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import { CardCategory, IRecord } from '@/model/CardModel';
 
 type Props = {
     userId: String | undefined;

@@ -1,4 +1,4 @@
-export default interface ISignUpFormData {
+export interface ISignUpFormData {
     email: String,
     firstName: String,
     lastName: String,

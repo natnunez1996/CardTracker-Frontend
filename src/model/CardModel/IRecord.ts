@@ -1,7 +1,7 @@
-import IRecordItem from "@/model/Record/IRecordItem";
 import { Key } from "react";
+import { IRecordItem } from ".";
 
-export default interface IRecord {
+export interface IRecord {
     _id?: Key,
     createdBy: String,
     createdDate: Date,

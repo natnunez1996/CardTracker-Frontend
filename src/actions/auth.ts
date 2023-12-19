@@ -1,8 +1,7 @@
 import { Dispatch } from 'redux';
 import * as actionTypes from '../constants/actionTypes';
 import * as API from '@/api';
-import ISignUpFormData from '@/model/auth/ISignUpFormData';
-import ISignInFormData from '@/model/auth/ISignInFormData';
+import { ISignInFormData, ISignUpFormData } from '@/model/auth'
 import { NavigateFunction } from 'react-router-dom';
 
 

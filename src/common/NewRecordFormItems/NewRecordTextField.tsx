@@ -1,4 +1,4 @@
-import IRecord from '@/model/Record/IRecord'
+import { IRecord } from '@/model/CardModel'
 import { TextField } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 

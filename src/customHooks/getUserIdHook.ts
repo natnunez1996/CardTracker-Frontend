@@ -1,4 +1,4 @@
-import { IProfile } from "@/model/UserModel/IProfile";
+import { IProfile } from "@/model/UserModel";
 
 export const getUserIdHook = () => {
     let newUser: string | null;

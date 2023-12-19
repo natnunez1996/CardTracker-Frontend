@@ -1,5 +1,5 @@
 
-import IRecordItem from '@/model/Record/IRecordItem'
+import { IRecordItem } from '@/model/CardModel'
 import { TextField } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 

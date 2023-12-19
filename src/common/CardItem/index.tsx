@@ -1,10 +1,9 @@
-import IRecord from "@/model/Record/IRecord"
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography } from "@mui/material"
 import { deepOrange, green } from "@mui/material/colors"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavigateFunction } from "react-router-dom";
 import React from "react";
-import CardType from "@/model/Record/ECardType";
+import { CardType, IRecord } from "@/model/CardModel";
 
 
 type Props = {

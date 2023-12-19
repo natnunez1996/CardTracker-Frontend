@@ -1,7 +1,6 @@
-import IRecord from "@/model/Record/IRecord";
-import SignInFormData from "@/model/auth/ISignInFormData";
-import SignUpFormData from "@/model/auth/ISignUpFormData";
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosInstance } from "axios";
+import { ISignInFormData, ISignUpFormData } from '@/model/auth';
+import { IRecord } from "@/model/CardModel";
 
 
 
@@ -20,5 +19,5 @@ export const updateRecord = (recordId: String, updatedRecord: IRecord) => API.pa
 export const deleteRecord = (recordId: String) => API.delete(`/record/details/${recordId}`)
 
 //Auth
-export const signUp = (signUpFormData: SignUpFormData) => API.post(`/signUp`, signUpFormData);
-export const signIn = (signInFormData: SignInFormData) => API.post(`/signIn`, signInFormData);
+export const signUp = (signUpFormData: ISignUpFormData) => API.post(`/signUp`, signUpFormData);
+export const signIn = (signInFormData: ISignInFormData) => API.post(`/signIn`, signInFormData);

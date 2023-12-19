@@ -1,7 +1,4 @@
-import CardCategory from "@/model/Record/EcardCategory"
-import CardCategoryColor from "@/model/Record/EcardCategoryColor"
-import IRecord from "@/model/Record/IRecord"
-import IRecordItem from "@/model/Record/IRecordItem"
+import { CardCategory, CardCategoryColor, IRecord, IRecordItem } from "@/model/CardModel"
 import { useEffect } from "react"
 import { Bar } from "react-chartjs-2"
 

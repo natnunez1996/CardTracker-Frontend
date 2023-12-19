@@ -1,7 +1,6 @@
 import { getRecord } from '@/actions/record';
 import { useAppDispatch, useAppSelector } from '@/hook';
-import IRecord from '@/model/Record/IRecord';
-import IRecordItem from '@/model/Record/IRecordItem';
+import { IRecord, IRecordItem } from '@/model/CardModel';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

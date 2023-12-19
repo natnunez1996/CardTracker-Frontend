@@ -1,9 +1,9 @@
 import * as actionTypes from '@/constants/actionTypes';
 import * as API from '@/api';
-import IRecord from '@/model/Record/IRecord';
 import { NavigateFunction } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
+import { IRecord } from '@/model/CardModel';
 
 
 export const createRecord = (recordData: IRecord, navigate: NavigateFunction) => async (dispatch: Dispatch) => {

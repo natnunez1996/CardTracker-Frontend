@@ -5,7 +5,6 @@ import { useState } from 'react';
 import 'chart.js/auto';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import IRecord from '@/model/Record/IRecord';
 import { getRecordHook } from '@/customHooks/getRecordHook';
 import { useAppDispatch } from '@/hook';
 import { updateRecord } from '@/actions/record';
@@ -17,7 +16,7 @@ import DistributionDetails from './distributionDetails/index';
 import ExpensesDetails from '@/pages/details/expensesDetails';
 import ListsDetails from '@/pages/details/listsDetails';
 import MonthsDistributionDetails from '@/pages/details/monthsDistributionDetails';
-import CardCategory from '@/model/Record/EcardCategory';
+import { CardCategory, IRecord } from '@/model/CardModel';
 
 
 type Props = {}
