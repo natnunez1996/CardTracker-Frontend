@@ -8,25 +8,26 @@ import IRecord from '@/model/Record/IRecord'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { updateRecord } from '@/actions/record'
-import moment from 'moment'
+import RecordItemForm from '@/common/RecordItemForm'
 
 
 type Props = {
-    recordItem: IRecord | undefined,
     id: String,
+    recordId: string,
+    recordItem: IRecord | undefined,
     setToEdit: React.Dispatch<React.SetStateAction<Boolean>>
 }
 
-const EditRecordItemForm = ({ recordItem, id, setToEdit }: Props) => {
+const EditRecordItemForm = ({ id, recordId, recordItem, setToEdit }: Props) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const { register, handleSubmit, setValue } = useForm();
+    const { control, handleSubmit, setValue } = useForm<IRecordItem>();
 
     const [editedCardDetails, setEditedCardDetails] = useState<IRecord>();
     const [toSubmit, setToSubmit] = useState<Boolean>(false);
 
-    const choices = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>).map(key => CardCategory[key])
+    const choices = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>)
 
     useEffect(() => {
         if (recordItem) {
@@ -34,8 +35,10 @@ const EditRecordItemForm = ({ recordItem, id, setToEdit }: Props) => {
                 if (item.id === id) {
                     setValue("name", item.name)
                     setValue("amount", item.amount)
-                    setValue("date", moment(item.date).format("yyyy-MM-DD"))
+                    setValue("date", item.date)
                     setValue("category", item.category)
+                    console.log(item.date);
+
                 }
             })
         }
@@ -55,7 +58,7 @@ const EditRecordItemForm = ({ recordItem, id, setToEdit }: Props) => {
         const editedRecordItem: IRecordItem = {
             name: data.name,
             amount: data.amount,
-            date: new Date(moment(data.date).format("yyyy/MM/DD")),
+            date: data.date,
             category: data.category,
             id: id
         }
@@ -85,26 +88,16 @@ const EditRecordItemForm = ({ recordItem, id, setToEdit }: Props) => {
 
 
     return (
-        <div className="editRecordItem">
-            <form className="editRecordItemForm" onSubmit={handleSubmit(onSubmit)}>
-                Record Name:
-                <input {...register("name", { "required": true })} />
-                Amount:
-                <input type="number" step=".01" {...register("amount", { "required": true, valueAsNumber: true })} />
-                Date:
-                <input type="date" {...register("date", { "required": true })} />
-                Category
-                <select {...register("category")}>
-                    {
-                        choices.map(choice => {
-                            return <option value={choice}>{choice[0].toUpperCase() + choice.slice(1)}</option>
-                        })
-                    }
-                </select>
-                <button type="submit">Submit</button>
-                <button onClick={() => onCancelEdit()}>Cancel</button>
-            </form>
-        </div>
+        <RecordItemForm
+            cardType={editedCardDetails?.recordType}
+            choices={choices}
+            control={control}
+            handleSubmit={handleSubmit}
+            navigate={navigate}
+            onCancelEdit={onCancelEdit}
+            onSubmit={onSubmit}
+            recordId={recordId!}
+        />
     )
 }
 

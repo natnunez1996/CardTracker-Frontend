@@ -76,7 +76,7 @@ const CardDetails = (props: Props) => {
     return (
         <>
             {
-                toEdit ? <EditRecordItemForm setToEdit={setToEdit} id={editedItemId} recordItem={updateDetails} /> :
+                toEdit ? <EditRecordItemForm id={editedItemId} recordId={recordId!} recordItem={updateDetails} setToEdit={setToEdit} /> :
                     <div className='cardDetails'>
                         <h1>{updateDetails ? updateDetails.name : "Card Name"}</h1>
                         <div className="inputDate">

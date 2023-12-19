@@ -5,7 +5,7 @@ import moment from "moment"
 import React, { useState } from "react"
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { useNavigate } from "react-router-dom"
-import { CardType } from "@/model/Record/ECardType"
+import CardType from "@/model/Record/ECardType"
 
 type Props = {
     amountEarnLoss: number
