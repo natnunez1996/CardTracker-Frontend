@@ -4,7 +4,7 @@ import { deepOrange, green } from "@mui/material/colors"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavigateFunction } from "react-router-dom";
 import React from "react";
-import { CardType } from "@/model/Record/ECardType";
+import CardType from "@/model/Record/ECardType";
 
 
 type Props = {
