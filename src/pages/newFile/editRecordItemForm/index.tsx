@@ -37,8 +37,6 @@ const EditRecordItemForm = ({ id, recordId, recordItem, setToEdit }: Props) => {
                     setValue("amount", item.amount)
                     setValue("date", item.date)
                     setValue("category", item.category)
-                    console.log(item.date);
-
                 }
             })
         }

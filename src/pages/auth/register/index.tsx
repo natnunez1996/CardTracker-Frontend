@@ -16,7 +16,6 @@ const Register = (props: Props) => {
     const dispatch = useAppDispatch();
 
     const onSubmit: SubmitHandler<ISignUpFormData> = data => {
-        // console.log(data);
         dispatch(signUp(data, navigate))
     }
 
