@@ -5,7 +5,7 @@ import { getRecordHook } from '@/customHooks/getRecordHook'
 import { useState, useEffect } from 'react';
 import { updateRecord } from '@/actions/record'
 import { getUserIdHook } from '@/customHooks/getUserIdHook'
-import { IProfile } from '@/model/UserModel/IProfile'
+import { IProfile } from '@/model/UserModel'
 import RecordItemForm from '@/common/RecordItemForm'
 import { IRecord, IRecordItem, CardCategory } from '@/model/CardModel';
 
@@ -47,20 +47,20 @@ const NewRecordItemForm = (props: Props) => {
                 name: data.name,
                 amount: data.amount,
                 category: data.category,
-                date: data.date,
+                date: new Date(data.date),
                 id: (+lastKnownId + 1).toString()
             }
 
             setNewCardDetails(prevState => {
                 return { ...prevState, recordItemsList: [...prevState?.recordItemsList as [], recordItem] } as IRecord
             })
+
             localStorage.setItem('lastKnownInputDate', new Date(recordItem.date).toDateString())
             setToSubmit(true);
         }
     }
 
     const choices = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>);
-
 
     return (
         <>

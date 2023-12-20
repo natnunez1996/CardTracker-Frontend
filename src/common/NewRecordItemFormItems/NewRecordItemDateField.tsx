@@ -18,7 +18,7 @@ const NewRecordItemDateField = ({ control, label, name }: Props) => {
             rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label={label} value={value ? dayjs(value.toString()) : dayjs(new Date())} onChange={date => onChange(date)} />
+                    <DatePicker label={label} value={value ? dayjs(value.toString()) : null} onChange={date => onChange(date)} />
                 </LocalizationProvider>
             )}
         />

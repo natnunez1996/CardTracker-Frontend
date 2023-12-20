@@ -2,10 +2,9 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { useAppDispatch } from "@/hook";
 import { useNavigate } from "react-router-dom";
 import { createRecord } from "@/actions/record";
-import NewRecordTextField from '@/common/NewRecordFormItems/NewRecordTextField';
-import NewRecordSelect from "@/common/NewRecordFormItems/NewRecordSelect";
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import { IRecord, IRecordItem, CardCategory, CardType } from "@/model/CardModel";
+import { NewRecordSelect, NewRecordTextField } from "@/common/NewRecordFormItems";
 
 type Props = {}
 

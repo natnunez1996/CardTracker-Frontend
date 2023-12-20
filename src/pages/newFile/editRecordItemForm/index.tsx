@@ -1,9 +1,7 @@
 import { useForm } from 'react-hook-form'
-import './editRecordItemForm.css'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/hook'
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { updateRecord } from '@/actions/record'
 import RecordItemForm from '@/common/RecordItemForm'
 import { CardCategory, IRecord, IRecordItem } from '@/model/CardModel';
@@ -54,7 +52,7 @@ const EditRecordItemForm = ({ id, recordId, recordItem, setToEdit }: Props) => {
         const editedRecordItem: IRecordItem = {
             name: data.name,
             amount: data.amount,
-            date: data.date,
+            date: new Date(data.date),
             category: data.category,
             id: id
         }

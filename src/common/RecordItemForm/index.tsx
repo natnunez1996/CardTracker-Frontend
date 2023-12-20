@@ -1,10 +1,8 @@
 import { Box, Container, Paper, Typography, Button } from "@mui/material"
-import NewRecordItemTextField from "../NewRecordItemFormItems/NewRecordItemTextField"
-import NewRecordItemDateField from "../NewRecordItemFormItems/NewRecordItemDateField"
 import { Control, SubmitHandler, UseFormHandleSubmit } from "react-hook-form"
 import { NavigateFunction } from "react-router-dom"
-import NewRecordItemSelect from "../NewRecordItemFormItems/NewRecordItemSelect"
 import { CardCategory, IRecordItem } from "@/model/CardModel"
+import { NewRecordItemTextField, NewRecordItemDateField, NewRecordItemSelect } from "../NewRecordItemFormItems"
 
 
 type Props = {
@@ -30,7 +28,7 @@ const RecordItemForm = ({ cardType, choices, control, handleSubmit, navigate, on
             <Container maxWidth="sm" sx={{ margin: '1rem' }} >
                 <Paper variant="outlined" sx={{ padding: "1rem", borderRadius: '1rem', textAlign: 'center' }} >
                     <Typography variant="h5">New Transaction</Typography>
-                    <form className="newRecordForm" onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <NewRecordItemTextField control={control} name="name" label="Transaction Name" />
                         <NewRecordItemTextField control={control} name="amount" label="Amount" />
                         <NewRecordItemDateField control={control} name="date" label="Date" />
