@@ -137,12 +137,14 @@ const ListsDetails = ({
                                     <TableCell align="center">{data.name}</TableCell>
                                     <TableCell align="right">{`$ ${Math.round(data.amount).toFixed(2)}`}</TableCell>
                                     <TableCell align="center">{data.category.charAt(0).toUpperCase() + data.category.slice(1)}</TableCell>
-                                    {
-                                        record.recordType === CardType.GIFT_CARD && data.category === CardCategory.INCOME ?
-                                            <TableCell ></TableCell>
-                                            :
-                                            <TableCell align="center"><Button onClick={() => onEditCardDetail(data.id)}>Edit</Button></TableCell>
-                                    }
+                                    <TableCell align="center">
+                                        {
+                                            record.recordType === CardType.GIFT_CARD && data.category === CardCategory.INCOME ?
+                                                <Button disabled onClick={() => onEditCardDetail(data.id)}>Edit</Button>
+                                                :
+                                                <Button onClick={() => onEditCardDetail(data.id)}>Edit</Button>
+                                        }
+                                    </TableCell>
                                     {
                                         //If showConfirmDelete id === data.id, new buttons will show for confirmation.
 
