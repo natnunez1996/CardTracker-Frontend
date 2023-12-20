@@ -3,7 +3,7 @@ import moment from "moment"
 import React, { useState } from "react"
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { useNavigate } from "react-router-dom"
-import { CardType, IRecord, IRecordItem } from "@/model/CardModel";
+import { CardCategory, CardType, IRecord, IRecordItem } from "@/model/CardModel";
 
 type Props = {
     amountEarnLoss: number
@@ -137,7 +137,12 @@ const ListsDetails = ({
                                     <TableCell align="center">{data.name}</TableCell>
                                     <TableCell align="right">{`$ ${Math.round(data.amount).toFixed(2)}`}</TableCell>
                                     <TableCell align="center">{data.category.charAt(0).toUpperCase() + data.category.slice(1)}</TableCell>
-                                    <TableCell align="center"><Button onClick={() => onEditCardDetail(data.id)}>Edit</Button></TableCell>
+                                    {
+                                        record.recordType === CardType.GIFT_CARD && data.category === CardCategory.INCOME ?
+                                            <TableCell ></TableCell>
+                                            :
+                                            <TableCell align="center"><Button onClick={() => onEditCardDetail(data.id)}>Edit</Button></TableCell>
+                                    }
                                     {
                                         //If showConfirmDelete id === data.id, new buttons will show for confirmation.
 
