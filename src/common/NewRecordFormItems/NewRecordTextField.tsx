@@ -10,6 +10,7 @@ type Props = {
 }
 
 const NewRecordTextField = ({ control, label, name, type = 'string' }: Props) => {
+    console.log(type === 'password' ? 'current-password' : 'off');
 
     return (
         <Controller
@@ -23,6 +24,7 @@ const NewRecordTextField = ({ control, label, name, type = 'string' }: Props) =>
             }) =>
                 <TextField
                     {...field}
+                    autoComplete={type === 'password' ? 'current-password' : 'off'}
                     error={!!fieldState.error!}
                     helperText={fieldState.error ? fieldState.error.message : null}
                     fullWidth
