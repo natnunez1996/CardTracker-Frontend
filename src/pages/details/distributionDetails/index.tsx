@@ -1,4 +1,5 @@
 import { CardCategory, CardCategoryColor, IRecord, IRecordItem } from "@/model/CardModel";
+import { Container } from "@mui/material";
 import { Pie } from "react-chartjs-2"
 
 
@@ -43,7 +44,7 @@ const DistributionDetails = ({ record, inputDate, choices }: Props) => {
         ]
     }
     return (
-        <div className="distributionDetails">{
+        <Container>{
             monthRecordsList.length > 0 &&
             <>
                 <Pie data={data} options={{
@@ -56,7 +57,7 @@ const DistributionDetails = ({ record, inputDate, choices }: Props) => {
                     }
                 }} ></Pie>
             </>}
-        </div>
+        </Container>
     )
 }
 

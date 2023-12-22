@@ -1,6 +1,5 @@
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import './details.css'
 import { useState } from 'react';
 import 'chart.js/auto';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -17,6 +16,7 @@ import ExpensesDetails from '@/pages/details/expensesDetails';
 import ListsDetails from '@/pages/details/listsDetails';
 import MonthsDistributionDetails from '@/pages/details/monthsDistributionDetails';
 import { CardCategory, IRecord } from '@/model/CardModel';
+import { Box, Container, Typography } from '@mui/material';
 
 
 type Props = {}
@@ -76,9 +76,14 @@ const CardDetails = (props: Props) => {
         <>
             {
                 toEdit ? <EditRecordItemForm id={editedItemId} recordId={recordId!} recordItem={updateDetails} setToEdit={setToEdit} /> :
-                    <div className='cardDetails'>
-                        <h1>{updateDetails ? updateDetails.name : "Card Name"}</h1>
-                        <div className="inputDate">
+                    <Box
+                        display={'flex'}
+                        flexDirection={'column'}
+                        alignItems={'center'}
+                        width={'100vw'}
+                    >
+                        <Typography variant='h5'>{updateDetails ? updateDetails.name : "Card Name"}</Typography>
+                        <Container >
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     autoFocus
@@ -94,23 +99,26 @@ const CardDetails = (props: Props) => {
                                     }}
                                 />
                             </LocalizationProvider>
-                        </div>
+                        </Container>
 
-                        <div className="amount">
-                            <h1>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss.toFixed(2)}` : `lost $${amountEarnLoss.toFixed(2)}`}</h1>
-                        </div>
+                        <Typography variant='h6'>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss.toFixed(2)}` : `lost $${amountEarnLoss.toFixed(2)}`}</Typography>
                         {
                             inputDate &&
                             <>
                                 {updateDetails &&
-                                    <div className="chartContainer">
+                                    <Box
+                                        display={'flex'}
+                                        justifyContent={'space-between'}
+                                        maxWidth={'100vw'}
+                                        height={400}
+                                    >
                                         <DistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
 
                                         <ExpensesDetails inputDate={inputDate} record={updateDetails}
                                             setAmountEarnLoss={setAmountEarnLoss} choices={choices} />
 
                                         <MonthsDistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
-                                    </div>
+                                    </Box>
                                 }
                                 <div className="transactions">
                                     {updateDetails &&
@@ -126,7 +134,7 @@ const CardDetails = (props: Props) => {
                                 </div>
                             </>
                         }
-                    </div>
+                    </Box>
             }
         </>
     )

@@ -97,7 +97,7 @@ const ListsDetails = ({
     ]
 
     return (
-        <TableContainer sx={{ maxHeight: "25vh" }}>
+        <TableContainer sx={{ maxHeight: "35vh" }}>
             <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                     <TableRow>

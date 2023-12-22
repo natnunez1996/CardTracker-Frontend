@@ -1,4 +1,5 @@
 import { CardCategory, CardCategoryColor, IRecord, IRecordItem } from '@/model/CardModel';
+import { Container } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 
 type Props = {
@@ -73,9 +74,9 @@ const MonthsDistributionDetails = ({ record, inputDate, choices }: Props) => {
     }
 
     return (
-        <div className='monthsDistributionDetails'>
+        <Container fixed>
             <Bar options={options} data={data} />
-        </div>
+        </Container>
     )
 }
 

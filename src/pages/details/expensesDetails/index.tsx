@@ -1,4 +1,5 @@
 import { CardCategory, CardCategoryColor, IRecord, IRecordItem } from "@/model/CardModel"
+import { Container } from "@mui/material"
 import { useEffect } from "react"
 import { Bar } from "react-chartjs-2"
 
@@ -87,10 +88,10 @@ const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Prop
     }, [inputDate])
 
     return (
-        <div className="expensesDetails">
+        <Container>
             <Bar options={options}
                 data={cardData} />
-        </div>
+        </Container>
     )
 }
 
