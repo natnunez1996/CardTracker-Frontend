@@ -1,22 +1,20 @@
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { useState } from 'react';
 import 'chart.js/auto';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { getRecordHook } from '@/customHooks/getRecordHook';
-import { useAppDispatch } from '@/hook';
-import { updateRecord } from '@/actions/record';
-import EditRecordItemForm from '../newFile/editRecordItemForm';
-import dayjs from 'dayjs';
-import { getUserIdHook } from '@/customHooks/getUserIdHook';
-import { IProfile } from '@/model/UserModel/IProfile';
 import DistributionDetails from './distributionDetails/index';
+import EditRecordItemForm from '@/pages/newFile/editRecordItemForm';
 import ExpensesDetails from '@/pages/details/expensesDetails';
 import ListsDetails from '@/pages/details/listsDetails';
 import MonthsDistributionDetails from '@/pages/details/monthsDistributionDetails';
-import { CardCategory, IRecord } from '@/model/CardModel';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Box, Container, Typography } from '@mui/material';
+import { CardCategory, IRecord } from '@/model/CardModel';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { IProfile } from '@/model/UserModel/IProfile';
+import { getRecordHook, getUserIdHook } from '@/customHooks';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch } from '@/hook';
+import { updateRecord } from '@/actions/record';
 
 
 type Props = {}

@@ -1,7 +1,6 @@
 import { Navigate, createBrowserRouter } from "react-router-dom"
 import Home from "@/pages/home"
-import { getUserIdHook } from "@/customHooks/getUserIdHook";
-import About from "@/pages/about";
+import { getUserIdHook } from "@/customHooks";
 import NewRecord from "@/pages/newFile/newRecord";
 import NewRecordItemForm from "@/pages/newFile/newRecordItemForm";
 import CardDetails from "@/pages/details";

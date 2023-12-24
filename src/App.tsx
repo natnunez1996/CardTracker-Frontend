@@ -1,8 +1,7 @@
 import { RouterProvider } from 'react-router-dom'
 import './App.css'
-import Navbar from '@/shared/navbar'
 import Header from '@/shared/header'
-import { getUserIdHook } from '@/customHooks/getUserIdHook';
+import { getUserIdHook } from '@/customHooks';
 import router from '@/routes'
 
 function App() {

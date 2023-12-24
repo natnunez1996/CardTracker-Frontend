@@ -147,19 +147,31 @@ const ListsDetails = ({
                                     </TableCell>
                                     {
                                         //If showConfirmDelete id === data.id, new buttons will show for confirmation.
+                                        //Disable Delete Button if CardType === GIFTCARD && Cell Category === INCOME
 
                                         showConfirmDelete === data.id ?
                                             <TableCell sx={{ width: 268 }} align="center">
                                                 <Button color="error" onClick={() => onDeleteCardDetail(data.id)}>DELETE</Button>
                                                 <Button color="success" onClick={() => setShowConfirmDelete(null)}>Cancel</Button>
                                             </TableCell>
-                                            : <TableCell sx={{ width: 268 }} align="center"><Button color="error" onClick={() => setShowConfirmDelete(data.id.toString())}>Delete</Button></TableCell>
+                                            : < TableCell sx={{ width: 268 }} align="center">
+                                                {
+                                                    record.recordType === CardType.GIFT_CARD && data.category === CardCategory.INCOME ?
+                                                        <Button disabled color="error" onClick={() => setShowConfirmDelete(data.id.toString())}>
+                                                            Delete
+                                                        </Button> :
+                                                        <Button color="error" onClick={() => setShowConfirmDelete(data.id.toString())}>
+                                                            Delete
+                                                        </Button>
+
+                                                }
+                                            </TableCell>
                                     }
                                 </TableRow>)
                     }
                 </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer >
     )
 
 }
