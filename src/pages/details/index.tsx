@@ -108,9 +108,9 @@ const CardDetails = (props: Props) => {
                                 {updateDetails &&
                                     <Box
                                         display={'flex'}
-                                        justifyContent={'space-between'}
                                         maxWidth={'100vw'}
                                         height={400}
+                                        alignItems={'center'}
                                     >
                                         <DistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
 

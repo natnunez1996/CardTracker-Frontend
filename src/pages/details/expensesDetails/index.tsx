@@ -88,7 +88,7 @@ const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Prop
     }, [inputDate])
 
     return (
-        <Container>
+        <Container sx={{ height: '95%' }}>
             <Bar options={options}
                 data={cardData} />
         </Container>
