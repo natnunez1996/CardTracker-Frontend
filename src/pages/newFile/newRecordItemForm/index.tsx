@@ -52,7 +52,11 @@ const NewRecordItemForm = (props: Props) => {
             }
 
             setNewCardDetails(prevState => {
-                return { ...prevState, recordItemsList: [...prevState?.recordItemsList as [], recordItem] } as IRecord
+                return {
+                    ...prevState,
+                    updatedDate: new Date(),
+                    recordItemsList: [...prevState?.recordItemsList as [], recordItem]
+                } as IRecord
             })
 
             localStorage.setItem('lastKnownInputDate', new Date(recordItem.date).toDateString())

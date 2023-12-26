@@ -66,7 +66,11 @@ const EditRecordItemForm = ({ id, recordId, recordItem, setToEdit }: Props) => {
                     return item as IRecordItem
                 })
 
-            setEditedCardDetails({ ...recordItem, recordItemsList: newRecordItemsList })
+            setEditedCardDetails({
+                ...recordItem,
+                updatedDate: new Date(),
+                recordItemsList: newRecordItemsList
+            })
 
             localStorage.setItem('lastKnownInputDate', editedRecordItem.date.toDateString())
 
