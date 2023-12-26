@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import './home.css';
 import { useAppDispatch, useAppSelector } from '@/hook';
+import { useEffect, useState } from 'react';
 import { deleteRecord, getAllRecordsOfUser } from '@/actions/record';
 import { useNavigate } from 'react-router-dom';
 import CardItem from '@/common/CardItem';
-import { Paper, IconButton, Stack, Popper, Box, Button } from '@mui/material';
+import { Paper, IconButton, Popper, Box, Button, Grid } from '@mui/material';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { CardCategory, IRecord } from '@/model/CardModel';
 
@@ -59,27 +58,35 @@ const Home = ({ userId }: Props) => {
 
 
     return (
-        <div className='home'>
+        <Box display={'flex'} flexDirection={'column'}>
             {userId &&
                 <>
-                    <Paper elevation={3} sx={{ height: 50, alignSelf: 'center', width: '100 %' }}>
+                    <Paper elevation={3} sx={{ height: 50, alignSelf: 'center', width: '100 %', margin: '1rem' }}>
                         <IconButton color='primary' onClick={() => navigate('/newRecord', { replace: true })}>
                             Add Card <PostAddIcon />
                         </IconButton>
                     </Paper>
                     {userRecords ?
-                        <Stack sx={{ margin: '1rem' }} direction='row' spacing={2}>
-                            {userRecords.map((record) => (
-                                <CardItem key={record._id?.toString()}
-                                    anchorEl={anchorEl}
-                                    calculateBalance={calculateBalance}
-                                    navigate={navigate}
-                                    record={record}
-                                    setAnchorEl={setAnchorEl}
-                                    setRecordIdToDelete={setRecordIdToDelete}
-                                />
-                            ))}
-                        </Stack> :
+                        <Grid container spacing={1} justifyContent={'space-around'} >
+                            {userRecords.sort((a: IRecord, b: IRecord) => {
+                                const dateA = new Date(a.updatedDate);
+                                const dateB = new Date(b.updatedDate);
+                                return dateB.getTime() - dateA.getTime();
+                            })
+                                .map((record) => (
+                                    <Grid item key={record._id?.toString()}>
+                                        <CardItem
+                                            anchorEl={anchorEl}
+                                            calculateBalance={calculateBalance}
+                                            navigate={navigate}
+                                            record={record}
+                                            setAnchorEl={setAnchorEl}
+                                            setRecordIdToDelete={setRecordIdToDelete}
+                                        />
+                                    </Grid>
+                                ))}
+                        </Grid>
+                        :
                         <h1>No Records Found for this user.</h1>}
 
                     <Popper open={open} anchorEl={anchorEl}>
@@ -90,7 +97,7 @@ const Home = ({ userId }: Props) => {
                     </Popper>
                 </>
             }
-        </div >
+        </Box >
     )
 }
 
