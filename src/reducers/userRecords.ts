@@ -22,7 +22,7 @@ const userRecordsReducer = (state = initialState,
         case actionTypes.UPDATERECORD:
             return { ...state, recordDetails: action.payload }
         case actionTypes.SERVERERROR:
-            return { ...state, message: action.payload.message }
+            return { ...state, message: action.payload }
         default: return state
     }
 }

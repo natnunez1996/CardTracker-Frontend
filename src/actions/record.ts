@@ -2,7 +2,7 @@ import * as actionTypes from '@/constants/actionTypes';
 import * as API from '@/api';
 import { NavigateFunction } from 'react-router-dom';
 import { Dispatch } from 'redux';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { IRecord } from '@/model/CardModel';
 
 
@@ -37,8 +37,14 @@ export const getAllRecordsOfUser = (userId: String) => async (dispatch: Dispatch
 
         dispatch({ type: actionTypes.GETALLRECORDSOFUSER, payload: data })
 
-    } catch (error) {
-        console.log(error);
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const { message } = error!.response!.data
+            console.log(message);
+
+            dispatch({ type: actionTypes.SERVERERROR, payload: message })
+        }
+
 
     }
 }
