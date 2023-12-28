@@ -26,7 +26,7 @@ const CardItem = ({
 
 
   return (
-    <Card sx={{ width: 200, maxWidth: 350 }} key={record._id}>
+    <Card sx={{ maxWidth: 300, minWidth: 200 }} key={record._id}>
       <CardHeader
         avatar={
           <Avatar sx={record.recordType === CardType.CREDIT_CARD ? { bgcolor: deepOrange[200] } : { bgcolor: green[200] }}>

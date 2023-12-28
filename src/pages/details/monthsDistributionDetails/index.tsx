@@ -1,18 +1,20 @@
 import { CardCategory, CardCategoryColor, IRecord, IRecordItem } from '@/model/CardModel';
-import { Container } from '@mui/material';
+import { Container, Theme } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 
 type Props = {
-    record: IRecord,
+    choices: CardCategory[],
     inputDate: Date,
-    choices: CardCategory[]
+    record: IRecord,
+    theme: Theme
 }
 
-const MonthsDistributionDetails = ({ record, inputDate, choices }: Props) => {
+const MonthsDistributionDetails = ({ choices, inputDate, record, theme }: Props) => {
 
     const lastMonth = inputDate.getMonth() !== 0 ? new Date(inputDate.getFullYear(), inputDate.getMonth() - 1) : new Date(inputDate.getFullYear() - 1, 11);
     const lastTwoMonths = lastMonth.getMonth() !== 0 ? new Date(lastMonth.getFullYear(), lastMonth.getMonth() - 1) : new Date(lastMonth.getFullYear() - 1, 11);
 
+    const colorPalette = theme.palette.text.primary;
     const dataInput = [inputDate, lastMonth, lastTwoMonths];
 
     const getSum = (date: Date, category: CardCategory): number => {
@@ -41,6 +43,7 @@ const MonthsDistributionDetails = ({ record, inputDate, choices }: Props) => {
             title: {
                 display: true,
                 text: "Month's Comparison",
+                color: colorPalette
             },
             legend: {
                 display: false
@@ -49,10 +52,22 @@ const MonthsDistributionDetails = ({ record, inputDate, choices }: Props) => {
         responsive: true,
         scales: {
             x: {
+                grid: {
+                    color: colorPalette
+                },
                 stacked: true,
+                ticks: {
+                    color: colorPalette
+                }
             },
             y: {
+                grid: {
+                    color: colorPalette
+                },
                 stacked: true,
+                ticks: {
+                    color: theme.palette.text.primary
+                }
             },
         },
     }

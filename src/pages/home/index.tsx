@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { deleteRecord, getAllRecordsOfUser } from '@/actions/record';
 import { useNavigate } from 'react-router-dom';
 import CardItem from '@/common/CardItem';
-import { Paper, IconButton, Popper, Box, Button, Grid } from '@mui/material';
+import { Paper, IconButton, Popper, Box, Button, Grid, useTheme, Typography } from '@mui/material';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { CardCategory, IRecord } from '@/model/CardModel';
 
@@ -13,8 +13,9 @@ type Props = {
 
 const Home = ({ userId }: Props) => {
     const dispatch = useAppDispatch();
-    const records = useAppSelector(state => state.userRecords);
     const navigate = useNavigate();
+    const records = useAppSelector(state => state.userRecords);
+    const theme = useTheme()
 
     const [userRecords, setUserRecords] = useState<IRecord[]>();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -58,7 +59,15 @@ const Home = ({ userId }: Props) => {
 
 
     return (
-        <Box display={'flex'} flexDirection={'column'}>
+        <Box
+            display={'flex'}
+            flexDirection={'column'}
+            sx={{
+                backgroundColor: theme.palette.mode === 'dark'
+                    ? theme.palette.background.default
+                    : theme.palette.background.paper,
+            }}
+        >
             {userId &&
                 <>
                     <Paper elevation={3} sx={{ height: 50, alignSelf: 'center', width: '100 %', margin: '1rem' }}>
@@ -66,15 +75,18 @@ const Home = ({ userId }: Props) => {
                             Add Card <PostAddIcon />
                         </IconButton>
                     </Paper>
-                    {userRecords ?
-                        <Grid container spacing={1} justifyContent={'space-around'} >
+                    {userRecords && userRecords.length > 0 ?
+                        <Grid
+                            container spacing={2}
+                            justifyContent={'center'}
+                        >
                             {userRecords.sort((a: IRecord, b: IRecord) => {
                                 const dateA = new Date(a.updatedDate);
                                 const dateB = new Date(b.updatedDate);
                                 return dateB.getTime() - dateA.getTime();
                             })
                                 .map((record) => (
-                                    <Grid item key={record._id?.toString()}>
+                                    <Grid item key={record._id?.toString()}  >
                                         <CardItem
                                             anchorEl={anchorEl}
                                             calculateBalance={calculateBalance}
@@ -87,7 +99,9 @@ const Home = ({ userId }: Props) => {
                                 ))}
                         </Grid>
                         :
-                        <h1>No Records Found for this user.</h1>}
+                        <Typography variant='h2' sx={{ color: 'red' }} alignSelf={'center'}>
+                            {records.message}
+                        </Typography>}
 
                     <Popper open={open} anchorEl={anchorEl}>
                         <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }} >

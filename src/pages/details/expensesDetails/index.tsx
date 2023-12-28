@@ -1,17 +1,21 @@
 import { CardCategory, CardCategoryColor, IRecord, IRecordItem } from "@/model/CardModel"
-import { Container } from "@mui/material"
+import { Container, Theme } from "@mui/material"
 import { useEffect } from "react"
 import { Bar } from "react-chartjs-2"
 
 
 type Props = {
-    record: IRecord,
+    choices: CardCategory[],
     inputDate: Date,
+    record: IRecord,
     setAmountEarnLoss: React.Dispatch<React.SetStateAction<number>>,
-    choices: CardCategory[]
+    theme: Theme
 }
 
-const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Props) => {
+const ExpensesDetails = ({ choices, inputDate, record, setAmountEarnLoss, theme }: Props) => {
+
+    const colorPalette = theme.palette.text.primary;
+
     const filteredDetails: IRecordItem[] = record.recordItemsList
         .filter(recordItem => {
             if (recordItem.date.getMonth() === inputDate.getMonth() &&
@@ -71,7 +75,31 @@ const ExpensesDetails = ({ choices, record, inputDate, setAmountEarnLoss }: Prop
         plugins: {
             title: {
                 display: true,
-                text: `Expenses this ${inputDate.toLocaleString('default', { month: 'long', year: 'numeric' })}`
+                text: `Expenses this ${inputDate.toLocaleString('default', { month: 'long', year: 'numeric' })}`,
+                color: colorPalette
+            },
+            legend: {
+                labels: {
+                    color: colorPalette
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    color: colorPalette
+                },
+                ticks: {
+                    color: colorPalette
+                },
+            },
+            y: {
+                grid: {
+                    color: colorPalette
+                },
+                ticks: {
+                    color: colorPalette
+                }
             }
         }
     }

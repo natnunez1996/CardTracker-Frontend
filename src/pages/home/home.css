@@ -1,8 +1,0 @@
-.home {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: normal;
-  width: 100%;
-  height: calc(100vh - 5rem);
-}

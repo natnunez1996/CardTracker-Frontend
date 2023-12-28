@@ -6,7 +6,7 @@ import ListsDetails from '@/pages/details/listsDetails';
 import MonthsDistributionDetails from '@/pages/details/monthsDistributionDetails';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import { CardCategory, IRecord } from '@/model/CardModel';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { IProfile } from '@/model/UserModel/IProfile';
@@ -23,8 +23,11 @@ const CardDetails = (props: Props) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { recordId } = useParams();
+
     const user: IProfile | undefined = getUserIdHook();
     const cardDetails: IRecord | undefined = getRecordHook(user?.result._id, recordId);
+
+    const theme = useTheme();
 
     const [toDelete, setToDelete] = useState<Boolean>(false);
     const [toEdit, setToEdit] = useState<Boolean>(false);
@@ -79,8 +82,16 @@ const CardDetails = (props: Props) => {
                         flexDirection={'column'}
                         alignItems={'center'}
                         width={'100vw'}
+                        sx={{
+                            backgroundColor: theme.palette.mode === 'dark'
+                                ? theme.palette.background.default
+                                : theme.palette.background.paper,
+                            color: theme.palette.primary.dark
+                        }}
                     >
-                        <Typography variant='h5'>{updateDetails ? updateDetails.name : "Card Name"}</Typography>
+                        <Typography color="primary.textContrast" variant='h5'>
+                            {updateDetails ? updateDetails.name : "Card Name"}
+                        </Typography>
                         <Container >
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
@@ -110,12 +121,27 @@ const CardDetails = (props: Props) => {
                                         height={400}
                                         alignItems={'center'}
                                     >
-                                        <DistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
+                                        <DistributionDetails
+                                            choices={choices}
+                                            inputDate={inputDate}
+                                            record={updateDetails}
+                                            theme={theme}
+                                        />
 
-                                        <ExpensesDetails inputDate={inputDate} record={updateDetails}
-                                            setAmountEarnLoss={setAmountEarnLoss} choices={choices} />
+                                        <ExpensesDetails
+                                            choices={choices}
+                                            inputDate={inputDate}
+                                            record={updateDetails}
+                                            setAmountEarnLoss={setAmountEarnLoss}
+                                            theme={theme}
+                                        />
 
-                                        <MonthsDistributionDetails record={updateDetails} inputDate={inputDate} choices={choices} />
+                                        <MonthsDistributionDetails
+                                            choices={choices}
+                                            inputDate={inputDate}
+                                            record={updateDetails}
+                                            theme={theme}
+                                        />
                                     </Box>
                                 }
                                 <div className="transactions">

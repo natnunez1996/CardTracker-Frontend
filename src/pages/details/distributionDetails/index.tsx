@@ -1,15 +1,18 @@
 import { CardCategory, CardCategoryColor, IRecord, IRecordItem } from "@/model/CardModel";
-import { Container } from "@mui/material";
+import { Container, Theme } from "@mui/material";
 import { Pie } from "react-chartjs-2"
 
 
 type Props = {
-    record: IRecord,
+    choices: CardCategory[],
     inputDate: Date,
-    choices: CardCategory[]
+    record: IRecord,
+    theme: Theme
 }
 
-const DistributionDetails = ({ record, inputDate, choices }: Props) => {
+const DistributionDetails = ({ choices, inputDate, record, theme }: Props) => {
+
+    const colorPalette = theme.palette.text.primary;
 
     const monthRecordsList = record.recordItemsList.filter(item => item.date.getFullYear() === inputDate.getFullYear() &&
         item.date.getMonth() === inputDate.getMonth());
@@ -51,9 +54,14 @@ const DistributionDetails = ({ record, inputDate, choices }: Props) => {
                     plugins: {
                         title: {
                             display: true,
-                            text: "Distribution"
+                            text: "Distribution",
+                            color: colorPalette
                         },
-
+                        legend: {
+                            labels: {
+                                color: colorPalette
+                            }
+                        }
                     }
                 }} ></Pie>
             </>}
