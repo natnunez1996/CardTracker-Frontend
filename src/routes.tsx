@@ -19,7 +19,8 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/accountSettings/:id',
-        element: <AccountSettings />
+        element: <AccountSettings user={user?.result} />,
+        errorElement: <Error userId={user?.result?._id} />
       },
       {
         path: '/login',
