@@ -8,7 +8,7 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import { CardCategory, IRecord } from '@/model/CardModel';
 
 type Props = {
-    userId: String | undefined;
+    userId: String | null;
 }
 
 const Home = ({ userId }: Props) => {
@@ -43,6 +43,12 @@ const Home = ({ userId }: Props) => {
         }
     }
 
+    useEffect(() => {
+        //Navigate to Log In if there is no user logged in.
+        if (userId === undefined) {
+            navigate('/login', { replace: true })
+        }
+    }, [])
 
     useEffect(() => {
         localStorage.removeItem("lastKnownInputDate")
@@ -79,7 +85,8 @@ const Home = ({ userId }: Props) => {
                     {userRecords && userRecords.length > 0 ?
                         <Grid
                             container spacing={2}
-                            justifyContent={'center'}
+                            justifyContent={'flex-start'}
+                            alignSelf={'center'}
                         >
                             {userRecords.sort((a: IRecord, b: IRecord) => {
                                 const dateA = new Date(a.updatedDate);
