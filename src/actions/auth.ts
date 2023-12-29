@@ -49,5 +49,4 @@ export const signUp = (signUpFormData: ISignUpFormData, navigate: NavigateFuncti
 
 export const logout = (dispatch: Dispatch) => {
     dispatch({ type: actionTypes.LOGOUT });
-    window.location.reload();
 }
