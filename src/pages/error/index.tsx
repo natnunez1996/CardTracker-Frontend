@@ -1,19 +1,16 @@
 import { useAppSelector } from '@/hook'
-import './error.css'
+import { Box, Typography, useTheme } from '@mui/material'
 
-type Props = {
-    userId: String | undefined
-}
-
-const Error = ({ userId }: Props) => {
+const Error = () => {
     const errorMessage = useAppSelector(state => state.userRecords.message)
 
-    return (
-        <div className='errorContainer'>
-            <h1>OOOPS! Something Went Wrong...</h1>
+    const theme = useTheme();
 
-            <h2>{errorMessage}</h2>
-        </div>
+    return (
+        <Box width={'100%'} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
+            <Typography color={theme.palette.text.primary} variant='h3'>OOPS! Something went wrong.</Typography>
+            <Typography color={theme.palette.text.primary} variant='h5'>{errorMessage === '' ? <>Please <a href='/login'>Log in</a> First.</> : errorMessage}</Typography>
+        </Box>
     )
 }
 
