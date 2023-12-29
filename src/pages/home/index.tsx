@@ -62,6 +62,7 @@ const Home = ({ userId }: Props) => {
         <Box
             display={'flex'}
             flexDirection={'column'}
+            width={'100%'}
             sx={{
                 backgroundColor: theme.palette.mode === 'dark'
                     ? theme.palette.background.default
@@ -70,7 +71,7 @@ const Home = ({ userId }: Props) => {
         >
             {userId &&
                 <>
-                    <Paper elevation={3} sx={{ height: 50, alignSelf: 'center', width: '100 %', margin: '1rem' }}>
+                    <Paper elevation={3} sx={{ height: 50, alignSelf: 'center', margin: '1rem' }}>
                         <IconButton color='primary' onClick={() => navigate('/newRecord', { replace: true })}>
                             Add Card <PostAddIcon />
                         </IconButton>

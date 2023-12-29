@@ -42,6 +42,7 @@ const Root = () => {
             <Header mode={mode} toggleColorMode={toggleColorMode} userProfile={user} />
             <Box
                 minHeight={'93vh'}
+                width={'100%'}
                 sx={{
                     backgroundColor: theme.palette.mode === 'dark'
                         ? theme.palette.background.default

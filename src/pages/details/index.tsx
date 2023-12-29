@@ -81,7 +81,7 @@ const CardDetails = (props: Props) => {
                         display={'flex'}
                         flexDirection={'column'}
                         alignItems={'center'}
-                        width={'100vw'}
+                        width={'100%'}
                         sx={{
                             backgroundColor: theme.palette.mode === 'dark'
                                 ? "#202124"
