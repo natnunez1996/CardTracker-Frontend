@@ -5,8 +5,8 @@ import { logout } from "@/actions/auth";
 import { useAppDispatch } from "@/hook";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import IUser from '@/model/UserModel/IUser'
 import ThemeSwitch from "../themeSwitch";
+import { IUser } from "@/model/UserModel";
 
 type Props = {
     mode: 'light' | 'dark',
@@ -46,6 +46,8 @@ const Header = ({ mode, toggleColorMode, userProfile }: Props) => {
 
     const onLogOut = () => {
         dispatch(logout);
+        window.location.reload()
+        navigate('/login', { replace: true })
     }
 
 
@@ -79,7 +81,7 @@ const Header = ({ mode, toggleColorMode, userProfile }: Props) => {
                         <MenuList>
                             <MenuItem>
                                 <IconButton
-                                    onClick={() => navigate(`/accountSettings/${user?._id}`, { replace: true })}
+                                    onClick={() => navigate(`/accountSettings/${user?._id}`)}
                                     sx={{ color: theme.palette.text.primary }}
                                 >
                                     <AccountCircleOutlined />
