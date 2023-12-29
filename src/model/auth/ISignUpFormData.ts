@@ -3,5 +3,5 @@ export interface ISignUpFormData {
     firstName: String,
     lastName: String,
     password: String,
-    confirmPassword: String
+    confirmPassword?: String
 }
