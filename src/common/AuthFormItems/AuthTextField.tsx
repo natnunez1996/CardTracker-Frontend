@@ -7,6 +7,7 @@ import { useState } from "react"
 type Props = {
     autoFocus?: boolean,
     control: Control<ISignInFormData>,
+    disabled?: boolean,
     error?: string,
     label: string,
     name: keyof ISignInFormData,
@@ -14,7 +15,7 @@ type Props = {
     type?: 'string' | 'password'
 }
 
-const AuthTextField = ({ autoFocus = false, control, error, label, name, showPassword = false, type = 'string' }: Props) => {
+const AuthTextField = ({ autoFocus = false, control, disabled = false, error, label, name, showPassword = false, type = 'string' }: Props) => {
     const [currentType, setCurrentType] = useState(type);
 
     const handleVisibility = () => {
@@ -34,6 +35,7 @@ const AuthTextField = ({ autoFocus = false, control, error, label, name, showPas
                     <TextField
                         {...field}
                         autoFocus={autoFocus}
+                        disabled={disabled}
                         error={error ? true : false}
                         helperText={error}
                         InputProps={showPassword ? {
