@@ -84,7 +84,7 @@ const CardDetails = (props: Props) => {
                         width={'100vw'}
                         sx={{
                             backgroundColor: theme.palette.mode === 'dark'
-                                ? theme.palette.background.default
+                                ? "#202124"
                                 : theme.palette.background.paper,
                             color: theme.palette.primary.dark
                         }}
@@ -144,18 +144,17 @@ const CardDetails = (props: Props) => {
                                         />
                                     </Box>
                                 }
-                                <div className="transactions">
-                                    {updateDetails &&
-                                        <ListsDetails
-                                            amountEarnLoss={amountEarnLoss}
-                                            inputDate={inputDate}
-                                            record={updateDetails}
-                                            setEditedItemId={setEditedItemId}
-                                            setToDelete={setToDelete}
-                                            setToEdit={setToEdit}
-                                            setUpdateDetails={setUpdateDetails} />
-                                    }
-                                </div>
+
+                                {updateDetails &&
+                                    <ListsDetails
+                                        amountEarnLoss={amountEarnLoss}
+                                        inputDate={inputDate}
+                                        record={updateDetails}
+                                        setEditedItemId={setEditedItemId}
+                                        setToDelete={setToDelete}
+                                        setToEdit={setToEdit}
+                                        setUpdateDetails={setUpdateDetails} />
+                                }
                             </>
                         }
                     </Box>
