@@ -1,10 +1,12 @@
-import { useAppDispatch } from "@/hook";
-import IUser from '@/model/UserModel/IUser'
-import { useEffect, useState } from "react";
-import { logout } from "@/actions/auth";
+import { AppBar, Box, Button, IconButton, Link, Menu, MenuItem, MenuList, Typography, useTheme } from "@mui/material";
+import { AccountCircleOutlined, DarkModeOutlined, LightModeOutlined, LogoutOutlined } from "@mui/icons-material";
 import { IProfile } from "@/model/UserModel/IProfile";
-import { AppBar, Box, Button, Link, Menu, Typography, useTheme } from "@mui/material";
-import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
+import { logout } from "@/actions/auth";
+import { useAppDispatch } from "@/hook";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import IUser from '@/model/UserModel/IUser'
+import ThemeSwitch from "../themeSwitch";
 
 type Props = {
     mode: 'light' | 'dark',
@@ -15,6 +17,7 @@ type Props = {
 
 const Header = ({ mode, toggleColorMode, userProfile }: Props) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const theme = useTheme();
     const userData = localStorage.getItem('profile');
 
@@ -73,11 +76,25 @@ const Header = ({ mode, toggleColorMode, userProfile }: Props) => {
                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
-                        <Button color="error" onClick={onLogOut}>Log out</Button>
+                        <MenuList>
+                            <MenuItem>
+                                <IconButton
+                                    onClick={() => navigate(`/accountSettings/${user?._id}`, { replace: true })}
+                                    sx={{ color: theme.palette.text.primary }}
+                                >
+                                    <AccountCircleOutlined />
+                                    <Typography variant="button">Profile</Typography>
+                                </IconButton>
+                            </MenuItem>
+                            <MenuItem>
+                                <IconButton onClick={onLogOut}>
+                                    <LogoutOutlined color="error" />
+                                    <Typography variant="button" sx={{ color: theme.palette.error.main }}>Log Out</Typography>
+                                </IconButton>
+                            </MenuItem>
+                        </MenuList>
                     </Menu>
-                    <Button onClick={toggleColorMode}>
-                        {mode === 'dark' ? <DarkModeOutlined /> : <LightModeOutlined />}
-                    </Button>
+                    <ThemeSwitch mode={mode} handleClick={toggleColorMode} theme={theme} />
                 </Box>
             </Box>
         </AppBar >
