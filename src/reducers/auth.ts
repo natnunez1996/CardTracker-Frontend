@@ -1,7 +1,9 @@
 import * as actionType from "@/constants/actionTypes";
+import { isPasswordCorrect } from '@/actions/auth';
 
 const initialState: AuthState = {
-    authData: { result: { _id: '', email: '', name: '' }, token: '' },
+    authData: { result: { _id: '', email: '', firstName: '', lastName: '' }, token: '' },
+    isPasswordCorrect: false,
     message: ''
 }
 
@@ -10,11 +12,13 @@ const authReducer = (state = initialState,
 
     switch (action.type) {
         case actionType.AUTH:
-            const selectedKeys = ['_id', 'email', 'name'];
+            const selectedKeys = ['_id', 'email', 'firstName', 'lastName'];
             const newResult = pick(action?.payload.result, selectedKeys);
             const localAuthState = { result: newResult, token: action?.payload.token }
             localStorage.setItem('profile', JSON.stringify(localAuthState));
             return { ...state, authData: action?.payload };
+        case actionType.VALIDATE_PASSWORD:
+            return { ...state, isPasswordCorrect: action?.payload.isPasswordCorrect, message: action?.payload.message }
         case actionType.LOGOUT:
             localStorage.clear();
             return { ...state, authData: initialState };
@@ -46,12 +50,13 @@ interface AuthState {
         result: {
             _id: string,
             email: string,
-            name: string,
+            firstName: string,
+            lastName: string
         },
-
         token: string,
-    };
-    message: String;
+    },
+    isPasswordCorrect: boolean,
+    message: String
 }
 
 interface AuthAction {

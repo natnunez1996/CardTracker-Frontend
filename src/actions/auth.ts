@@ -5,9 +5,29 @@ import { ISignInFormData, ISignUpFormData } from '@/model/auth'
 import { NavigateFunction } from 'react-router-dom';
 
 
+export const isPasswordCorrect = (signInFormData: ISignInFormData) => async (dispatch: Dispatch) => {
+    try {
+        const { data } = await API.isPasswordCorrect(signInFormData)
+
+        dispatch({ type: actionTypes.VALIDATE_PASSWORD, payload: data })
+
+    } catch (error: any) {
+        if (error.response.data) {
+            const { message } = error.response.data
+            dispatch({ type: actionTypes.INVALID_CREDENTIALS, payload: message })
+        } else {
+            console.log("No retrieved data from the server.");
+        }
+    }
+}
+
+
 export const signIn = (signInFormData: ISignInFormData, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
     try {
         const { data } = await API.signIn(signInFormData);
+
+        console.log(data);
+
 
         dispatch({ type: actionTypes.AUTH, payload: data })
 
@@ -21,7 +41,6 @@ export const signIn = (signInFormData: ISignInFormData, navigate: NavigateFuncti
             dispatch({ type: actionTypes.INVALID_CREDENTIALS, payload: message })
         } else {
             console.log("No retrieved data from the server.");
-
         }
     }
 }

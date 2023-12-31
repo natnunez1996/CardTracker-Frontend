@@ -19,5 +19,6 @@ export const updateRecord = (recordId: String, updatedRecord: IRecord) => API.pa
 export const deleteRecord = (recordId: String) => API.delete(`/record/details/${recordId}`)
 
 //Auth
+export const isPasswordCorrect = (signInFormData: ISignInFormData) => API.post('/account/passwordValidation', signInFormData)
 export const signUp = (signUpFormData: ISignUpFormData) => API.post(`/signUp`, signUpFormData);
 export const signIn = (signInFormData: ISignInFormData) => API.post(`/signIn`, signInFormData);
