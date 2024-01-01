@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, IconButton, Link, Menu, MenuItem, MenuList, Typography, useTheme } from "@mui/material";
+import { AppBar, Avatar, Box, Button, IconButton, Menu, MenuItem, MenuList, Typography, useTheme } from "@mui/material";
 import { AccountCircleOutlined, LogoutOutlined } from "@mui/icons-material";
 import { IProfile } from "@/model/UserModel/IProfile";
 import { logout } from "@/actions/auth";
@@ -57,11 +57,10 @@ const Header = ({ mode, toggleColorMode, userProfile }: Props) => {
             backgroundColor: theme.palette.background.paper,
         }} position="sticky">
             <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                <Typography variant="h4" >
-                    <Link href='/home' sx={{ color: theme.palette.text.primary, textDecoration: 'none' }}>
-                        Card Tracker
-                    </Link>
-                </Typography>
+                <IconButton onClick={() => navigate('/home', { replace: true })} sx={{ color: theme.palette.text.primary, textDecoration: 'none' }}>
+                    <Avatar src="src/assets/img/CardTrackerLogo.png" alt="CardTrackerLogo" sx={{ width: 40, height: 40, borderRadius: 0 }} />
+                    <Typography variant="h4">Card Tracker</Typography>
+                </IconButton>
                 {!userProfile && <div className="middle"> <h1>Please <a href="/login">Login</a> first</h1></div>}
                 <Box display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
                     {
