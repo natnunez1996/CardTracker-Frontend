@@ -1,8 +1,10 @@
 //AUTH Constants
 export const AUTH: String = 'AUTH';
 export const CLEAR_MESSAGE: String = 'CLEAR_MESSAGE';
+export const CLEAR_SPECIAL_MESSAGE: String = 'CLEAR_SPECIAL_MESSAGE';
 export const INVALID_CREDENTIALS: String = 'INVALID_CREDENTIALS';
 export const LOGOUT: String = 'LOGOUT';
+export const UPDATEPASSWORDMESSAGE: String = 'UPDATEPASSWORDMESSAGE';
 export const VALIDATE_PASSWORD: String = 'VALIDATE_PASSWORD';
 
 //Record Constants
