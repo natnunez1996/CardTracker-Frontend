@@ -1,10 +1,10 @@
 import * as actionType from "@/constants/actionTypes";
-import { isPasswordCorrect } from '@/actions/auth';
 
 const initialState: AuthState = {
     authData: { result: { _id: '', email: '', firstName: '', lastName: '' }, token: '' },
     isPasswordCorrect: false,
-    message: ''
+    message: '',
+    specialMessage: ''
 }
 
 const authReducer = (state = initialState,
@@ -16,16 +16,20 @@ const authReducer = (state = initialState,
             const newResult = pick(action?.payload.result, selectedKeys);
             const localAuthState = { result: newResult, token: action?.payload.token }
             localStorage.setItem('profile', JSON.stringify(localAuthState));
-            return { ...state, authData: action?.payload };
-        case actionType.VALIDATE_PASSWORD:
-            return { ...state, isPasswordCorrect: action?.payload.isPasswordCorrect, message: action?.payload.message }
+            return { ...state, authData: action?.payload, isPasswordCorrect: false };
+        case actionType.CLEAR_MESSAGE:
+            return { ...state, message: '' };
+        case actionType.CLEAR_SPECIAL_MESSAGE:
+            return { ...state, specialMessage: '' };
+        case actionType.INVALID_CREDENTIALS:
+            return { ...state, message: action?.payload }
         case actionType.LOGOUT:
             localStorage.clear();
             return { ...state, authData: initialState };
-        case actionType.INVALID_CREDENTIALS:
-            return { ...state, message: action?.payload }
-        case actionType.CLEAR_MESSAGE:
-            return { ...state, message: null };
+        case actionType.UPDATEPASSWORDMESSAGE:
+            return { ...state, specialMessage: action?.payload }
+        case actionType.VALIDATE_PASSWORD:
+            return { ...state, isPasswordCorrect: action?.payload.isPasswordCorrect, message: action?.payload.message }
         default:
             return state
     }
@@ -56,10 +60,11 @@ interface AuthState {
         token: string,
     },
     isPasswordCorrect: boolean,
-    message: String
+    message: string,
+    specialMessage: string
 }
 
 interface AuthAction {
-    type: String;
+    type: string;
     payload: any;
 }
