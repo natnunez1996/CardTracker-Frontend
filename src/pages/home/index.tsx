@@ -4,8 +4,8 @@ import { deleteRecord, getAllRecordsOfUser } from '@/actions/record';
 import { useNavigate } from 'react-router-dom';
 import CardItem from '@/common/CardItem';
 import { Paper, IconButton, Popper, Box, Button, Grid, useTheme, Typography } from '@mui/material';
-import PostAddIcon from '@mui/icons-material/PostAdd';
 import { CardCategory, IRecord } from '@/model/CardModel';
+import { CreditCardTwoTone } from '@mui/icons-material';
 
 type Props = {
     userId: String | null;
@@ -79,7 +79,7 @@ const Home = ({ userId }: Props) => {
                 <>
                     <Paper elevation={3} sx={{ height: 50, alignSelf: 'center', margin: '1rem' }}>
                         <IconButton color='primary' onClick={() => navigate('/newRecord', { replace: true })}>
-                            Add Card <PostAddIcon />
+                            Add Card <CreditCardTwoTone />
                         </IconButton>
                     </Paper>
                     {userRecords && userRecords.length > 0 ?
