@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { ISignInFormData, ISignUpFormData } from '@/model/auth';
 import { IRecord } from "@/model/CardModel";
+import { IAccountSettings } from "@/model/auth/IAccountSettings";
 
 
 
@@ -22,3 +23,9 @@ export const deleteRecord = (recordId: String) => API.delete(`/record/details/${
 export const isPasswordCorrect = (signInFormData: ISignInFormData) => API.post('/account/passwordValidation', signInFormData)
 export const signUp = (signUpFormData: ISignUpFormData) => API.post(`/signUp`, signUpFormData);
 export const signIn = (signInFormData: ISignInFormData) => API.post(`/signIn`, signInFormData);
+export const updateUser = (
+    id: string,
+    email: IAccountSettings['email'],
+    valueType: keyof IAccountSettings,
+    value: IAccountSettings[keyof IAccountSettings]
+) => API.patch(`/account/update/${id}`, { email, valueType, value })
