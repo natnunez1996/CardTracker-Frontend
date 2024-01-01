@@ -110,7 +110,7 @@ const CardDetails = (props: Props) => {
                             </LocalizationProvider>
                         </Container>
 
-                        <Typography variant='h6'>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss.toFixed(2)}` : `lost $${amountEarnLoss.toFixed(2)}`}</Typography>
+                        <Typography variant='h6'>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss.toFixed(2)}` : `owed $${amountEarnLoss.toFixed(2)}`}</Typography>
                         {
                             inputDate &&
                             <>
