@@ -5,12 +5,13 @@ type Props = {
     handleClick: (label: string, name: keyof IAccountSettings, type: 'string' | 'password', value: String) => void,
     label: string,
     name: keyof IAccountSettings,
+    showButton?: boolean,
     type?: 'string' | 'password',
     value: String
 
 }
 
-const AccountSettingsDataField = ({ handleClick, label, name, type = 'string', value }: Props) => {
+const AccountSettingsDataField = ({ handleClick, label, name, showButton = false, type = 'string', value }: Props) => {
     return (
         <TextField
             disabled
@@ -22,7 +23,11 @@ const AccountSettingsDataField = ({ handleClick, label, name, type = 'string', v
             value={value}
 
             InputProps={{
-                endAdornment: <Button onClick={() => handleClick(label, name, type, value)}>Change</Button>
+                endAdornment:
+                    showButton ?
+                        <Button onClick={() => handleClick(label, name, type, value)}>Change</Button>
+                        :
+                        <></>
             }}
         />
     )
