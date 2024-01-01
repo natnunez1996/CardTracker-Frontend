@@ -35,7 +35,7 @@ const CardItem = ({
         title={record.name}
       />
       <CardMedia
-        image={`src/img/${record.recordType}`}
+        image={`src/assets/img/${record.recordType}`}
         sx={{ height: 150 }}
       />
       <CardContent>
