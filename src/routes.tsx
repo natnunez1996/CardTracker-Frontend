@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         path: '/accountSettings/:id',
         element: <AccountSettings user={user?.result} />,
-        errorElement: <Error userId={user?.result?._id} />
+        errorElement: <Error />
       },
       {
         path: '/login',
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/error',
-        element: <Error userId={user?.result?._id} />
+        element: <Error />
       },
       {
         path: "/home/:recordId/newDetails",
