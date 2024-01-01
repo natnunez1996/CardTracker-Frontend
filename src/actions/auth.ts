@@ -3,6 +3,7 @@ import * as actionTypes from '../constants/actionTypes';
 import * as API from '@/api';
 import { ISignInFormData, ISignUpFormData } from '@/model/auth'
 import { NavigateFunction } from 'react-router-dom';
+import { IAccountSettings } from '@/model/auth/IAccountSettings';
 
 
 export const isPasswordCorrect = (signInFormData: ISignInFormData) => async (dispatch: Dispatch) => {
@@ -26,11 +27,7 @@ export const signIn = (signInFormData: ISignInFormData, navigate: NavigateFuncti
     try {
         const { data } = await API.signIn(signInFormData);
 
-        console.log(data);
-
-
         dispatch({ type: actionTypes.AUTH, payload: data })
-
 
         navigate(`/`, { replace: true })
         window.location.reload();
@@ -47,8 +44,6 @@ export const signIn = (signInFormData: ISignInFormData, navigate: NavigateFuncti
 
 export const signUp = (signUpFormData: ISignUpFormData, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
     try {
-        console.log(signUpFormData);
-
         const { data } = await API.signUp(signUpFormData);
         dispatch({ type: actionTypes.AUTH, payload: data });
 
@@ -62,6 +57,40 @@ export const signUp = (signUpFormData: ISignUpFormData, navigate: NavigateFuncti
             console.log("No retrieved data from the server.");
 
         }
+    }
+}
+
+export const updateUser = (
+    id: string,
+    email: String,
+    valueType: keyof IAccountSettings | null,
+    value: IAccountSettings[keyof IAccountSettings] | null,
+) => async (dispatch: Dispatch) => {
+    try {
+
+        if (valueType === null || value === null)
+            throw new Error('valueType or value is null ');
+
+        const { data } = await API.updateUser(id, email, valueType, value);
+
+        dispatch({ type: actionTypes.AUTH, payload: data })
+
+        window.location.reload();
+    } catch (error: any) {
+        console.error("Error:", error);
+        if (error.response?.data?.message) {
+            const { message } = error.response.data;
+            console.log("Error Message:", message);
+            dispatch({ type: actionTypes.INVALID_CREDENTIALS, payload: message });
+        }
+        else if (error.response?.data?.specialMessage) {
+            const { specialMessage } = error.response.data;
+            dispatch({ type: actionTypes.UPDATEPASSWORDMESSAGE, payload: specialMessage })
+        }
+        else {
+            console.log("No retrieved data from the server while updating.", error);
+        }
+
     }
 }
 
