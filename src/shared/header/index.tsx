@@ -1,5 +1,5 @@
 import { AppBar, Box, Button, IconButton, Link, Menu, MenuItem, MenuList, Typography, useTheme } from "@mui/material";
-import { AccountCircleOutlined, DarkModeOutlined, LightModeOutlined, LogoutOutlined } from "@mui/icons-material";
+import { AccountCircleOutlined, LogoutOutlined } from "@mui/icons-material";
 import { IProfile } from "@/model/UserModel/IProfile";
 import { logout } from "@/actions/auth";
 import { useAppDispatch } from "@/hook";
@@ -46,8 +46,8 @@ const Header = ({ mode, toggleColorMode, userProfile }: Props) => {
 
     const onLogOut = () => {
         dispatch(logout);
-        window.location.reload()
         navigate('/login', { replace: true })
+        window.location.reload()
     }
 
 
@@ -67,7 +67,7 @@ const Header = ({ mode, toggleColorMode, userProfile }: Props) => {
                     {
                         user &&
                         <Button onClick={handleClick}>
-                            <Typography variant="h6" sx={{ color: theme.palette.text.primary }}>{`${user.name}`}</Typography>
+                            <Typography variant="h6" sx={{ color: theme.palette.text.primary }}>{`${user.firstName} ${user.lastName}`}</Typography>
                         </Button>
                     }
                     <Menu
