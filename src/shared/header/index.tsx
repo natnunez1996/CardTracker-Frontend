@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ThemeSwitch from "../themeSwitch";
 import { IUser } from "@/model/UserModel";
+import CardLogo from '@/assets/img/CardTrackerLogo.png'
 
 type Props = {
     mode: 'light' | 'dark',
@@ -58,7 +59,7 @@ const Header = ({ mode, toggleColorMode, userProfile }: Props) => {
         }} position="sticky">
             <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                 <IconButton onClick={() => navigate('/home', { replace: true })} sx={{ color: theme.palette.text.primary, textDecoration: 'none' }}>
-                    <Avatar src="src/assets/img/CardTrackerLogo.png" alt="CardTrackerLogo" sx={{ width: 40, height: 40, borderRadius: 0 }} />
+                    <Avatar src={CardLogo} alt="CardTrackerLogo" sx={{ width: 40, height: 40, borderRadius: 0 }} />
                     <Typography variant="h4">Card Tracker</Typography>
                 </IconButton>
                 {!userProfile && <div className="middle"> <h1>Please <a href="/login">Login</a> first</h1></div>}
