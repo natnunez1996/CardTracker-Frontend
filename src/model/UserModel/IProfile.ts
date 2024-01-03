@@ -1,4 +1,5 @@
-import IUser from "./IUser";
+import { IUser } from ".";
+
 
 export interface IProfile {
     result: IUser,
