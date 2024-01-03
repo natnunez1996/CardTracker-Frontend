@@ -31,29 +31,26 @@ const AccountSettingsTextField = ({ autoFocus = false, control, disabled = false
       render={({
         field
       }) =>
-        <>
-          <TextField
-            {...field}
-            autoFocus={autoFocus}
-            disabled={disabled}
-            error={error ? true : false}
-            helperText={error}
-            InputProps={{
-              endAdornment: showPassword ?
-                <IconButton onClick={handleVisibility}>
-                  {currentType === 'password' ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-                : <></>
-            }}
-            fullWidth
-            label={label}
-            margin='normal'
-            size='small'
-            type={currentType}
-            variant='standard'
-          />
-        </>
-
+        <TextField
+          {...field}
+          autoFocus={autoFocus}
+          disabled={disabled}
+          error={error ? true : false}
+          helperText={error}
+          InputProps={{
+            endAdornment: showPassword ?
+              <IconButton onClick={handleVisibility}>
+                {currentType === 'password' ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+              : <></>
+          }}
+          fullWidth
+          label={label}
+          margin='normal'
+          size='small'
+          type={currentType}
+          variant='standard'
+        />
       }
     />
   )
