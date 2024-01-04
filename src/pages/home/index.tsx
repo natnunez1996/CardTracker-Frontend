@@ -4,37 +4,28 @@ import { deleteRecord, getAllRecordsOfUser } from '@/actions/record';
 import { useNavigate } from 'react-router-dom';
 import CardItem from '@/common/CardItem';
 import { Paper, IconButton, Popper, Box, Button, Grid, useTheme, Typography } from '@mui/material';
-import { CardCategory, IRecord } from '@/model/CardModel';
+import { IRecord } from '@/model/CardModel';
 import { CreditCardTwoTone } from '@mui/icons-material';
+import { calculateBalance } from '@/utils';
+import { getMediaMatch } from '@/customHooks';
+import { useHomePage } from './home.hooks';
 
 type Props = {
-    userId: String | null;
+    userId: string | null;
 }
 
 const Home = ({ userId }: Props) => {
     const dispatch = useAppDispatch();
+    const match = getMediaMatch();
     const navigate = useNavigate();
-    const records = useAppSelector(state => state.userRecords);
     const theme = useTheme()
+    const records = useAppSelector(state => state.userRecords);
 
     const [userRecords, setUserRecords] = useState<IRecord[]>();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const [recordIdToDelete, setRecordIdToDelete] = useState<string | null>(null);
     const [reload, setReload] = useState(true);
-
-    const calculateBalance = (record: IRecord): number => {
-        let sum = 0;
-
-        record.recordItemsList.forEach(item => {
-            if (item.category === CardCategory.INCOME)
-                return sum += item.amount
-            else
-                return sum -= item.amount
-        })
-
-        return sum
-    }
 
     const handleDelete = () => {
         if (recordIdToDelete) {
@@ -43,24 +34,7 @@ const Home = ({ userId }: Props) => {
         }
     }
 
-    useEffect(() => {
-        //Navigate to Log In if there is no user logged in.
-        if (userId === undefined) {
-            navigate('/login', { replace: true })
-        }
-    }, [])
-
-    useEffect(() => {
-        localStorage.removeItem("lastKnownInputDate")
-
-        if (userId)
-            dispatch(getAllRecordsOfUser(userId))
-    }, [userId, reload])
-
-    useEffect(() => {
-
-        setUserRecords(records.records);
-    }, [records])
+    useHomePage({ navigate, records, reload, setUserRecords, userId })
 
 
 
