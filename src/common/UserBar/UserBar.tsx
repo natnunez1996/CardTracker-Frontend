@@ -4,13 +4,14 @@ import { IUser } from "@/model/UserModel"
 import { useState } from "react"
 import { NavigateFunction } from "react-router-dom"
 import { LogoutButton, ProfileButton } from "@/common/Button"
+import { capitalize } from '@/utils'
 
 type Props = {
     mode: 'light' | 'dark',
     navigate: NavigateFunction,
     theme: Theme,
     toggleColorMode: () => void,
-    user: IUser
+    user: IUser | undefined
 }
 
 const UserBar = ({ mode, navigate, theme, toggleColorMode, user }: Props) => {
@@ -30,30 +31,33 @@ const UserBar = ({ mode, navigate, theme, toggleColorMode, user }: Props) => {
     return (
         <Box display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
             {
-                user &&
-                <Button onClick={handleClick}>
-                    <Typography variant="h6" sx={{ color: theme.palette.text.primary }}>{`${user.firstName} ${user.lastName}`}</Typography>
-                </Button>
+                user !== undefined &&
+                <>
+                    <Button sx={{ textTransform: 'none' }} onClick={handleClick}>
+                        <Typography variant="body1" sx={{ color: theme.palette.text.primary }}>{`${capitalize(user.firstName)} ${capitalize(user.lastName)}`}</Typography>
+                    </Button>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    >
+                        <MenuList>
+                            <MenuItem>
+                                <ProfileButton navigate={navigate} theme={theme} user={user} />
+                            </MenuItem>
+                            <MenuItem>
+                                <LogoutButton navigate={navigate} theme={theme} />
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                </>
             }
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                onClick={handleClose}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            >
-                <MenuList>
-                    <MenuItem>
-                        <ProfileButton navigate={navigate} theme={theme} user={user} />
-                    </MenuItem>
-                    <MenuItem>
-                        <LogoutButton navigate={navigate} theme={theme} />
-                    </MenuItem>
-                </MenuList>
-            </Menu>
+
             <ThemeSwitch mode={mode} handleClick={toggleColorMode} theme={theme} />
-        </Box>
+        </Box >
     )
 }
 
