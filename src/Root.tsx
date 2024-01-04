@@ -3,14 +3,15 @@ import { useMediaQuery, PaletteMode, createTheme, Box } from "@mui/material";
 import { useState, useMemo, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./shared/header";
+import { getMediaMatch } from "./customHooks";
 
 const Root = () => {
 
-    const match = useMediaQuery('(min-width: 600px', { noSsr: true });
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const storedMode: string | null = localStorage.getItem('mode')
 
     const [mode, setMode] = useState<PaletteMode>(prefersDarkMode ? 'dark' : 'light')
+    const match = getMediaMatch();
 
     const toggleColorMode = () => {
         const newMode: 'light' | 'dark' = mode === 'light' ? 'dark' : 'light'
@@ -48,7 +49,7 @@ const Root = () => {
                         : theme.palette.background.paper,
                 }}
             >
-                <Outlet />
+                <Outlet context={match} />
             </Box>
         </ThemeProvider>
     )
