@@ -2,12 +2,11 @@ import { ThemeProvider } from "@emotion/react";
 import { useMediaQuery, PaletteMode, createTheme, Box } from "@mui/material";
 import { useState, useMemo, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { getUserIdHook } from "./customHooks";
 import Header from "./shared/header";
 
 const Root = () => {
 
-    const user = getUserIdHook();
+    const match = useMediaQuery('(min-width: 600px', { noSsr: true });
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const storedMode: string | null = localStorage.getItem('mode')
 
@@ -39,7 +38,7 @@ const Root = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Header mode={mode} toggleColorMode={toggleColorMode} userProfile={user} />
+            <Header match={match} mode={mode} toggleColorMode={toggleColorMode} />
             <Box
                 minHeight={'93vh'}
                 width={'100%'}
