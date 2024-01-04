@@ -19,7 +19,7 @@ export const ProfileButton = ({ buttonName = 'Profile', navigate, theme, user }:
             <ListItemIcon>
                 <AccountCircleOutlined />
             </ListItemIcon>
-            <Typography variant="button">{buttonName}</Typography>
+            <Typography sx={{ textTransform: 'none' }} variant="button">{buttonName}</Typography>
         </IconButton>
     )
 }
