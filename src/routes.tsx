@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/accountSettings/:id',
-        element: <AccountSettings user={user?.result} />,
+        element: user ? <AccountSettings user={user.result} /> : <Login />,
         errorElement: <Error />
       },
       {
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Home userId={user?.result?._id} />,
+        element: user ? <Home userId={user.result._id} /> : <Login />,
       },
       {
         path: "/home/:recordId",
