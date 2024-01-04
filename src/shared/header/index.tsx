@@ -9,13 +9,13 @@ import UserBarMobile from "@/common/UserBar/UserBarMobile";
 import ThemeSwitch from "@/common/ThemeSwitch";
 
 type Props = {
+    match: boolean,
     mode: 'light' | 'dark',
     toggleColorMode: () => void,
 }
 
 
-const Header = ({ mode, toggleColorMode }: Props) => {
-    const match = useMediaQuery('(min-width: 600px');
+const Header = ({ match, mode, toggleColorMode }: Props) => {
     const navigate = useNavigate();
     const theme = useTheme();
 
@@ -34,22 +34,23 @@ const Header = ({ mode, toggleColorMode }: Props) => {
         <AppBar sx={{
             backgroundColor: theme.palette.background.paper,
         }} position="sticky">
-            {user &&
-                (match ?
+            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                {match ?
                     //UI for PC
-                    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                    <>
                         <CardTrackerTitle navigate={navigate} theme={theme} />
                         <UserBar mode={mode} navigate={navigate} theme={theme} toggleColorMode={toggleColorMode} user={user} />
-                    </Box>
+                    </>
                     :
                     //UI for Mobile Devices
-                    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                    <>
                         <UserBarMobile navigate={navigate} theme={theme} user={user} />
                         <CardTrackerTitle navigate={navigate} theme={theme} />
                         <ThemeSwitch mode={mode} handleClick={toggleColorMode} theme={theme} />
-                    </Box>
-                )
-            }
+                    </>
+                }
+            </Box>
+
         </AppBar >
     )
 }
