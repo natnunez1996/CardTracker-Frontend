@@ -10,7 +10,6 @@ type Props = {
 }
 
 const NewRecordTextField = ({ control, label, name, type = 'string' }: Props) => {
-    console.log(type === 'password' ? 'current-password' : 'off');
 
     return (
         <Controller
