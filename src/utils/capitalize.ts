@@ -6,9 +6,9 @@ export const capitalize = (input: string): string => {
     if (newInput.length > 1) {
         newInput.forEach(word => {
             if (isLetter(word[0]))
-                output += word[0].toUpperCase() + word.slice(1) + ' ';
+                output += word[0].toUpperCase() + word.slice(1).toLocaleLowerCase() + ' ';
             else
-                output += word + ' ';
+                output += word + word.slice(1).toLocaleLowerCase() + ' ';
         });
     } else if (newInput.length === 1) {
         output += newInput[0][0].toUpperCase() + newInput[0].slice(1);
