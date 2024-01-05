@@ -3,11 +3,11 @@ import { IRecordItem } from ".";
 
 export interface IRecord {
     _id?: Key,
-    createdBy: String,
+    createdBy: string,
     createdDate: Date,
     initialAmount?: number
-    name: String,
+    name: string,
     recordItemsList: IRecordItem[],
-    recordType: String,
+    recordType: string,
     updatedDate: Date,
 }
