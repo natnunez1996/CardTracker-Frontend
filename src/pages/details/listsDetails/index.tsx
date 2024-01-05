@@ -135,7 +135,7 @@ const ListsDetails = ({
                                 <TableRow key={data.id.toString()}>
                                     <TableCell align="center">{`${moment(data.date).format("MMMM DD YYYY")}`}</TableCell>
                                     <TableCell align="center">{data.name}</TableCell>
-                                    <TableCell align="right">{`$ ${Math.round(data.amount).toFixed(2)}`}</TableCell>
+                                    <TableCell align="right">{`$ ${(data.amount).toFixed(2)}`}</TableCell>
                                     <TableCell align="center">{data.category.charAt(0).toUpperCase() + data.category.slice(1)}</TableCell>
                                     <TableCell align="center">
                                         {
