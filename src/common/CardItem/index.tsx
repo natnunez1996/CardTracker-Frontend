@@ -44,7 +44,7 @@ const CardItem = ({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Button size='small' onClick={() => navigate(record._id!.toString(), { replace: true })}>Details</Button>
+        <Button size='small' onClick={() => navigate(record._id!.toString())}>Details</Button>
         <IconButton sx={{ marginLeft: 'auto' }} size='small' color='error'
           onClick={(event) => {
             setAnchorEl(anchorEl ? null : event?.currentTarget)
