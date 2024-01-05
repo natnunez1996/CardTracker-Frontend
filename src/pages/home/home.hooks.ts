@@ -8,7 +8,7 @@ type Props = {
     navigate: NavigateFunction,
     records: any,
     reload: boolean,
-    setUserRecords: React.Dispatch<React.SetStateAction<IRecord[] | undefined>>,
+    setUserRecords: React.Dispatch<React.SetStateAction<IRecord[] | null>>,
     userId: string | null
 }
 
@@ -31,6 +31,6 @@ export const useHomePage = ({ navigate, records, reload, setUserRecords, userId 
 
     useEffect(() => {
 
-        setUserRecords(records.records);
+        setUserRecords(prevState => [...records.records]);
     }, [records])
 }
