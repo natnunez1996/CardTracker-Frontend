@@ -1,5 +1,5 @@
 import { AddItemButton } from '@/common/Button';
-import ListItem from '@/common/ListItem';
+import ListItemHomePage from '@/common/ListItem/ListItemHomePage/ListItemHomePage';
 import { IRecord } from '@/model/CardModel';
 import { calculateBalance } from '@/utils';
 import { Box, Grid, Theme, List } from '@mui/material';
@@ -40,8 +40,8 @@ const HomePageMobile = ({ handleDelete, setRecordIdToDelete, theme, userRecords 
                     return dateB.getTime() - dateA.getTime();
                 })
                     .map((record) => (
-                        <Grid item key={record._id?.toString()}  >
-                            <ListItem
+                        <Grid item key={record._id}  >
+                            <ListItemHomePage
                                 calculateBalance={calculateBalance}
                                 handleDelete={handleDelete}
                                 navigate={navigate}
