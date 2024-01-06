@@ -1,9 +1,9 @@
 import { CardCategory } from ".";
 
 export interface IRecordItem {
-    name: String,
+    name: string,
     amount: number,
     date: Date,
     category: CardCategory,
-    id: String
+    id: string
 }
