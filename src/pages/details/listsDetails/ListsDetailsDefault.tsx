@@ -6,7 +6,7 @@ import { NavigateFunction } from 'react-router-dom'
 
 type Props = {
     amountEarnLoss: number
-    inputDate: Date,
+    inputDateRecordList: IRecordItem[] | never[],
     navigate: NavigateFunction,
     onDeleteCardDetail: (id: string) => void,
     onEditCardDetail: (id: string) => void,
@@ -24,7 +24,7 @@ interface ListHeader {
 
 const ListsDetailsDefault = ({
     amountEarnLoss,
-    inputDate,
+    inputDateRecordList,
     navigate,
     onDeleteCardDetail,
     onEditCardDetail,
@@ -99,49 +99,35 @@ const ListsDetailsDefault = ({
                 </TableHead>
                 <TableBody>
                     {
-                        record.recordItemsList
-                            .filter(item =>
-                                item.date.getFullYear() === inputDate.getFullYear() &&
-                                item.date.getMonth() === inputDate.getMonth())
-                            .sort((a: IRecordItem, b: IRecordItem) => {
-                                const dateA = new Date(a.date)
-                                const dateB = new Date(b.date)
-                                return dateB.getTime() - dateA.getTime()
-                            })
-                            .map((data) =>
-                                <TableRow key={String(data.id)}>
-                                    <TableCell align="center">{`${moment(data.date).format("MMMM DD YYYY")}`}</TableCell>
-                                    <TableCell align="center">{data.name}</TableCell>
-                                    <TableCell align="right">{`$ ${(data.amount).toFixed(2)}`}</TableCell>
-                                    <TableCell align="center">{data.category.charAt(0).toUpperCase() + data.category.slice(1)}</TableCell>
+                        inputDateRecordList
+                            .map((item) =>
+                                <TableRow key={item.id}>
+                                    <TableCell align="center">{`${moment(item.date).format("MMMM DD YYYY")}`}</TableCell>
+                                    <TableCell align="center">{item.name}</TableCell>
+                                    <TableCell align="right">{`$ ${(item.amount).toFixed(2)}`}</TableCell>
+                                    <TableCell align="center">{item.category.charAt(0).toUpperCase() + item.category.slice(1)}</TableCell>
                                     <TableCell align="center">
-                                        {
-                                            record.recordType === CardType.GIFT_CARD && data.category === CardCategory.INCOME ?
-                                                <Button disabled onClick={() => onEditCardDetail(String(data.id))}>Edit</Button>
-                                                :
-                                                <Button onClick={() => onEditCardDetail(String(data.id))}>Edit</Button>
-                                        }
+                                        <Button
+                                            disabled={record.recordType === CardType.GIFT_CARD && item.category === CardCategory.INCOME}
+                                            onClick={() => onEditCardDetail(item.id)}
+                                        >Edit</Button>
                                     </TableCell>
                                     {
-                                        //If showConfirmDelete id === data.id, new buttons will show for confirmation.
+                                        //If showConfirmDelete id === item.id, new buttons will show for confirmation.
                                         //Disable Delete Button if CardType === GIFTCARD && Cell Category === INCOME
 
-                                        showConfirmDelete === data.id ?
+                                        showConfirmDelete === item.id ?
                                             <TableCell sx={{ width: 268 }} align="center">
-                                                <Button color="error" onClick={() => onDeleteCardDetail(String(data.id))}>DELETE</Button>
+                                                <Button color="error" onClick={() => onDeleteCardDetail(item.id)}>DELETE</Button>
                                                 <Button color="success" onClick={() => setShowConfirmDelete(null)}>Cancel</Button>
                                             </TableCell>
                                             : < TableCell sx={{ width: 268 }} align="center">
-                                                {
-                                                    record.recordType === CardType.GIFT_CARD && data.category === CardCategory.INCOME ?
-                                                        <Button disabled color="error" onClick={() => setShowConfirmDelete(data.id.toString())}>
-                                                            Delete
-                                                        </Button> :
-                                                        <Button color="error" onClick={() => setShowConfirmDelete(data.id.toString())}>
-                                                            Delete
-                                                        </Button>
-
-                                                }
+                                                <Button
+                                                    color="error"
+                                                    disabled={record.recordType === CardType.GIFT_CARD && item.category === CardCategory.INCOME}
+                                                    onClick={() => setShowConfirmDelete(item.id)}>
+                                                    Delete
+                                                </Button>
                                             </TableCell>
                                     }
                                 </TableRow>)
