@@ -1,11 +1,11 @@
-import { CardType, CardCategory, IRecordItem, IRecord } from "@/model/CardModel"
+import { CardType, CardCategory } from "@/enums/ECard"
+import { IRecordItem, IRecord } from "@/model/CardModel"
 import { Button, Collapse, ListItem, ListItemButton, ListItemText, capitalize } from "@mui/material"
 import moment from "moment"
 import { useState } from "react"
 import { NavigateFunction } from "react-router-dom"
 
 type Props = {
-    amountEarnLoss: number
     item: IRecordItem,
     navigate: NavigateFunction,
     onDeleteCardDetail: (id: string) => void,
