@@ -1,10 +1,8 @@
 import ListItemDetailsPage from '@/common/ListItem/ListItemDetailsPage/ListItemDetailsPage'
-import { CardType, IRecordItem, CardCategory, IRecord } from '@/model/CardModel'
-import { capitalize } from '@/utils'
+import { CardType } from '@/enums/ECard'
+import { IRecordItem, IRecord } from '@/model/CardModel'
 import { NoteAdd } from '@mui/icons-material'
-import { TableContainer, Table, TableHead, TableRow, TableCell, Button, TableBody, ListItem, ListItemButton, ListItemText, ListSubheader, List, Collapse } from '@mui/material'
-import moment from 'moment'
-import { useState } from 'react'
+import { Button, ListSubheader, List } from '@mui/material'
 import { NavigateFunction } from 'react-router-dom'
 
 type Props = {
@@ -36,15 +34,17 @@ const ListsDetailsMobile = ({
         <List sx={{ width: '100%' }}>
             <ListSubheader sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 Card's Transactions
-                <Button onClick={() => navigate('newDetails')} >
-                    <NoteAdd /> Add New Data
-                </Button>
+                {
+                    (amountEarnLoss > 0 || record.recordType === CardType.CREDIT_CARD) &&
+                    <Button onClick={() => navigate('newDetails')} >
+                        <NoteAdd /> Add New Data
+                    </Button>
+                }
             </ListSubheader>
 
             {
                 inputDateRecordList.map(item =>
                     <ListItemDetailsPage
-                        amountEarnLoss={amountEarnLoss}
                         item={item}
                         navigate={navigate}
                         onDeleteCardDetail={onDeleteCardDetail}
