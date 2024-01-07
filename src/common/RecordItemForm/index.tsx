@@ -1,8 +1,9 @@
 import { Box, Container, Paper, Typography, Button } from "@mui/material"
 import { Control, SubmitHandler, UseFormHandleSubmit } from "react-hook-form"
 import { NavigateFunction } from "react-router-dom"
-import { CardCategory, IRecordItem } from "@/model/CardModel"
+import { IRecordItem } from "@/model/CardModel"
 import { NewRecordItemTextField, NewRecordItemDateField, NewRecordItemSelect } from "../NewRecordItemFormItems"
+import { CardCategory } from "@/enums/ECard"
 
 
 type Props = {
