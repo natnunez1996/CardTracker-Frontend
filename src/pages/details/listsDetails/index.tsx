@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { IRecord, IRecordItem } from "@/model/CardModel";
 import ListsDetailsDefault from "./ListsDetailsDefault";
 import { getMediaMatch } from "@/customHooks";
-import { filterRecordsListByDate } from "@/utils";
 import ListsDetailsMobile from "./ListsDetailsMobile";
 
 type Props = {
     amountEarnLoss: number
-    inputDate: Date,
+    inputDateRecordList: IRecordItem[],
     record: IRecord,
-    setEditedItemId: React.Dispatch<React.SetStateAction<String>>,
-    setToDelete: React.Dispatch<React.SetStateAction<Boolean>>
-    setToEdit: React.Dispatch<React.SetStateAction<Boolean>>,
+    setEditedItemId: React.Dispatch<React.SetStateAction<string>>,
+    setToDelete: React.Dispatch<React.SetStateAction<boolean>>
+    setToEdit: React.Dispatch<React.SetStateAction<boolean>>,
     setUpdateDetails: React.Dispatch<React.SetStateAction<IRecord | undefined>>,
 }
 
@@ -20,7 +19,7 @@ type Props = {
 
 const ListsDetails = ({
     amountEarnLoss,
-    inputDate,
+    inputDateRecordList,
     record,
     setEditedItemId,
     setToDelete,
@@ -30,7 +29,6 @@ const ListsDetails = ({
 
     //Setting the id of the list that is meant to be deleted.
     const [showConfirmDelete, setShowConfirmDelete] = useState<string | null>(null);
-    const [inputDateRecordList, setInputDateRecordList] = useState<IRecordItem[] | never[]>([]);
     const match = getMediaMatch();
     const navigate = useNavigate();
 
@@ -53,12 +51,6 @@ const ListsDetails = ({
 
         setToDelete(prevState => !prevState);
     }
-
-    useEffect(() => {
-        setInputDateRecordList(
-            filterRecordsListByDate(record.recordItemsList, inputDate)
-        )
-    }, [inputDate])
 
 
     return (
