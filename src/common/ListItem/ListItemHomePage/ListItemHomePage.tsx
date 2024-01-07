@@ -1,4 +1,5 @@
-import { CardType, IRecord } from "@/model/CardModel"
+import { CardType } from "@/enums/ECard"
+import { IRecord, IRecordItem } from "@/model/CardModel"
 import { capitalize } from "@/utils"
 import { ExpandLess, ExpandMore } from "@mui/icons-material"
 import { Avatar, Collapse, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Theme } from "@mui/material"
@@ -8,7 +9,7 @@ import { NavigateFunction } from "react-router-dom"
 
 
 type Props = {
-    calculateBalance: (data: IRecord) => number,
+    calculateBalance: (data: IRecordItem[]) => number,
     handleDelete: () => void,
     navigate: NavigateFunction,
     record: IRecord,
@@ -45,7 +46,11 @@ const ListItemHomePage = ({
                         {record.recordType === CardType.CREDIT_CARD ? 'CC' : 'GC'}
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText sx={{ color }} primary={`${capitalize(record.name)}`} />
+                <ListItemText
+                    primary={`${capitalize(record.name)}`}
+                    secondary={`Current Balance: $ ${calculateBalance(record.recordItemsList).toFixed(2)}`}
+                    sx={{ color }}
+                />
                 {open ? <ExpandLess sx={{ color }} /> : <ExpandMore sx={{ color }} />}
             </ListItemButton>
             <Collapse in={open}>
@@ -53,7 +58,10 @@ const ListItemHomePage = ({
                     <>
                         <ListSubheader>Are you sure you want to delete this card?</ListSubheader>
                         <ListItemButton onClick={deleteConfirmCancel}>
-                            <ListItemText sx={{ color: theme.palette.success.main }} primary={"Cancel"} />
+                            <ListItemText
+                                primary={"Cancel"}
+                                sx={{ color: theme.palette.success.main }}
+                            />
                         </ListItemButton>
                         <ListItemButton onClick={() => {
                             setRecordIdToDelete(record._id!.toString())
@@ -63,7 +71,6 @@ const ListItemHomePage = ({
                         </ListItemButton>
                     </> :
                     <>
-                        <ListSubheader>{`Current Balance: $ ${calculateBalance(record).toFixed(2)}`} </ListSubheader>
                         <ListItemButton onClick={() => navigate(record._id!.toString())}>
                             <ListItemText sx={{ color }} primary={"More Info"} />
                         </ListItemButton>
