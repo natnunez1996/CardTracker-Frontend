@@ -1,9 +1,10 @@
-import { CardCategory, IRecord } from "@/model/CardModel";
+import { CardCategory } from "@/enums/ECard";
+import { IRecordItem } from "@/model/CardModel";
 
-export const calculateBalance = (record: IRecord): number => {
+export const calculateBalance = (recordList: IRecordItem[]): number => {
     let sum = 0;
 
-    record.recordItemsList.forEach(item => {
+    recordList.forEach(item => {
         if (item.category === CardCategory.INCOME)
             return sum += item.amount
         else
