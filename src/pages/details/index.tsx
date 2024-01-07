@@ -1,27 +1,22 @@
 import 'chart.js/auto';
-import DistributionDetails from './distributionDetails/index';
 import EditRecordItemForm from '@/pages/newFile/editRecordItemForm';
-import ExpensesDetails from '@/pages/details/expensesDetails';
 import ListsDetails from '@/pages/details/listsDetails';
-import MonthsDistributionDetails from '@/pages/details/monthsDistributionDetails';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Box, Container, Typography, useTheme } from '@mui/material';
-import { CardCategory, IRecord } from '@/model/CardModel';
+import { IRecord, IRecordItem } from '@/model/CardModel';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { IProfile } from '@/model/UserModel/IProfile';
 import { getRecordHook, getUserIdHook } from '@/customHooks';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAppDispatch } from '@/hook';
-import { updateRecord } from '@/actions/record';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ChartsDetails from './chartsDetails';
+import { useDetailsPage } from './details.hooks';
 
 
 type Props = {}
 
 const CardDetails = (props: Props) => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
     const { recordId } = useParams();
 
     const user: IProfile | undefined = getUserIdHook();
@@ -29,54 +24,29 @@ const CardDetails = (props: Props) => {
 
     const theme = useTheme();
 
-    const [toDelete, setToDelete] = useState<Boolean>(false);
-    const [toEdit, setToEdit] = useState<Boolean>(false);
-    const [editedItemId, setEditedItemId] = useState<String>("");
-    const [updateDetails, setUpdateDetails] = useState<IRecord>();
+    const [toDelete, setToDelete] = useState<boolean>(false);
+    const [toEdit, setToEdit] = useState<boolean>(false);
+    const [editedItemId, setEditedItemId] = useState<string>("");
+    const [updateDetails, setUpdateDetails] = useState<IRecord | undefined>();
 
     const [amountEarnLoss, setAmountEarnLoss] = useState<number>(0);
     const [inputDate, setInputDate] = useState<Date>(new Date());
+    const [inputDateRecordList, setInputDateRecordList] = useState<IRecordItem[] | never[]>([]);
     const storedDate = localStorage.getItem("lastKnownInputDate");
 
-    const choices: CardCategory[] = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>).map(key => CardCategory[key]);
-
-    useEffect(() => {
-        if (!user)
-            navigate('/home', { replace: true });
-
-        if (storedDate)
-            setInputDate(new Date(storedDate))
-
-        if (cardDetails !== undefined && cardDetails.recordItemsList) {
-            if (cardDetails.recordItemsList.length > 0) {
-                localStorage.setItem("lastKnownId",
-                    cardDetails.recordItemsList[cardDetails.recordItemsList.length - 1].id.toString())
-            }
-
-            if (cardDetails.recordItemsList.length === 0) {
-                localStorage.setItem("lastKnownId", "0");
-            }
-
-            setUpdateDetails(cardDetails);
-        }
-    }, [cardDetails])
-
-    useEffect(() => {
-        if (updateDetails) {
-            dispatch(updateRecord(updateDetails, navigate))
-            navigate(0)
-        }
-    }, [toDelete])
-
-    useEffect(() => {
-        localStorage.setItem("lastKnownInputDate", inputDate.toDateString())
-    }, [inputDate])
-
+    useDetailsPage(cardDetails, inputDate, updateDetails, user, setAmountEarnLoss, setInputDate, setInputDateRecordList, setUpdateDetails, storedDate, toDelete)
 
     return (
         <>
             {
-                toEdit ? <EditRecordItemForm id={editedItemId} recordId={recordId!} recordItem={updateDetails} setToEdit={setToEdit} /> :
+                toEdit ?
+                    <EditRecordItemForm
+                        id={editedItemId}
+                        recordId={recordId!}
+                        recordItem={updateDetails}
+                        setToEdit={setToEdit}
+                    />
+                    :
                     <Box
                         display={'flex'}
                         flexDirection={'column'}
@@ -110,45 +80,24 @@ const CardDetails = (props: Props) => {
                             </LocalizationProvider>
                         </Container>
 
-                        <Typography variant='h6'>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss.toFixed(2)}` : `owed $${amountEarnLoss.toFixed(2)}`}</Typography>
+                        <Typography variant='h6'>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss.toFixed(2)}` : `owed $${amountEarnLoss.toFixed(2)}`} this month.</Typography>
                         {
                             inputDate &&
                             <>
-                                {updateDetails &&
-                                    <Box
-                                        display={'flex'}
-                                        maxWidth={'100vw'}
-                                        height={400}
-                                        alignItems={'center'}
-                                    >
-                                        <DistributionDetails
-                                            choices={choices}
-                                            inputDate={inputDate}
-                                            record={updateDetails}
-                                            theme={theme}
-                                        />
-
-                                        <ExpensesDetails
-                                            choices={choices}
-                                            inputDate={inputDate}
-                                            record={updateDetails}
-                                            setAmountEarnLoss={setAmountEarnLoss}
-                                            theme={theme}
-                                        />
-
-                                        <MonthsDistributionDetails
-                                            choices={choices}
-                                            inputDate={inputDate}
-                                            record={updateDetails}
-                                            theme={theme}
-                                        />
-                                    </Box>
+                                {(inputDateRecordList.length > 0 && updateDetails) ?
+                                    <ChartsDetails
+                                        inputDate={inputDate}
+                                        inputDateRecordList={inputDateRecordList}
+                                        record={updateDetails}
+                                        theme={theme}
+                                    /> :
+                                    <Typography variant='h5'>No Transaction is being recorded for this month.</Typography>
                                 }
 
                                 {updateDetails &&
                                     <ListsDetails
                                         amountEarnLoss={amountEarnLoss}
-                                        inputDate={inputDate}
+                                        inputDateRecordList={inputDateRecordList}
                                         record={updateDetails}
                                         setEditedItemId={setEditedItemId}
                                         setToDelete={setToDelete}
