@@ -1,4 +1,5 @@
-import { CardType, IRecordItem, CardCategory, IRecord } from '@/model/CardModel'
+import { CardCategory, CardType } from '@/enums/ECard'
+import { IRecordItem, IRecord } from '@/model/CardModel'
 import { NoteAdd } from '@mui/icons-material'
 import { TableContainer, Table, TableHead, TableRow, TableCell, Button, TableBody } from '@mui/material'
 import moment from 'moment'

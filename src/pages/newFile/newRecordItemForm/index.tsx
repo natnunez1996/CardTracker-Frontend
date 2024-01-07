@@ -7,7 +7,8 @@ import { updateRecord } from '@/actions/record'
 import { getUserIdHook } from '@/customHooks/getUserIdHook'
 import { IProfile } from '@/model/UserModel'
 import RecordItemForm from '@/common/RecordItemForm'
-import { IRecord, IRecordItem, CardCategory } from '@/model/CardModel';
+import { IRecord, IRecordItem } from '@/model/CardModel';
+import { CardCategory } from '@/enums/ECard';
 
 
 type Props = {

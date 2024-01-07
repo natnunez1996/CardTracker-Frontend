@@ -1,4 +1,5 @@
-import { CardCategory, CardType, IRecordItem } from "@/model/CardModel";
+import { CardCategory, CardType } from "@/enums/ECard";
+import { IRecordItem } from "@/model/CardModel";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import { Control, Controller } from "react-hook-form"
 

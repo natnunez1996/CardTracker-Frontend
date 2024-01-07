@@ -4,14 +4,15 @@ import { useAppDispatch } from '@/hook'
 import { useEffect, useState } from 'react';
 import { updateRecord } from '@/actions/record'
 import RecordItemForm from '@/common/RecordItemForm'
-import { CardCategory, IRecord, IRecordItem } from '@/model/CardModel';
+import { IRecord, IRecordItem } from '@/model/CardModel';
+import { CardCategory } from '@/enums/ECard';
 
 
 type Props = {
-    id: String,
+    id: string,
     recordId: string,
     recordItem: IRecord | undefined,
-    setToEdit: React.Dispatch<React.SetStateAction<Boolean>>
+    setToEdit: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const EditRecordItemForm = ({ id, recordId, recordItem, setToEdit }: Props) => {

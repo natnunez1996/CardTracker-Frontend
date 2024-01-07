@@ -3,8 +3,9 @@ import { useAppDispatch } from "@/hook";
 import { useNavigate } from "react-router-dom";
 import { createRecord } from "@/actions/record";
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
-import { IRecord, IRecordItem, CardCategory, CardType } from "@/model/CardModel";
+import { IRecord, IRecordItem } from "@/model/CardModel";
 import { NewRecordSelect, NewRecordTextField } from "@/common/NewRecordFormItems";
+import { CardCategory, CardType } from "@/enums/ECard";
 
 type Props = {}
 
@@ -15,7 +16,7 @@ const NewRecord = (props: Props) => {
     const { control, handleSubmit, watch } = useForm<IRecord>();
 
     const onSubmit: SubmitHandler<IRecord> = (data: IRecord) => {
-        let userId: String = "";
+        let userId: string = "";
 
         const storedData = localStorage.getItem("profile")
 

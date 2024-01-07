@@ -3,12 +3,13 @@ import { deepOrange, green } from "@mui/material/colors"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavigateFunction } from "react-router-dom";
 import React from "react";
-import { CardType, IRecord } from "@/model/CardModel";
+import { IRecord, IRecordItem } from "@/model/CardModel";
+import { CardType } from "@/enums/ECard";
 
 
 type Props = {
   anchorEl: HTMLElement | null,
-  calculateBalance: (data: IRecord) => number,
+  calculateBalance: (data: IRecordItem[]) => number,
   navigate: NavigateFunction,
   record: IRecord,
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>,
@@ -40,7 +41,7 @@ const CardItem = ({
       />
       <CardContent>
         <Typography variant='caption' color='text.secondary'>
-          Balance: $ {calculateBalance(record).toFixed(2)}
+          Balance: $ {calculateBalance(record.recordItemsList).toFixed(2)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
