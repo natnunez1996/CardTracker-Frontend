@@ -1,4 +1,4 @@
-import { CardCategory } from ".";
+import { CardCategory } from "@/enums/ECard";
 
 export interface IRecordItem {
     name: string,
