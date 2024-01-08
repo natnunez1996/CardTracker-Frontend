@@ -15,7 +15,7 @@ type Props = {
     setToEdit: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const EditRecordItemForm = ({ id, recordId, recordItem, setToEdit }: Props) => {
+const EditRecordItemForm = ({ id, recordItem, setToEdit }: Props) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -95,7 +95,6 @@ const EditRecordItemForm = ({ id, recordId, recordItem, setToEdit }: Props) => {
             navigate={navigate}
             onCancelEdit={onCancelEdit}
             onSubmit={onSubmit}
-            recordId={recordId!}
         />
     )
 }
