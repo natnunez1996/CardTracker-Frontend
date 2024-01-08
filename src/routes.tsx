@@ -1,13 +1,13 @@
 import { Navigate, createBrowserRouter } from "react-router-dom"
 import { getUserIdHook } from "@/customHooks";
 import AccountSettings from "@/pages/accountSettings";
-import CardDetails from "@/pages/details";
 import Error from '@/pages/error'
 import Home from "@/pages/home"
 import Login from "@/pages/auth/login";
 import NewRecord from "@/pages/newFile/newRecord";
 import NewRecordItemForm from "@/pages/newFile/newRecordItemForm";
 import Root from "./Root";
+import Details from "@/pages/details/Details";
 
 
 const user = getUserIdHook();
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/home/:recordId",
-        element: <CardDetails />,
+        element: <Details />,
       },
       {
         path: '/error',

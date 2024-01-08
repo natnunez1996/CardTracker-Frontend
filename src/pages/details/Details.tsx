@@ -16,7 +16,7 @@ import { useDetailsPage } from './details.hooks';
 
 type Props = {}
 
-const CardDetails = (props: Props) => {
+const Details = (props: Props) => {
     const { recordId } = useParams();
 
     const user: IProfile | undefined = getUserIdHook();
@@ -28,13 +28,13 @@ const CardDetails = (props: Props) => {
     const [toEdit, setToEdit] = useState<boolean>(false);
     const [editedItemId, setEditedItemId] = useState<string>("");
     const [updateDetails, setUpdateDetails] = useState<IRecord | undefined>();
-
-    const [amountEarnLoss, setAmountEarnLoss] = useState<number>(0);
-    const [inputDate, setInputDate] = useState<Date>(new Date());
-    const [inputDateRecordList, setInputDateRecordList] = useState<IRecordItem[] | never[]>([]);
     const storedDate = localStorage.getItem("lastKnownInputDate");
 
-    useDetailsPage(cardDetails, inputDate, updateDetails, user, setAmountEarnLoss, setInputDate, setInputDateRecordList, setUpdateDetails, storedDate, toDelete)
+    const [amountEarnLoss, setAmountEarnLoss] = useState<number>(0);
+    const [inputDate, setInputDate] = useState<Date>(storedDate ? new Date(storedDate) : new Date());
+    const [inputDateRecordList, setInputDateRecordList] = useState<IRecordItem[] | never[]>([]);
+
+    useDetailsPage(cardDetails, inputDate, updateDetails, user, setAmountEarnLoss, setInputDateRecordList, setUpdateDetails, toDelete)
 
     return (
         <>
@@ -59,32 +59,30 @@ const CardDetails = (props: Props) => {
                             color: theme.palette.primary.dark
                         }}
                     >
-                        <Typography color="primary.textContrast" variant='h5'>
-                            {updateDetails ? updateDetails.name : "Card Name"}
+                        <Typography color="primary.textContrast" variant='h5' margin={'1rem'}>
+                            {updateDetails?.name}
                         </Typography>
-                        <Container >
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker
-                                    autoFocus
-                                    label={'Month & Year'}
-                                    openTo='month'
-                                    views={['year', 'month']}
-                                    defaultValue={storedDate ? dayjs(`${new Date(storedDate)}`) : dayjs(`${new Date()}`)}
-                                    onAccept={(v: any) => {
-                                        setInputDate(v.$d)
-                                    }}
-                                    onChange={(v: any) => {
-                                        setInputDate(v.$d)
-                                    }}
-                                />
-                            </LocalizationProvider>
-                        </Container>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                autoFocus
+                                label={'Month & Year'}
+                                openTo='month'
+                                views={['year', 'month']}
+                                defaultValue={storedDate !== null ? dayjs(storedDate) : dayjs(`${new Date()}`)}
+                                onAccept={(v: any) => {
+                                    setInputDate(v.$d)
+                                }}
+                                onChange={(v: any) => {
+                                    setInputDate(v.$d)
+                                }}
+                            />
+                        </LocalizationProvider>
 
-                        <Typography variant='h6'>You {amountEarnLoss >= 0 ? `saved $${amountEarnLoss.toFixed(2)}` : `owed $${amountEarnLoss.toFixed(2)}`} this month.</Typography>
+                        <Typography variant='h6'> Balance this month: {amountEarnLoss >= 0 ? `$${amountEarnLoss.toFixed(2)}` : `$${amountEarnLoss.toFixed(2)}`}</Typography>
                         {
-                            inputDate &&
+                            inputDate && updateDetails &&
                             <>
-                                {(inputDateRecordList.length > 0 && updateDetails) ?
+                                {(inputDateRecordList.length > 0) ?
                                     <ChartsDetails
                                         inputDate={inputDate}
                                         inputDateRecordList={inputDateRecordList}
@@ -94,16 +92,15 @@ const CardDetails = (props: Props) => {
                                     <Typography variant='h5'>No Transaction is being recorded for this month.</Typography>
                                 }
 
-                                {updateDetails &&
-                                    <ListsDetails
-                                        amountEarnLoss={amountEarnLoss}
-                                        inputDateRecordList={inputDateRecordList}
-                                        record={updateDetails}
-                                        setEditedItemId={setEditedItemId}
-                                        setToDelete={setToDelete}
-                                        setToEdit={setToEdit}
-                                        setUpdateDetails={setUpdateDetails} />
-                                }
+                                <ListsDetails
+                                    amountEarnLoss={amountEarnLoss}
+                                    inputDateRecordList={inputDateRecordList}
+                                    record={updateDetails}
+                                    setEditedItemId={setEditedItemId}
+                                    setToDelete={setToDelete}
+                                    setToEdit={setToEdit}
+                                    setUpdateDetails={setUpdateDetails} />
+
                             </>
                         }
                     </Box>
@@ -112,4 +109,4 @@ const CardDetails = (props: Props) => {
     )
 }
 
-export default CardDetails
+export default Details
