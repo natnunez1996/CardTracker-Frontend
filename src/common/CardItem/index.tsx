@@ -5,6 +5,8 @@ import { NavigateFunction } from "react-router-dom";
 import React from "react";
 import { IRecord, IRecordItem } from "@/model/CardModel";
 import { CardType } from "@/enums/ECard";
+import creditCardImg from '@/assets/img/credit_card.jpg'
+import giftCardImg from '@/assets/img/gift_card.jpg'
 
 
 type Props = {
@@ -36,7 +38,7 @@ const CardItem = ({
         title={record.name}
       />
       <CardMedia
-        image={`src/assets/img/${record.recordType}`}
+        image={record.recordType === CardType.CREDIT_CARD ? creditCardImg : giftCardImg}
         sx={{ height: 150 }}
       />
       <CardContent>
