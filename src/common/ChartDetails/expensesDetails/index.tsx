@@ -93,7 +93,7 @@ export const ExpensesDetails = ({ choices, inputDate, inputDateRecordList, theme
 
 
     return (
-        <Container sx={{ height: '95%' }}>
+        <Container sx={{ height: 400 }}>
             <Bar options={options}
                 data={cardData} />
         </Container>
