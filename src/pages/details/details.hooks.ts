@@ -13,21 +13,17 @@ export const useDetailsPage = (
     updateDetails: IRecord | undefined,
     user: IProfile | undefined,
     setAmountEarnLoss: React.Dispatch<SetStateAction<number>>,
-    setInputDate: React.Dispatch<SetStateAction<Date>>,
     setInputDateRecordList: React.Dispatch<SetStateAction<IRecordItem[] | never>>,
     setUpdateDetails: React.Dispatch<SetStateAction<IRecord | undefined>>,
-    storedDate: string | null,
     toDelete: boolean,
 ) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+
     useEffect(() => {
         if (!user)
             navigate('/home', { replace: true });
-
-        if (storedDate)
-            setInputDate(new Date(storedDate))
 
         if (cardDetails !== undefined && cardDetails.recordItemsList) {
             if (cardDetails.recordItemsList.length > 0) {
@@ -54,6 +50,7 @@ export const useDetailsPage = (
         localStorage.setItem("lastKnownInputDate", inputDate.toDateString())
 
         if (updateDetails !== undefined) {
+
             const filteredDetails = filterRecordsListByDate(updateDetails.recordItemsList, inputDate)
             setInputDateRecordList(filteredDetails)
 
@@ -66,6 +63,6 @@ export const useDetailsPage = (
 
             })
         }
-    }, [inputDate])
+    }, [inputDate, updateDetails])
 
 }
