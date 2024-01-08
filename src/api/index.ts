@@ -7,7 +7,7 @@ import { IAccountSettings } from "@/model/auth/IAccountSettings";
 
 
 const API: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:8000'
+    baseURL: 'https://card-tracker-backend.cyclic.app/'
 })
 
 //Record
