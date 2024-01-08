@@ -77,7 +77,6 @@ const NewRecordItemForm = (props: Props) => {
                     handleSubmit={handleSubmit}
                     navigate={navigate}
                     onSubmit={onSubmit}
-                    recordId={recordId!}
                 />
             }
         </>
