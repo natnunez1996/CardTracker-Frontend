@@ -19,7 +19,7 @@ type Props = {
 interface ListHeader {
     id: 'date' | 'detail' | 'amount' | 'category' | 'edit' | 'delete',
     label: string,
-    minWidth: number,
+    minWidth?: number,
     align?: 'center' | 'right',
 }
 
@@ -39,37 +39,33 @@ const ListsDetailsDefault = ({
         {
             id: 'date',
             label: "Date",
-            minWidth: 170,
+            minWidth: 140,
             align: 'center'
         },
         {
             id: 'detail',
             label: "Detail",
-            minWidth: 170,
             align: 'center'
         },
         {
             id: 'amount',
             label: "Amount",
-            minWidth: 170,
+            minWidth: 100,
             align: 'right'
         },
         {
             id: 'category',
             label: "Category",
-            minWidth: 170,
             align: 'center'
         },
         {
             id: 'edit',
             label: "",
-            minWidth: 170,
             align: 'center'
         },
         {
             id: 'delete',
             label: "",
-            minWidth: 170,
             align: 'center'
         }
     ]
