@@ -12,8 +12,10 @@ export const filterRecordsListByDate = (recordsList: IRecordItem[], date: Date):
             const dateA = new Date(a.date)
             const dateB = new Date(b.date)
             //If same date, the latest input will be the first recordItem to show.
-            if (dateB.getTime() === dateA.getTime())
+
+            if (dateB.toDateString() === dateA.toDateString())
                 return +b.id - +a.id
+
             return dateB.getTime() - dateA.getTime()
         })
 }
