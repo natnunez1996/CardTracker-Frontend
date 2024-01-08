@@ -14,10 +14,9 @@ type Props = {
     navigate: NavigateFunction,
     onCancelEdit?: () => void,
     onSubmit: SubmitHandler<IRecordItem>,
-    recordId: string,
 }
 
-const RecordItemForm = ({ cardType, choices, control, handleSubmit, navigate, onCancelEdit, onSubmit, recordId }: Props) => {
+const RecordItemForm = ({ cardType, choices, control, handleSubmit, navigate, onCancelEdit, onSubmit }: Props) => {
     return (
         <Box
             alignItems={'center'}
@@ -37,7 +36,7 @@ const RecordItemForm = ({ cardType, choices, control, handleSubmit, navigate, on
                         <Button type="submit">Submit</Button>
                         <Button color="error" onClick={() => {
                             onCancelEdit ? onCancelEdit() :
-                                navigate(`/home/${recordId}`)
+                                navigate(-1)
                         }}>Cancel</Button>
                     </form>
                 </Paper>
