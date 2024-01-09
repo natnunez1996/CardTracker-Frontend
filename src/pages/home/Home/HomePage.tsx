@@ -34,29 +34,31 @@ const HomePage = ({ handleDelete, setRecordIdToDelete, theme, userRecords }: Pro
             }}
         >
             <AddItemButton />
-            <Grid
-                container spacing={2}
-                justifyContent={'flex-start'}
-                alignSelf={'center'}
-            >
-                {userRecords.sort((a: IRecord, b: IRecord) => {
-                    const dateA = new Date(a.updatedDate);
-                    const dateB = new Date(b.updatedDate);
-                    return dateB.getTime() - dateA.getTime();
-                })
-                    .map((record) => (
-                        <Grid item key={record._id?.toString()}  >
-                            <CardItem
-                                anchorEl={anchorEl}
-                                calculateBalance={calculateBalance}
-                                navigate={navigate}
-                                record={record}
-                                setAnchorEl={setAnchorEl}
-                                setRecordIdToDelete={setRecordIdToDelete}
-                            />
-                        </Grid>
-                    ))}
-            </Grid>
+            <Box sx={{ margin: '1rem' }}>
+                <Grid
+                    container spacing={2}
+                    justifyContent={'flex-start'}
+                    alignSelf={'center'}
+                >
+                    {userRecords.sort((a: IRecord, b: IRecord) => {
+                        const dateA = new Date(a.updatedDate);
+                        const dateB = new Date(b.updatedDate);
+                        return dateB.getTime() - dateA.getTime();
+                    })
+                        .map((record) => (
+                            <Grid item key={record._id?.toString()}  >
+                                <CardItem
+                                    anchorEl={anchorEl}
+                                    calculateBalance={calculateBalance}
+                                    navigate={navigate}
+                                    record={record}
+                                    setAnchorEl={setAnchorEl}
+                                    setRecordIdToDelete={setRecordIdToDelete}
+                                />
+                            </Grid>
+                        ))}
+                </Grid>
+            </Box>
 
 
             <Popper open={open} anchorEl={anchorEl}>
