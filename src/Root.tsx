@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./shared/header";
 import { getMediaMatch } from "./customHooks";
+import Footer from "./shared/footer";
 
 const Root = () => {
 
@@ -51,6 +52,7 @@ const Root = () => {
             >
                 <Outlet context={match} />
             </Box>
+            <Footer />
         </ThemeProvider>
     )
 }
