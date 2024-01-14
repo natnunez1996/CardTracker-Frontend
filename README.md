@@ -1,12 +1,12 @@
 # MERN Stacked Application - Card Tracker
 
-## A fully functional [Card Tracking](https://main.dha0xl9i5yd2p.amplifyapp.com) Application specifically for my **OWN** usage for my Gift Cards.
+## A fully functional [Card Tracking](https://main.d30kwe32ap4hoq.amplifyapp.com/) Application specifically for my **OWN** usage for my Gift Cards.
 
 This project is fully inspired by [PirateKing's](https://www.youtube.com/@PIRATEKINGDOM) [Finance App](https://www.piratekingdom.com/projects/personal-finance-app-frontend).
 
 ## User's Instruction
 
-1. Click this [link](https://main.dha0xl9i5yd2p.amplifyapp.com) to access the website.
+1. Click this [link](https://main.d30kwe32ap4hoq.amplifyapp.com/) to access the website.
 2. Log in with username **test@test.com** and password: **123123**.
    - I intentionally disabled the signup page in the frontend and its corresponding route in the backend.
 3. Once logged in, you can create new Cards and lists of transactions in it.
