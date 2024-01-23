@@ -13,9 +13,10 @@ type Props = {
     name: keyof ISignInFormData,
     showPassword?: boolean,
     type?: 'string' | 'password'
+    value?: string
 }
 
-const AuthTextField = ({ autoFocus = false, control, disabled = false, error, label, name, showPassword = false, type = 'string' }: Props) => {
+const AuthTextField = ({ autoFocus = false, control, disabled = false, error, label, name, showPassword = false, type = 'string', value = '' }: Props) => {
     const [currentType, setCurrentType] = useState(type);
 
     const handleVisibility = () => {
@@ -24,7 +25,7 @@ const AuthTextField = ({ autoFocus = false, control, disabled = false, error, la
 
     return (
         <Controller
-            defaultValue={''}
+            defaultValue={value}
             name={name}
             control={control}
             rules={{ required: true }}
