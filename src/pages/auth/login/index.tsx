@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { signIn } from '@/actions/auth';
 import AuthTextField from '@/common/AuthFormItems/AuthTextField';
 import { Box, Button, Container, Paper, Typography } from '@mui/material';
+import { useEffect } from 'react';
 
 type Props = {}
 
@@ -20,6 +21,7 @@ const Login = (props: Props) => {
     }
 
 
+
     return (
         <Box
             alignItems={'center'}
@@ -32,8 +34,8 @@ const Login = (props: Props) => {
                 <Paper variant="outlined" sx={{ padding: "1rem", borderRadius: '1rem', textAlign: 'center' }} >
                     <Typography variant="h5">Log In</Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <AuthTextField autoFocus control={control} label='Email' name='email' />
-                        <AuthTextField control={control} error={error} label='Password' name='password' showPassword type='password' />
+                        <AuthTextField autoFocus control={control} label='Email' name='email' value='test@test.com' />
+                        <AuthTextField control={control} error={error} label='Password' name='password' showPassword type='password' value='123123' />
                         <Button type='submit'>Log In</Button>
                     </form>
                 </Paper>
