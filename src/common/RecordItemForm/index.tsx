@@ -23,7 +23,7 @@ const RecordItemForm = ({ cardType, choices, control, handleSubmit, navigate, on
             display={'flex'}
             flexDirection={'column'}
             height={'100vh'}
-            width={'100vw'}
+            width={'100%'}
         >
             <Container maxWidth="sm" sx={{ margin: '1rem' }} >
                 <Paper variant="outlined" sx={{ padding: "1rem", borderRadius: '1rem', textAlign: 'center' }} >
