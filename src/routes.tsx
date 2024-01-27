@@ -23,10 +23,6 @@ const router = createBrowserRouter([
         errorElement: <Error />
       },
       {
-        path: '/login',
-        element: <Login />
-      },
-      {
         path: "/home",
         element: user ? <Home userId={user.result._id} /> : <Login />,
       },

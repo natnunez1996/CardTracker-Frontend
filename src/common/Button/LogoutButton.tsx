@@ -15,7 +15,7 @@ export const LogoutButton = ({ navigate, theme }: Props) => {
 
     const onLogOut = () => {
         dispatch(logout);
-        navigate('/login', { replace: true })
+        navigate('/', { replace: true })
         window.location.reload()
     }
     return (
