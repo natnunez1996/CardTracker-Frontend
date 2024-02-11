@@ -1,7 +1,6 @@
-import { IUser } from ".";
-
+import { type IUser } from '.'
 
 export interface IProfile {
-    result: IUser,
-    token: String
+  result: IUser
+  token: string
 }

@@ -1,31 +1,30 @@
-import { Box, Button, Typography, Menu, MenuList, MenuItem, IconButton, Theme } from "@mui/material"
-import ThemeSwitch from "@/common/ThemeSwitch"
-import { IUser } from "@/model/UserModel"
-import { useState } from "react"
-import { NavigateFunction } from "react-router-dom"
-import { LogoutButton, ProfileButton } from "@/common/Button"
+import { Box, Button, Typography, Menu, MenuList, MenuItem, type Theme } from '@mui/material'
+import ThemeSwitch from '@/common/ThemeSwitch'
+import { type IUser } from '@/model/UserModel'
+import React, { useState } from 'react'
+import { type NavigateFunction } from 'react-router-dom'
+import { LogoutButton, ProfileButton } from '@/common/Button'
 import { capitalize } from '@/utils'
 
-type Props = {
-    mode: 'light' | 'dark',
-    navigate: NavigateFunction,
-    theme: Theme,
-    toggleColorMode: () => void,
+interface Props {
+    mode: 'light' | 'dark'
+    navigate: NavigateFunction
+    theme: Theme
+    toggleColorMode: () => void
     user: IUser | undefined
 }
 
 const UserBar = ({ mode, navigate, theme, toggleColorMode, user }: Props) => {
-
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>()
 
     const open = Boolean(anchorEl)
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
+    const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
+        setAnchorEl(event.currentTarget)
     }
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleClose = (): void => {
+        setAnchorEl(null)
     }
 
     return (

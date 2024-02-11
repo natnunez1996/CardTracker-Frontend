@@ -1,19 +1,18 @@
-import { CardType } from "@/enums/ECard"
-import { IRecord, IRecordItem } from "@/model/CardModel"
-import { capitalize } from "@/utils"
-import { ExpandLess, ExpandMore } from "@mui/icons-material"
-import { Avatar, Collapse, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Theme } from "@mui/material"
-import { deepOrange, green } from "@mui/material/colors"
-import { useState } from "react"
-import { NavigateFunction } from "react-router-dom"
+import { CardType } from '@/enums/ECard'
+import { type IRecord, type IRecordItem } from '@/model/CardModel'
+import { capitalize } from '@/utils'
+import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { Avatar, Collapse, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, type Theme } from '@mui/material'
+import { deepOrange, green } from '@mui/material/colors'
+import React, { useState } from 'react'
+import { type NavigateFunction } from 'react-router-dom'
 
-
-type Props = {
-    calculateBalance: (data: IRecordItem[]) => number,
-    handleDelete: () => void,
-    navigate: NavigateFunction,
-    record: IRecord,
-    setRecordIdToDelete: React.Dispatch<React.SetStateAction<string | null>>,
+interface Props {
+    calculateBalance: (data: IRecordItem[]) => number
+    handleDelete: () => void
+    navigate: NavigateFunction
+    record: IRecord
+    setRecordIdToDelete: React.Dispatch<React.SetStateAction<string | null>>
     theme: Theme
 }
 
@@ -25,18 +24,16 @@ const ListItemHomePage = ({
     setRecordIdToDelete,
     theme
 }: Props) => {
-
     const color = theme.palette.text.primary
-    const [open, setOpen] = useState<boolean>(false);
-    const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false)
+    const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
 
-    const handleOpen = () => {
+    const handleOpen = (): void => {
         setOpen(prevState => !prevState)
     }
 
-    const deleteConfirmOpen = () => setDeleteConfirm(true)
-    const deleteConfirmCancel = () => setDeleteConfirm(false)
-
+    const deleteConfirmOpen = (): void => { setDeleteConfirm(true) }
+    const deleteConfirmCancel = (): void => { setDeleteConfirm(false) }
 
     return (
         <>
@@ -54,28 +51,34 @@ const ListItemHomePage = ({
                 {open ? <ExpandLess sx={{ color }} /> : <ExpandMore sx={{ color }} />}
             </ListItemButton>
             <Collapse in={open}>
-                {deleteConfirm ?
-                    <>
+                {deleteConfirm
+                    ? <>
                         <ListSubheader>Are you sure you want to delete this card?</ListSubheader>
                         <ListItemButton onClick={deleteConfirmCancel}>
                             <ListItemText
-                                primary={"Cancel"}
+                                primary={'Cancel'}
                                 sx={{ color: theme.palette.success.main }}
                             />
                         </ListItemButton>
                         <ListItemButton onClick={() => {
-                            setRecordIdToDelete(record._id!.toString())
+                            if (record._id !== undefined) {
+                                setRecordIdToDelete(record._id.toString())
+                            }
                             handleDelete()
                         }}>
-                            <ListItemText sx={{ color: theme.palette.error.main }} primary={"Delete"} />
+                            <ListItemText sx={{ color: theme.palette.error.main }} primary={'Delete'} />
                         </ListItemButton>
-                    </> :
-                    <>
-                        <ListItemButton onClick={() => navigate(record._id!.toString())}>
-                            <ListItemText sx={{ color }} primary={"More Info"} />
+                    </>
+                    : <>
+                        <ListItemButton onClick={() => {
+                            if (record._id !== undefined) {
+                                navigate(record._id.toString())
+                            }
+                        }}>
+                            <ListItemText sx={{ color }} primary={'More Info'} />
                         </ListItemButton>
                         <ListItemButton onClick={deleteConfirmOpen}>
-                            <ListItemText sx={{ color: theme.palette.error.main }} primary={"Delete"} />
+                            <ListItemText sx={{ color: theme.palette.error.main }} primary={'Delete'} />
                         </ListItemButton>
                     </>
                 }

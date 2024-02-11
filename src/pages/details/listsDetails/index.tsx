@@ -1,86 +1,82 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { IRecord, IRecordItem } from "@/model/CardModel";
-import ListsDetailsDefault from "./ListsDetailsDefault";
-import { getMediaMatch } from "@/customHooks";
-import ListsDetailsMobile from "./ListsDetailsMobile";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { type IRecord, type IRecordItem } from '@/model/CardModel'
+import { getMediaMatch } from '@/customHooks'
+import ListsDetailsDefault from '@/pages/Details/ListsDetails/ListsDetailsDefault';
+import ListsDetailsMobile from '@/pages/Details/ListsDetails/ListsDetailsMobile'
 
-type Props = {
-    amountEarnLoss: number
-    inputDateRecordList: IRecordItem[],
-    record: IRecord,
-    setEditedItemId: React.Dispatch<React.SetStateAction<string>>,
-    setToDelete: React.Dispatch<React.SetStateAction<boolean>>
-    setToEdit: React.Dispatch<React.SetStateAction<boolean>>,
-    setUpdateDetails: React.Dispatch<React.SetStateAction<IRecord | undefined>>,
+interface Props {
+  amountEarnLoss: number
+  inputDateRecordList: IRecordItem[]
+  record: IRecord
+  setEditedItemId: React.Dispatch<React.SetStateAction<string>>
+  setToDelete: React.Dispatch<React.SetStateAction<boolean>>
+  setToEdit: React.Dispatch<React.SetStateAction<boolean>>
+  setUpdateDetails: React.Dispatch<React.SetStateAction<IRecord | undefined>>,
+  totalBalance: number
 }
 
-
-
 const ListsDetails = ({
-    amountEarnLoss,
-    inputDateRecordList,
-    record,
-    setEditedItemId,
-    setToDelete,
-    setToEdit,
-    setUpdateDetails
+  inputDateRecordList,
+  record,
+  setEditedItemId,
+  setToDelete,
+  setToEdit,
+  setUpdateDetails,
+  totalBalance
 }: Props) => {
+  // Setting the id of the list that is meant to be deleted.
+  const [showConfirmDelete, setShowConfirmDelete] = useState<string | null>(null)
+  const match = getMediaMatch()
+  const navigate = useNavigate()
 
-    //Setting the id of the list that is meant to be deleted.
-    const [showConfirmDelete, setShowConfirmDelete] = useState<string | null>(null);
-    const match = getMediaMatch();
-    const navigate = useNavigate();
+  const onEditCardDetail = (id: string): void => {
+    setEditedItemId(id)
+    setToEdit(true)
+  }
 
-    const onEditCardDetail = (id: string) => {
-        setEditedItemId(id);
-        setToEdit(true);
-    }
+  const onDeleteCardDetail = (id: string): void => {
+    setUpdateDetails(prevState => {
+      if (prevState !== undefined) {
+        const updatedItemsList = prevState?.recordItemsList.filter(
+          recordItem => { return recordItem.id !== id }
+        )
 
-    const onDeleteCardDetail = (id: string) => {
-        setUpdateDetails(prevState => {
-            const updatedItemsList = prevState?.recordItemsList.filter(
-                recordItem => { return recordItem.id !== id }
-            )
-            return {
-                ...prevState,
-                recordItemsList: updatedItemsList,
-                updatedDate: new Date()
-            } as IRecord
-        })
+        prevState.recordItemsList = updatedItemsList
+        prevState.updatedDate = new Date()
+        return prevState
+      }
+    })
 
-        setToDelete(prevState => !prevState);
-    }
+    setToDelete(prevState => !prevState)
+  }
 
-
-    return (
-        <>
-            {match ?
-                <ListsDetailsDefault
-                    amountEarnLoss={amountEarnLoss}
-                    inputDateRecordList={inputDateRecordList}
-                    navigate={navigate}
-                    onDeleteCardDetail={onDeleteCardDetail}
-                    onEditCardDetail={onEditCardDetail}
-                    record={record}
-                    setShowConfirmDelete={setShowConfirmDelete}
-                    showConfirmDelete={showConfirmDelete}
-                />
-                :
-                <ListsDetailsMobile
-                    amountEarnLoss={amountEarnLoss}
-                    inputDateRecordList={inputDateRecordList}
-                    navigate={navigate}
-                    onDeleteCardDetail={onDeleteCardDetail}
-                    onEditCardDetail={onEditCardDetail}
-                    record={record}
-                    setShowConfirmDelete={setShowConfirmDelete}
-                    showConfirmDelete={showConfirmDelete}
-                />
-            }
-        </>
-    )
-
+  return (
+    <>
+      {match
+        ? <ListsDetailsDefault
+          inputDateRecordList={inputDateRecordList}
+          navigate={navigate}
+          onDeleteCardDetail={onDeleteCardDetail}
+          onEditCardDetail={onEditCardDetail}
+          record={record}
+          setShowConfirmDelete={setShowConfirmDelete}
+          showConfirmDelete={showConfirmDelete}
+          totalBalance={totalBalance}
+        />
+        : <ListsDetailsMobile
+          inputDateRecordList={inputDateRecordList}
+          navigate={navigate}
+          onDeleteCardDetail={onDeleteCardDetail}
+          onEditCardDetail={onEditCardDetail}
+          record={record}
+          setShowConfirmDelete={setShowConfirmDelete}
+          showConfirmDelete={showConfirmDelete}
+          totalBalance={totalBalance}
+        />
+      }
+    </>
+  )
 }
 
 export default ListsDetails

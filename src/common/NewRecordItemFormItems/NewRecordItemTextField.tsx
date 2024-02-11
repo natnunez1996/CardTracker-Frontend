@@ -1,41 +1,39 @@
-
-import { IRecordItem } from '@/model/CardModel'
+import { type IRecordItem } from '@/model/CardModel'
 import { TextField } from '@mui/material'
-import { Control, Controller } from 'react-hook-form'
+import { type Control, Controller } from 'react-hook-form'
 
-type Props = {
-    control: Control<IRecordItem>,
-    label: string
-    name: keyof IRecordItem,
-    type?: string
+interface Props {
+  control: Control<IRecordItem>
+  label: string
+  name: keyof IRecordItem
+  type?: string
 }
 
 const NewRecordItemTextField = ({ control, label, name, type = 'string' }: Props) => {
-
-    return (
-        <Controller
-            defaultValue={''}
-            name={name}
-            control={control}
-            rules={{ required: true }}
-            render={({
-                field,
-                fieldState
-            }) =>
-                <TextField
-                    {...field}
-                    error={!!fieldState.error!}
-                    helperText={fieldState.error ? fieldState.error.message : null}
-                    fullWidth
-                    label={label}
-                    margin='normal'
-                    size='small'
-                    type={type}
-                    variant='standard'
-                />
-            }
+  return (
+    <Controller
+      defaultValue={''}
+      name={name}
+      control={control}
+      rules={{ required: true }}
+      render={({
+        field,
+        fieldState
+      }) =>
+        <TextField
+          {...field}
+          error={fieldState.error !== undefined}
+          helperText={fieldState.error !== undefined ? fieldState.error.message : null}
+          fullWidth
+          label={label}
+          margin='normal'
+          size='small'
+          type={type}
+          variant='standard'
         />
-    )
+      }
+    />
+  )
 }
 
 export default NewRecordItemTextField

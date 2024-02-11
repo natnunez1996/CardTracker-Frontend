@@ -1,82 +1,71 @@
-import * as actionTypes from '@/constants/actionTypes';
-import * as API from '@/api';
-import { NavigateFunction } from 'react-router-dom';
-import { Dispatch } from 'redux';
-import axios, { AxiosError, AxiosResponse } from 'axios';
-import { IRecord } from '@/model/CardModel';
-
+import * as actionTypes from '@/constants/actionTypes'
+import * as API from '@/api'
+import { type NavigateFunction } from 'react-router-dom'
+import { type Dispatch } from 'redux'
+import axios, { type AxiosResponse } from 'axios'
+import { type IRecord } from '@/model/CardModel'
 
 export const createRecord = (recordData: IRecord, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
-    try {
-        const { data }: AxiosResponse = await API.createRecord(recordData);
+  try {
+    const { data }: AxiosResponse = await API.createRecord(recordData)
 
-        dispatch({ type: actionTypes.CREATERECORD, payload: data })
+    dispatch({ type: actionTypes.CREATERECORD, payload: data })
 
-        navigate(`/home`, { replace: true })
-
-    } catch (error) {
-        console.log(error);
-
-    }
+    navigate('/home', { replace: true })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-export const deleteRecord = (recordId: string, navigate: NavigateFunction) => async (dispach: Dispatch) => {
-    try {
-        await API.deleteRecord(recordId)
-        navigate(`/home`, { replace: true });
+export const deleteRecord = (recordId: string, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
+  try {
+    const { data }: AxiosResponse = await API.deleteRecord(recordId)
 
-    } catch (error) {
-        console.log(error);
-
-    }
+    dispatch({ type: actionTypes.DELETERECORD, payload: data })
+    navigate('/home', { replace: true })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-export const getAllRecordsOfUser = (userId: String) => async (dispatch: Dispatch) => {
-    try {
-        const { data }: AxiosResponse = await API.getAllRecordsOfUser(userId);
+export const getAllRecordsOfUser = (userId: string) => async (dispatch: Dispatch) => {
+  try {
+    const { data }: AxiosResponse = await API.getAllRecordsOfUser(userId)
 
-        dispatch({ type: actionTypes.GETALLRECORDSOFUSER, payload: data })
-
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            const { message } = error!.response!.data
-            console.log(message);
-
-            dispatch({ type: actionTypes.SERVERERROR, payload: message })
-        }
-
-
+    dispatch({ type: actionTypes.GETALLRECORDSOFUSER, payload: data })
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response !== undefined) {
+        const { message } = error.response.data
+        dispatch({ type: actionTypes.SERVERERROR, payload: message })
+      }
     }
+  }
 }
 
+export const getRecord = (userId: string, recordId: string) => async (dispatch: Dispatch) => {
+  try {
+    const { data }: AxiosResponse = await API.getRecord(userId, recordId)
 
-export const getRecord = (userId: String, recordId: String) => async (dispatch: Dispatch) => {
-
-    try {
-        const { data }: AxiosResponse = await API.getRecord(userId, recordId);
-
-        dispatch({ type: actionTypes.GETRECORD, payload: data });
-
-    } catch (error: any) {
-        console.log(error.response.data.message);
-
-        if (error.response.data)
-            dispatch({ type: actionTypes.SERVERERROR, payload: error.response.data })
-
+    dispatch({ type: actionTypes.GETRECORD, payload: data })
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      if (error.response !== undefined) {
+        dispatch({ type: actionTypes.SERVERERROR, payload: error.response.data })
+      }
     }
+  }
 }
 
 export const updateRecord = (updatedRecord: IRecord, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
-    try {
-        const { data }: AxiosResponse = await API.updateRecord(updatedRecord._id!.toString(), updatedRecord)
+  try {
+    if (updatedRecord._id === undefined) throw new Error('No id')
+    const { data }: AxiosResponse = await API.updateRecord(updatedRecord._id.toString(), updatedRecord)
 
-        dispatch({ type: actionTypes.UPDATERECORD, payload: data });
+    dispatch({ type: actionTypes.UPDATERECORD, payload: data })
 
-        navigate(`/home/${updatedRecord._id}`, { replace: true })
-
-
-    } catch (error) {
-        console.log(error);
-
-    }
+    navigate(`/home/${updatedRecord._id}`, { replace: true })
+  } catch (error) {
+    console.log(error)
+  }
 }

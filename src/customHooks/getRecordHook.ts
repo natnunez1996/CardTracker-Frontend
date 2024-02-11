@@ -1,49 +1,46 @@
-import { getRecord } from '@/actions/record';
-import { useAppDispatch, useAppSelector } from '@/hook';
-import { IRecord, IRecordItem } from '@/model/CardModel';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+/* eslint-disable react-hooks/rules-of-hooks */
+import { getRecord } from '@/actions/record'
+import { useAppDispatch, useAppSelector } from '@/hook'
+import { type IRecord, type IRecordItem } from '@/model/CardModel'
+import { useEffect, useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
 
-export function getRecordHook(userId: String | undefined, recordId: String | undefined) {
-    const navigate = useNavigate();
+export function getRecordHook(userId: string | undefined, recordId: string | undefined): IRecord | undefined {
+  const navigate = useNavigate()
 
-    const dispatch = useAppDispatch();
-    const result = useAppSelector(state => state.userRecords.recordDetails);
-    const error = useAppSelector(state => state.userRecords.message);
+  const dispatch = useAppDispatch()
+  const result = useAppSelector(state => state.userRecords.recordDetails)
+  const error = useAppSelector(state => state.userRecords.message)
 
-    const [recordDetail, setRecordDetail] = useState<IRecord>();
+  const [recordDetail, setRecordDetail] = useState<IRecord>()
 
-    useEffect(() => {
-        if (recordId && userId)
-            dispatch(getRecord(userId, recordId))
-    }, [])
+  useEffect(() => {
+    if (recordId !== undefined && userId !== undefined) {
+      dispatch(getRecord(userId, recordId))
+    }
+  }, [dispatch, recordId, userId])
 
-    useEffect(() => {
-        if (result) {
-            let convertedResult: IRecordItem[]
+  useEffect(() => {
+    if (result !== null) {
+      let convertedResult: IRecordItem[]
 
-            if (result.recordItemsList && result.recordItemsList.length > 0) {
-                convertedResult = result.recordItemsList.map((item: IRecordItem) => ({
-                    ...item,
-                    date: new Date(item.date)
-                }))
-                setRecordDetail({ ...result, recordItemsList: convertedResult });
-                return
-            }
+      if (result.recordItemsList !== null && result.recordItemsList.length > 0) {
+        convertedResult = result.recordItemsList.map((item: IRecordItem) => ({
+          ...item,
+          date: new Date(item.date)
+        }))
 
-            setRecordDetail(result)
-        }
-    }, [result])
+        const newRecord: IRecord = { ...result, recordItemsList: convertedResult }
 
+        setRecordDetail(newRecord)
+      }
+    }
+  }, [result])
 
-    useEffect(() => {
-        if (error)
-            navigate("/error", { replace: true })
+  useEffect(() => {
+    if (error !== '') { navigate('/error', { replace: true }) }
+  }, [error, navigate])
 
-    }, [error])
-
-    return recordDetail;
+  return recordDetail
 }
-

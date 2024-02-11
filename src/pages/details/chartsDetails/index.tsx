@@ -1,45 +1,43 @@
-import { DistributionDetails, ExpensesDetails, MonthsDistributionDetails } from "@/common/ChartDetails";
-import { getMediaMatch } from "@/customHooks";
-import { CardCategory } from "@/enums/ECard";
-import ChartDetailsType from "@/enums/EChart/EChartDetailsType";
-import { IRecord, IRecordItem } from "@/model/CardModel";
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Theme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { DistributionDetails, ExpensesDetails, MonthsDistributionDetails } from '@/common/ChartDetails'
+import { getMediaMatch } from '@/customHooks'
+import { CardCategory } from '@/enums/ECard'
+import ChartDetailsType from '@/enums/EChart/EChartDetailsType'
+import { type IRecord, type IRecordItem } from '@/model/CardModel'
+import { Box, FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent, type Theme } from '@mui/material'
+import { useEffect, useState } from 'react'
 
-type Props = {
-    inputDate: Date,
-    inputDateRecordList: IRecordItem[] | never,
-    record: IRecord,
-    theme: Theme,
+interface Props {
+    inputDate: Date
+    inputDateRecordList: IRecordItem[] | never
+    record: IRecord
+    theme: Theme
 }
 
 const ChartsDetails = ({ inputDate, inputDateRecordList, record, theme }: Props) => {
-    const choices: CardCategory[] = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>).map(key => CardCategory[key]);
-    const match = getMediaMatch();
+    const choices: CardCategory[] = (Object.keys(CardCategory) as Array<keyof typeof CardCategory>).map(key => CardCategory[key])
+    const match = getMediaMatch()
 
-    const [chartSelectorOptions, setChartSelectorOptions] = useState<ChartDetailsType>(ChartDetailsType.DISTRIBUTION_DETAILS);
-    const [prevSelectedOptions, setPrevSelectedOptions] = useState<ChartDetailsType>(ChartDetailsType.DISTRIBUTION_DETAILS);
+    const [chartSelectorOptions, setChartSelectorOptions] = useState<ChartDetailsType>(ChartDetailsType.DISTRIBUTION_DETAILS)
+    const [prevSelectedOptions, setPrevSelectedOptions] = useState<ChartDetailsType>(ChartDetailsType.DISTRIBUTION_DETAILS)
 
-
-    const handleChange = (event: SelectChangeEvent) => {
+    const handleChange = (event: SelectChangeEvent): void => {
         const selectedChart = event.target.value as ChartDetailsType
         setChartSelectorOptions(selectedChart)
         setPrevSelectedOptions(selectedChart)
     }
 
     useEffect(() => {
-        if (match)
-            setChartSelectorOptions(ChartDetailsType.DEFAULT)
-        if (!match)
-            if (prevSelectedOptions)
-                setChartSelectorOptions(prevSelectedOptions)
-    }, [match])
+        if (match) { setChartSelectorOptions(ChartDetailsType.DEFAULT) }
+        if (!match) {
+            if (prevSelectedOptions !== undefined) { setChartSelectorOptions(prevSelectedOptions) }
+        }
+    }, [match, prevSelectedOptions])
 
     return (
         <>
-            {//Larger Media View
-                chartSelectorOptions === ChartDetailsType.DEFAULT ?
-                    <Box
+            {// Larger Media View
+                chartSelectorOptions === ChartDetailsType.DEFAULT
+                    ? <Box
                         display={'flex'}
                         maxWidth={'100%'}
                         height={400}
@@ -47,7 +45,6 @@ const ChartsDetails = ({ inputDate, inputDateRecordList, record, theme }: Props)
                     >
                         <DistributionDetails
                             choices={choices}
-                            inputDate={inputDate}
                             inputDateRecordList={inputDateRecordList}
                             theme={theme}
                         />
@@ -66,7 +63,7 @@ const ChartsDetails = ({ inputDate, inputDateRecordList, record, theme }: Props)
                             theme={theme}
                         />
                     </Box>
-                    ://Shorter Media View
+                    :// Shorter Media View
                     <Box>
                         <FormControl fullWidth>
                             <InputLabel id='chartSelectorLabel'>Details</InputLabel>
@@ -75,7 +72,7 @@ const ChartsDetails = ({ inputDate, inputDateRecordList, record, theme }: Props)
                                 id="chartSelector"
                                 value={chartSelectorOptions}
                                 label="Details"
-                                onChange={(e) => handleChange(e)}
+                                onChange={(e) => { handleChange(e) }}
                             >
                                 <MenuItem value={ChartDetailsType.DISTRIBUTION_DETAILS} >Distribution Details</MenuItem>
                                 <MenuItem value={ChartDetailsType.EXPENSES_DETAILS} >Expenses Details</MenuItem>
@@ -86,7 +83,6 @@ const ChartsDetails = ({ inputDate, inputDateRecordList, record, theme }: Props)
                                 chartSelectorOptions === ChartDetailsType.DISTRIBUTION_DETAILS &&
                                 <DistributionDetails
                                     choices={choices}
-                                    inputDate={inputDate}
                                     inputDateRecordList={inputDateRecordList}
                                     theme={theme}
                                 />

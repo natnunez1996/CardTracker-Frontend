@@ -1,7 +1,7 @@
 export interface ISignUpFormData {
-    email: String,
-    firstName: String,
-    lastName: String,
-    password: String,
-    confirmPassword?: String
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+  confirmPassword?: string
 }

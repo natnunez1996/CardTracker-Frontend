@@ -1,2 +1,2 @@
-export * from './ISignInFormData';
-export * from './ISignUpFormData';
+export * from './ISignInFormData'
+export * from './ISignUpFormData'

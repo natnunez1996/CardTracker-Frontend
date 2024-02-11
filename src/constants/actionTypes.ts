@@ -1,17 +1,17 @@
-//AUTH Constants
-export const AUTH: String = 'AUTH';
-export const CLEAR_MESSAGE: String = 'CLEAR_MESSAGE';
-export const CLEAR_SPECIAL_MESSAGE: String = 'CLEAR_SPECIAL_MESSAGE';
-export const INVALID_CREDENTIALS: String = 'INVALID_CREDENTIALS';
-export const LOGOUT: String = 'LOGOUT';
-export const UPDATEPASSWORDMESSAGE: String = 'UPDATEPASSWORDMESSAGE';
-export const VALIDATE_PASSWORD: String = 'VALIDATE_PASSWORD';
+// AUTH Constants
+export const AUTH: string = 'AUTH'
+export const CLEAR_MESSAGE: string = 'CLEAR_MESSAGE'
+export const CLEAR_SPECIAL_MESSAGE: string = 'CLEAR_SPECIAL_MESSAGE'
+export const INVALID_CREDENTIALS: string = 'INVALID_CREDENTIALS'
+export const LOGOUT: string = 'LOGOUT'
+export const UPDATEPASSWORDMESSAGE: string = 'UPDATEPASSWORDMESSAGE'
+export const VALIDATE_PASSWORD: string = 'VALIDATE_PASSWORD'
 
-//Record Constants
+// Record Constants
 
-export const CREATERECORD = "CREATERECORD";
-export const DELETERECORD = "DELETERECORD";
-export const GETALLRECORDSOFUSER = "GETALLRECORDSOFUSER";
-export const GETRECORD = "GETRECORD";
-export const SERVERERROR = "SERVERERROR";
-export const UPDATERECORD = "UPDATERECORD";
+export const CREATERECORD = 'CREATERECORD'
+export const DELETERECORD = 'DELETERECORD'
+export const GETALLRECORDSOFUSER = 'GETALLRECORDSOFUSER'
+export const GETRECORD = 'GETRECORD'
+export const SERVERERROR = 'SERVERERROR'
+export const UPDATERECORD = 'UPDATERECORD'

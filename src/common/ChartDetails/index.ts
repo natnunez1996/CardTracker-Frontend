@@ -1,3 +1,3 @@
-export * from './distributionDetails'
-export * from './expensesDetails'
-export * from './monthsDistributionDetails'
+export * from './DistributionDetails'
+export * from './ExpensesDetails'
+export * from './MonthsDistributionDetails'

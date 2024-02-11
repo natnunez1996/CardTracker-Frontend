@@ -1,17 +1,17 @@
-import { CardType, CardCategory } from "@/enums/ECard"
-import { IRecordItem, IRecord } from "@/model/CardModel"
-import { Button, Collapse, ListItem, ListItemButton, ListItemText, capitalize } from "@mui/material"
-import moment from "moment"
-import { useState } from "react"
-import { NavigateFunction } from "react-router-dom"
+import { CardType, CardCategory } from '@/enums/ECard'
+import { type IRecordItem, type IRecord } from '@/model/CardModel'
+import { Button, Collapse, ListItem, ListItemButton, ListItemText, capitalize } from '@mui/material'
+import moment from 'moment'
+import React, { useState } from 'react'
+import { type NavigateFunction } from 'react-router-dom'
 
-type Props = {
-    item: IRecordItem,
-    navigate: NavigateFunction,
-    onDeleteCardDetail: (id: string) => void,
-    onEditCardDetail: (id: string) => void,
-    record: IRecord,
-    setShowConfirmDelete: React.Dispatch<React.SetStateAction<string | null>>,
+interface Props {
+    item: IRecordItem
+    navigate: NavigateFunction
+    onDeleteCardDetail: (id: string) => void
+    onEditCardDetail: (id: string) => void
+    record: IRecord
+    setShowConfirmDelete: React.Dispatch<React.SetStateAction<string | null>>
     showConfirmDelete: string | null
 }
 
@@ -23,9 +23,7 @@ const ListItemDetailsPage = ({
     setShowConfirmDelete,
     showConfirmDelete
 }: Props) => {
-
     const [open, setOpen] = useState<boolean>(false)
-    const [toDelete, setToDelete] = useState<boolean>(false)
 
     return (
         <ListItem
@@ -33,22 +31,21 @@ const ListItemDetailsPage = ({
             divider
             key={item.id}
             secondaryAction={
-                showConfirmDelete === item.id ?
-                    <>
-                        <Button color="error" onClick={() => onDeleteCardDetail(item.id)}>DELETE</Button>
-                        <Button color="success" onClick={() => setShowConfirmDelete(null)}>Cancel</Button>
+                showConfirmDelete === item.id
+                    ? <>
+                        <Button color="error" onClick={() => { onDeleteCardDetail(item.id) }}>DELETE</Button>
+                        <Button color="success" onClick={() => { setShowConfirmDelete(null) }}>Cancel</Button>
                     </>
-                    :
-                    <>
+                    : <>
                         <Button
                             disabled={record.recordType === CardType.GIFT_CARD && item.category === CardCategory.INCOME}
-                            onClick={() => onEditCardDetail(item.id)}
+                            onClick={() => { onEditCardDetail(item.id) }}
                         >Edit
                         </Button>
                         <Button
                             color="error"
                             disabled={record.recordType === CardType.GIFT_CARD && item.category === CardCategory.INCOME}
-                            onClick={() => setShowConfirmDelete(item.id)}
+                            onClick={() => { setShowConfirmDelete(item.id) }}
                         >DELETE
                         </Button>
                     </>
@@ -56,10 +53,10 @@ const ListItemDetailsPage = ({
             }
             sx={{ flexDirection: 'column', width: '100%' }}
         >
-            <ListItemButton onClick={() => setOpen(prevState => !prevState)} sx={{ width: '100%' }} >
+            <ListItemButton onClick={() => { setOpen(prevState => !prevState) }} sx={{ width: '100%' }} >
                 <ListItemText
                     primary={item.name}
-                    secondary={`${moment(item.date).format("MMMM DD YYYY")}`}
+                    secondary={`${moment(item.date).format('MMMM DD YYYY')}`}
                 />
             </ListItemButton>
             <Collapse in={open}>

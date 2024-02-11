@@ -1,14 +1,14 @@
-import { CardType } from "@/enums/ECard";
-import { IRecord } from "@/model/CardModel";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
-import { Control, Controller } from "react-hook-form"
+import { CardType } from '@/enums/ECard'
+import { type IRecord } from '@/model/CardModel'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { type Control, Controller } from 'react-hook-form'
 
-type Props = {
-    choices: Array<keyof typeof CardType>,
-    control: Control<IRecord>,
-    name: keyof IRecord,
-    label: string,
-};
+interface Props {
+    choices: Array<keyof typeof CardType>
+    control: Control<IRecord>
+    name: keyof IRecord
+    label: string
+}
 
 const NewRecordSelect = ({ choices, control, name, label }: Props) => {
     return (
@@ -30,7 +30,7 @@ const NewRecordSelect = ({ choices, control, name, label }: Props) => {
                 defaultValue={CardType[choices[0]]}
             />
         </FormControl>
-    );
-};
+    )
+}
 
-export default NewRecordSelect;
+export default NewRecordSelect

@@ -1,4 +1,4 @@
 export interface ISignInFormData {
-    email: String,
-    password: String
+  email: string
+  password: string
 }

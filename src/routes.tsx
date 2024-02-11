@@ -1,16 +1,15 @@
-import { Navigate, createBrowserRouter } from "react-router-dom"
-import { getUserIdHook } from "@/customHooks";
-import AccountSettings from "@/pages/accountSettings";
-import Error from '@/pages/error'
-import Home from "@/pages/home"
-import Login from "@/pages/auth/login";
-import NewRecord from "@/pages/newFile/newRecord";
-import NewRecordItemForm from "@/pages/newFile/newRecordItemForm";
-import Root from "./Root";
-import Details from "@/pages/details/Details";
+import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { getUserIdHook } from '@/customHooks'
+import AccountSettings from '@/pages/AccountSettings'
+import Error from '@/pages/Error'
+import Home from '@/pages/Home'
+import Login from '@/pages/Auth/Login'
+import NewRecord from '@/pages/NewFile/NewRecord'
+import NewRecordItemForm from '@/pages/NewFile/NewRecordItemForm'
+import Root from './Root'
+import Details from '@/pages/Details/Details'
 
-
-const user = getUserIdHook();
+const user = getUserIdHook()
 
 const router = createBrowserRouter([
   {
@@ -19,27 +18,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/accountSettings/:id',
-        element: user ? <AccountSettings user={user.result} /> : <Login />,
+        element: user !== undefined ? <AccountSettings user={user.result} /> : <Login />,
         errorElement: <Error />
       },
       {
-        path: "/home",
-        element: user ? <Home userId={user.result._id} /> : <Login />,
+        path: '/home',
+        element: user !== undefined ? <Home userId={user.result._id} /> : <Login />
       },
       {
-        path: "/home/:recordId",
-        element: <Details />,
+        path: '/home/:recordId',
+        element: <Details />
       },
       {
         path: '/error',
         element: <Error />
       },
       {
-        path: "/home/:recordId/newDetails",
+        path: '/home/:recordId/newDetails',
         element: <NewRecordItemForm />
       },
       {
-        path: "/newRecord",
+        path: '/newRecord',
         element: <NewRecord />
       },
       {
@@ -50,4 +49,4 @@ const router = createBrowserRouter([
   }
 ])
 
-export default router;
+export default router

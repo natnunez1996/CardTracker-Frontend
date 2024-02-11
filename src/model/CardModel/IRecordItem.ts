@@ -1,9 +1,9 @@
-import { CardCategory } from "@/enums/ECard";
+import { type CardCategory } from '@/enums/ECard'
 
 export interface IRecordItem {
-    name: string,
-    amount: number,
-    date: Date,
-    category: CardCategory,
-    id: string
+  name: string
+  amount: number
+  date: Date
+  category: CardCategory
+  id: string
 }

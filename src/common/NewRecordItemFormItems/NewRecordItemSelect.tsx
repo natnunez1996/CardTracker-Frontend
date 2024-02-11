@@ -1,15 +1,15 @@
-import { CardCategory, CardType } from "@/enums/ECard";
-import { IRecordItem } from "@/model/CardModel";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
-import { Control, Controller } from "react-hook-form"
+import { CardCategory, CardType } from '@/enums/ECard'
+import { type IRecordItem } from '@/model/CardModel'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { type Control, Controller } from 'react-hook-form'
 
-type Props = {
-    cardType?: String
-    choices: Array<keyof typeof CardCategory>;
-    control: Control<IRecordItem>;
-    name: keyof IRecordItem;
-    label: string;
-};
+interface Props {
+    cardType?: string
+    choices: Array<keyof typeof CardCategory>
+    control: Control<IRecordItem>
+    name: keyof IRecordItem
+    label: string
+}
 
 const NewRecordItemSelect = ({ cardType, choices, control, name, label }: Props) => {
     choices = cardType === CardType.CREDIT_CARD ? choices : choices.filter(c => CardCategory[c] !== CardCategory.INCOME)
@@ -33,7 +33,7 @@ const NewRecordItemSelect = ({ cardType, choices, control, name, label }: Props)
                 defaultValue={CardCategory[choices[0]]}
             />
         </FormControl>
-    );
-};
+    )
+}
 
-export default NewRecordItemSelect;
+export default NewRecordItemSelect
