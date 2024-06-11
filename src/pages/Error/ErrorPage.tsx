@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/hook'
 import { Box, Typography, useTheme } from '@mui/material'
 
-const Error = () => {
+const ErrorPage = () => {
   const errorMessage = useAppSelector(state => state.userRecords.message)
 
   const theme = useTheme()
@@ -14,4 +14,4 @@ const Error = () => {
   )
 }
 
-export default Error
+export default ErrorPage

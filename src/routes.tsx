@@ -3,11 +3,11 @@ import { getUserIdHook } from '@/customHooks'
 import Root from './Root'
 import AccountSettings from './pages/AccountSettings/AccountSettings'
 import Details from './pages/Details/Details'
-import Error from './pages/Error/Error'
-import Home from './pages/Home/Home'
-import Login from './pages/Auth/Login/LogIn'
 import NewRecord from './pages/NewFile/NewRecord'
 import NewRecordItemForm from './pages/NewFile/NewRecordItemForm'
+import Home from './pages/Home/Home'
+import ErrorPage from './pages/Error/ErrorPage';
+import Login from './pages/Auth/Login/Login'
 
 const user = getUserIdHook()
 
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
       {
         path: '/accountSettings/:id',
         element: user !== undefined ? <AccountSettings user={user.result} /> : <Login />,
-        errorElement: <Error />
+        errorElement: <ErrorPage />
       },
       {
         path: '/home',
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/error',
-        element: <Error />
+        element: <ErrorPage />
       },
       {
         path: '/home/:recordId/newDetails',
