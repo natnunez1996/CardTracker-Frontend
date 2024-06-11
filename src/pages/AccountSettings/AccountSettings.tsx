@@ -6,8 +6,8 @@ import { Box, Container, Paper, Typography, Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import SpecifiedFormData from '@/pages/AccountSettings/SpecifiedFormData'
 import { useAppDispatch, useAppSelector } from '@/hook'
+import SpecifiedFormData from './SpecifiedFormData/SpecifiedFormData'
 
 interface Props {
   user: IUser

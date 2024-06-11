@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import AccountSettingsTextField from '@/common/AccountSettingsForm/AccountSettingsTextField'
-import PasswordVerification from '@/pages/AccountSettings/PasswordVerification'
 import { Box, Modal, useTheme, Button, Typography } from '@mui/material'
 import { type Control, type SubmitHandler, type UseFormHandleSubmit, type UseFormWatch } from 'react-hook-form'
 import { type IUser } from '@/model/UserModel'
@@ -9,6 +8,7 @@ import { updateUser } from '@/actions/auth'
 import { useAppDispatch } from '@/hook'
 import React, { useRef } from 'react'
 import { useParams } from 'react-router-dom'
+import PasswordVerification from '../PasswordVerification/PasswordVerification'
 
 interface Props {
   control: Control<IAccountSettings>

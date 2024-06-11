@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import 'chart.js/auto'
-import EditRecordItemForm from '@/pages/NewFile/EditRecordItemForm'
-import ListsDetails from '@/pages/Details/ListsDetails'
 import dayjs from 'dayjs'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Box, Typography, useTheme } from '@mui/material'
@@ -12,8 +10,10 @@ import { type IProfile } from '@/model/UserModel/IProfile'
 import { getRecordHook, getUserIdHook } from '@/customHooks'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import ChartsDetails from '@/pages/Details/ChartsDetails'
 import { useDetailsPage } from './details.hooks'
+import EditRecordItemForm from '../NewFile/EditRecordItemForm'
+import ChartsDetails from './ChartsDetails'
+import ListsDetails from './ListsDetails/ListsDetails'
 
 
 const Details = () => {
