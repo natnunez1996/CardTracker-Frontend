@@ -1,13 +1,13 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { getUserIdHook } from '@/customHooks'
-import AccountSettings from '@/pages/AccountSettings'
-import Error from '@/pages/Error'
-import Home from '@/pages/Home'
-import Login from '@/pages/Auth/Login'
-import NewRecord from '@/pages/NewFile/NewRecord'
-import NewRecordItemForm from '@/pages/NewFile/NewRecordItemForm'
 import Root from './Root'
-import Details from '@/pages/Details/Details'
+import AccountSettings from './pages/AccountSettings'
+import Details from './pages/Details/Details'
+import Error from './pages/Error'
+import Home from './pages/Home'
+import Login from './pages/Auth/Login'
+import NewRecord from './pages/NewFile/NewRecord'
+import NewRecordItemForm from './pages/NewFile/NewRecordItemForm'
 
 const user = getUserIdHook()
 
