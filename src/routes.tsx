@@ -5,9 +5,9 @@ import AccountSettings from './pages/AccountSettings/AccountSettings'
 import NewRecord from './pages/NewFile/NewRecord'
 import NewRecordItemForm from './pages/NewFile/NewRecordItemForm'
 import ErrorPage from './pages/Error/ErrorPage';
-import LoginPage from './pages/Auth/Login/LoginPage'
-import HomePage from './pages/Home/HomePage'
-import DetailsPage from './pages/Details/DetailsPage'
+import LoginPage from './pages/auth/Login/LoginPage'
+import HomePage from './pages/home/HomePage'
+import DetailsPage from './pages/details/DetailsPage'
 
 const user = getUserIdHook()
 
