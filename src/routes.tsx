@@ -2,12 +2,12 @@ import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { getUserIdHook } from '@/customHooks'
 import Root from './Root'
 import AccountSettings from './pages/AccountSettings/AccountSettings'
-import Details from './pages/Details/Details'
+import Details from './pages/Details/DetailsPage'
 import NewRecord from './pages/NewFile/NewRecord'
 import NewRecordItemForm from './pages/NewFile/NewRecordItemForm'
-import Home from './pages/Home/Home'
+import Home from './pages/Home/HomePage'
 import ErrorPage from './pages/Error/ErrorPage';
-import Login from './pages/Auth/Login/Login'
+import LoginPage from './pages/Auth/Login/LoginPage'
 
 const user = getUserIdHook()
 
@@ -18,12 +18,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/accountSettings/:id',
-        element: user !== undefined ? <AccountSettings user={user.result} /> : <Login />,
+        element: user !== undefined ? <AccountSettings user={user.result} /> : <LoginPage />,
         errorElement: <ErrorPage />
       },
       {
         path: '/home',
-        element: user !== undefined ? <Home userId={user.result._id} /> : <Login />
+        element: user !== undefined ? <Home userId={user.result._id} /> : <LoginPage />
       },
       {
         path: '/home/:recordId',

@@ -6,14 +6,14 @@ import { Typography, useTheme } from '@mui/material'
 import { type IRecord } from '@/model/CardModel'
 import { getMediaMatch } from '@/customHooks'
 import { useHomePage } from './home.hooks'
-import HomePage from './HomeUtils/HomePage'
+import HomePageDesktop from './HomeUtils/HomePageDesktop'
 import HomePageMobile from './HomeUtils/HomePageMobile'
 
 interface Props {
   userId: string
 }
 
-const Home = ({ userId }: Props) => {
+const HomePage = ({ userId }: Props) => {
   const dispatch = useAppDispatch()
   const match = getMediaMatch()
   const navigate = useNavigate()
@@ -38,7 +38,7 @@ const Home = ({ userId }: Props) => {
       {userRecords !== null && userRecords.length > 0
         ? (
           match === true
-            ? <HomePage
+            ? <HomePageDesktop
               handleDelete={handleDelete}
               records={records}
               setRecordIdToDelete={setRecordIdToDelete}
@@ -60,4 +60,4 @@ const Home = ({ userId }: Props) => {
   )
 }
 
-export default Home
+export default HomePage

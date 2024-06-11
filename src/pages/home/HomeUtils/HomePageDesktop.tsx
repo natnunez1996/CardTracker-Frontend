@@ -13,7 +13,7 @@ interface Props {
   userRecords: IRecord[]
 }
 
-const HomePage = ({ handleDelete, setRecordIdToDelete, theme, userRecords }: Props) => {
+const HomePageDesktop = ({ handleDelete, setRecordIdToDelete, theme, userRecords }: Props) => {
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -67,4 +67,4 @@ const HomePage = ({ handleDelete, setRecordIdToDelete, theme, userRecords }: Pro
   )
 }
 
-export default HomePage
+export default HomePageDesktop

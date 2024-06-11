@@ -7,7 +7,7 @@ import AuthTextField from '@/common/AuthFormItems/AuthTextField'
 import { Box, Button, Container, Paper, Typography } from '@mui/material'
 
 
-const Login = () => {
+const LoginPage = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const error = useAppSelector(state => state.auth.message)
@@ -40,4 +40,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default LoginPage

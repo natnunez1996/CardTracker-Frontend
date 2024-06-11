@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { type IRecord, type IRecordItem } from '@/model/CardModel'
 import { getMediaMatch } from '@/customHooks'
-import ListsDetailsDefault from '@/pages/Details/ListsDetails/ListsDetailsDefault';
-import ListsDetailsMobile from '@/pages/Details/ListsDetails/ListsDetailsMobile'
+import ListsDetailsDefault from './ListsDetailsDefault'
+import ListsDetailsMobile from './ListsDetailsMobile'
 
 interface Props {
   amountEarnLoss: number
