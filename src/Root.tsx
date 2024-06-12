@@ -2,9 +2,9 @@ import { ThemeProvider } from '@emotion/react'
 import { useMediaQuery, type PaletteMode, createTheme, Box } from '@mui/material'
 import { useState, useMemo, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import Header from './common/Header'
 import { getMediaMatch } from './customHooks'
-import Footer from './common/Footer'
+import Header from './common/header'
+import Footer from './common/footer'
 
 const Root = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
