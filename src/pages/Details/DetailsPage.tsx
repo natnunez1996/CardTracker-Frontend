@@ -11,10 +11,9 @@ import { getRecordHook, getUserIdHook } from '@/customHooks'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import EditRecordItemForm from '../NewFile/EditRecordItemForm'
+import { useDetailsPage } from './details.hooks'
 import ChartsDetails from './ChartsDetails'
 import ListsDetails from './DetailsProps/ListsDetails'
-import { useDetailsPage } from './details.hooks'
-
 const DetailsPage = () => {
   const { recordId } = useParams()
 
