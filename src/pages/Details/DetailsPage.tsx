@@ -10,11 +10,10 @@ import { type IProfile } from '@/model/UserModel/IProfile'
 import { getRecordHook, getUserIdHook } from '@/customHooks'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDetailsPage } from './details.hooks'
 import EditRecordItemForm from '../NewFile/EditRecordItemForm'
 import ChartsDetails from './ChartsDetails'
 import ListsDetails from './DetailsProps/ListsDetails'
-
+import { useDetailsPage } from './details.hooks'
 
 const DetailsPage = () => {
   const { recordId } = useParams()

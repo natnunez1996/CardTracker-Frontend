@@ -6,8 +6,8 @@ import { Typography, useTheme } from '@mui/material'
 import { type IRecord } from '@/model/CardModel'
 import { getMediaMatch } from '@/customHooks'
 import { useHomePage } from './home.hooks'
-import HomePageDesktop from './HomeUtils/HomePageDesktop'
-import HomePageMobile from './HomeUtils/HomePageMobile'
+import HomePageDesktop from './HomeUtils/HomePageDesktop';
+import HomePageMobile from './HomeUtils/HomePageMobile';
 
 interface Props {
   userId: string
